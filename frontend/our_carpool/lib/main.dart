@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/presentation/widgets/counter_widget.dart';
+import 'package:our_carpool/presentation/screens/welcome.dart';
 
 import 'business/counter_provider.dart';
 import 'data/model/product.dart';
@@ -23,12 +24,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'oUr Carpool',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF111A35)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const WelcomeScreen(),
     );
   }
 }
