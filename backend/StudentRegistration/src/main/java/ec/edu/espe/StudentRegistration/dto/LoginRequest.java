@@ -7,8 +7,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginDTO {
-    private String emailUser;
-    private String passUser;
-    private Boolean Access;
+public class LoginRequest {
+    private boolean access;
 }

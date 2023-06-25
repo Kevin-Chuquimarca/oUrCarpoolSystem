@@ -1,7 +1,5 @@
 package ec.edu.espe.StudentRegistration.dto;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Data
@@ -18,4 +16,9 @@ public class UserDTO {
     private String phoneUser;
 //    private byte[] photoUser;
     private String careerUser;
+
+    public UserDTO(String emailUser, String passUser) {
+        this.emailUser = emailUser;
+        this.passUser = passUser;
+    }
 }

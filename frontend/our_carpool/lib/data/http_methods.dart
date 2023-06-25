@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../model/product.dart';
+import '../domain/product.dart';
 
 class HttpMethods {
   Future<Product> fetchPost() async {

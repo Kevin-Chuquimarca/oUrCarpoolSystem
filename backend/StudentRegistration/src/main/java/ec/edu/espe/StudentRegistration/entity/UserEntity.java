@@ -14,7 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Table(name = "USER", schema = "student_registration_db")
 @NamedQueries(
-        @NamedQuery(name = "UserEntity.findByEmailAndPassword", query = "SELECT u FROM UserEntity u WHERE u.emailUser = :emailUser AND u.passUser = :passUser")
+        @NamedQuery(name = "UserEntity.findByEmail", query = "SELECT u FROM UserEntity u WHERE u.emailUser = :emailUser")
 )
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

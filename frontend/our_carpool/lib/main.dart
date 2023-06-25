@@ -3,8 +3,8 @@ import 'package:our_carpool/presentation/widgets/counter_widget.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 
 import 'business/counter_provider.dart';
-import 'data/model/product.dart';
-import 'data/helpers/http_methods.dart';
+import 'domain/product.dart';
+import 'data/http_methods.dart';
 
 import 'package:provider/provider.dart';
 

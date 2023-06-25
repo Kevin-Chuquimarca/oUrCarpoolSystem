@@ -25,7 +25,7 @@ create table user
     email_user           varchar(30),
     name_user            varchar(20),
     lastname_user        varchar(20),
-    pass_user            varchar(20),
+    pass_user            varchar(60),
     phone_user           varchar(10),
     photo_user           longblob,
     career_user          varchar(25),
