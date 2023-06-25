@@ -1,11 +1,15 @@
 package ec.edu.espe.StudentRegistration.entity;
 
 import jakarta.persistence.*;
-
-import java.util.Objects;
+import lombok.*;
 
 @Entity
-@Table(name = "UNIVERSITY", schema = "our_carpool_db", catalog = "")
+@Table(name = "UNIVERSITY", schema = "student_registration_db")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Data
 public class UniversityEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -18,40 +22,8 @@ public class UniversityEntity {
     @Column(name = "EMAIL_DOMAIN_UNI")
     private String emailDomainUni;
 
-    public int getIdUni() {
-        return idUni;
-    }
-
-    public void setIdUni(int idUni) {
-        this.idUni = idUni;
-    }
-
-    public String getNameUni() {
-        return nameUni;
-    }
-
-    public void setNameUni(String nameUni) {
+    public UniversityEntity(String nameUni, String emailDomainUni) {
         this.nameUni = nameUni;
-    }
-
-    public String getEmailDomainUni() {
-        return emailDomainUni;
-    }
-
-    public void setEmailDomainUni(String emailDomainUni) {
         this.emailDomainUni = emailDomainUni;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UniversityEntity that = (UniversityEntity) o;
-        return idUni == that.idUni && Objects.equals(nameUni, that.nameUni) && Objects.equals(emailDomainUni, that.emailDomainUni);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idUni, nameUni, emailDomainUni);
     }
 }

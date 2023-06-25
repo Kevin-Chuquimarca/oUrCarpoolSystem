@@ -17,13 +17,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public UserDTO getUserById(@PathVariable Integer id){
         return userService.getUserById(id);
     }
 
     @GetMapping("/all")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<UserEntity> getAllUsers(){
         return userService.getAllUsers();
     }
@@ -32,5 +32,17 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void saveUser(@RequestBody UserDTO userDTO){
         userService.saveUser(userDTO);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO){
+        userService.updateUser(id, userDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable Integer id){
+        userService.deleteUser(id);
     }
 }

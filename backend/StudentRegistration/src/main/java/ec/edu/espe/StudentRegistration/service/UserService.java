@@ -19,13 +19,21 @@ public class UserService {
         return new UserDTO(userEntity.getIdUni(), userEntity.getEmailUser(), userEntity.getNameUser(), userEntity.getLastnameUser(), userEntity.getPassUser(), userEntity.getPhoneUser(), userEntity.getCareerUser());
     }
 
-    public List<UserEntity> getAllUsers(){
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public void saveUser(UserDTO userDTO){
-        System.out.println("values: " + userDTO.getEmailUser());
+    public void saveUser(UserDTO userDTO) {
         UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getEmailUser(), userDTO.getNameUser(), userDTO.getLastnameUser(), userDTO.getPassUser(), userDTO.getPhoneUser(), null, userDTO.getCareerUser());
         userRepository.save(user);
+    }
+
+    public void updateUser(Integer id, UserDTO userDTO) {
+        UserEntity user = new UserEntity(id, userDTO.getIdUni(), userDTO.getEmailUser(), userDTO.getNameUser(), userDTO.getLastnameUser(), userDTO.getPassUser(), userDTO.getPhoneUser(), null, userDTO.getCareerUser());
+        userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id){
+        userRepository.deleteById(id);
     }
 }
