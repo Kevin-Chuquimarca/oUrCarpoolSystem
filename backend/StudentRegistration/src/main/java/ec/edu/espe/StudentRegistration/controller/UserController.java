@@ -1,6 +1,7 @@
 package ec.edu.espe.StudentRegistration.controller;
 
 import ec.edu.espe.StudentRegistration.dto.UserDTO;
+import ec.edu.espe.StudentRegistration.dto.UserLoginDTO;
 import ec.edu.espe.StudentRegistration.entity.UserEntity;
 import ec.edu.espe.StudentRegistration.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public UserLoginDTO login(@RequestBody UserLoginDTO userLoginDTO){
+        return userService.login(userLoginDTO);
     }
 }

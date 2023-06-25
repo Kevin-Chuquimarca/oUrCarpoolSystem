@@ -7,12 +7,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "USER", schema = "student_registration_db")
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Getter
 @Setter
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "USER", schema = "student_registration_db")
+@NamedQueries(
+        @NamedQuery(name = "UserEntity.findByEmailAndPassword", query = "SELECT u FROM UserEntity u WHERE u.emailUser = :emailUser AND u.passUser = :passUser")
+)
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

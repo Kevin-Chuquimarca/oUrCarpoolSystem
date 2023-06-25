@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/presentation/screens/logIn.dart';
-import 'package:our_carpool/presentation/screens/registerStepOne.dart';
+import 'package:our_carpool/presentation/screens/log_in_screen.dart';
+import 'package:our_carpool/presentation/screens/sign_up_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LogIn(),
+                                  builder: (context) => const LogInScreen(),
                                 ),
                               );
                             },
@@ -78,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegisterStepOne(),
+                                  builder: (context) => const SignUpScreen(),
                                 ),
                               );
                             },

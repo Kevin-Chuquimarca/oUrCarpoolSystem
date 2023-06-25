@@ -1,8 +1,10 @@
 package ec.edu.espe.StudentRegistration.service;
 
 import ec.edu.espe.StudentRegistration.dto.UserDTO;
+import ec.edu.espe.StudentRegistration.dto.UserLoginDTO;
 import ec.edu.espe.StudentRegistration.entity.UserEntity;
 import ec.edu.espe.StudentRegistration.repository.UserRepository;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,13 @@ public class UserService {
 
     public void deleteUser(Integer id){
         userRepository.deleteById(id);
+    }
+
+    public UserLoginDTO login(UserLoginDTO userLoginDTO) {
+        List<UserEntity> users = userRepository.findByEmailAndPassword(userLoginDTO.getEmailUser(), userLoginDTO.getPassUser());
+        if (!users.isEmpty()) {
+            return new UserLoginDTO(users.get(0).getEmailUser(), users.get(0).getPassUser(), true);
+        }
+        return null;
     }
 }

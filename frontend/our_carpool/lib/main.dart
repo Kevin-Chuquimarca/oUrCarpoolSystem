@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/presentation/widgets/counter_widget.dart';
-import 'package:our_carpool/presentation/screens/welcome.dart';
+import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 
 import 'business/counter_provider.dart';
 import 'data/model/product.dart';

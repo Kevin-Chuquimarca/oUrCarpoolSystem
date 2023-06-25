@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterStepOne extends StatefulWidget {
-  const RegisterStepOne({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterStepOneState createState() => _RegisterStepOneState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _RegisterStepOneState extends State<RegisterStepOne> {
+class _SignUpScreenState extends State<SignUpScreen> {
   String selectedUniversity = 'ESPE';
   final List<String> universities = [
     'ESPE',
