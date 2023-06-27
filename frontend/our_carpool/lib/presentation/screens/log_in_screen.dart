@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:our_carpool/business/log_in_manager.dart';
+import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class _LogInScreenState extends State<LogInScreen> {
   bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
+                    controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -69,6 +74,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
+                    controller: passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -101,11 +107,32 @@ class _LogInScreenState extends State<LogInScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
+                        LogInManager logInManager = LogInManager();
+                        logInManager
+                            .validateUser(
+                                emailController.text, passwordController.text)
+                            .then((value) => {
+                                  if (value)
+                                    {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const WelcomeScreen(),
+                                        ),
+                                      )
+                                    }
+                                  else
+                                    {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Incorrect email or password'),
+                                        ),
+                                      )
+                                    }
+                                });
                       }
                     },
                     style: ElevatedButton.styleFrom(

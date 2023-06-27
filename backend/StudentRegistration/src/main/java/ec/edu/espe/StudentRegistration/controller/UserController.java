@@ -1,8 +1,8 @@
 package ec.edu.espe.StudentRegistration.controller;
 
-import ec.edu.espe.StudentRegistration.dto.LoginRequest;
+import ec.edu.espe.StudentRegistration.dto.LoginResponseDTO;
 import ec.edu.espe.StudentRegistration.dto.UserDTO;
-import ec.edu.espe.StudentRegistration.entity.UserEntity;
+import ec.edu.espe.StudentRegistration.dto.UserLoginDTO;
 import ec.edu.espe.StudentRegistration.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserEntity> getAllUsers(){
+    public List<UserDTO> getAllUsers(){
         return userService.getAllUsers();
     }
 
@@ -49,7 +49,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public LoginRequest login(@RequestBody UserDTO userDTO){
-        return userService.login(userDTO);
+    public LoginResponseDTO login(@RequestBody UserLoginDTO userLogin){
+        return userService.login(userLogin);
     }
 }

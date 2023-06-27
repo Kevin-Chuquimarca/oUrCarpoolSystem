@@ -8,17 +8,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+    private int id;
     private int idUni;
-    private String emailUser;
-    private String nameUser;
-    private String lastnameUser;
-    private String passUser;
-    private String phoneUser;
-//    private byte[] photoUser;
-    private String careerUser;
-
-    public UserDTO(String emailUser, String passUser) {
-        this.emailUser = emailUser;
-        this.passUser = passUser;
-    }
+    private String email;
+    private String name;
+    private String lastName;
+    private String phone;
+    private String photo;
+    private String career;
 }

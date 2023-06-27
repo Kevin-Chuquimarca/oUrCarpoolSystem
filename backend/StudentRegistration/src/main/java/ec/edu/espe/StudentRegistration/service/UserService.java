@@ -1,13 +1,15 @@
 package ec.edu.espe.StudentRegistration.service;
 
-import ec.edu.espe.StudentRegistration.dto.LoginRequest;
+import ec.edu.espe.StudentRegistration.dto.LoginResponseDTO;
 import ec.edu.espe.StudentRegistration.dto.UserDTO;
+import ec.edu.espe.StudentRegistration.dto.UserLoginDTO;
 import ec.edu.espe.StudentRegistration.entity.UserEntity;
 import ec.edu.espe.StudentRegistration.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,36 +23,47 @@ public class UserService {
     public UserDTO getUserById(Integer id) {
         UserEntity userEntity = userRepository.findById(id).orElse(null);
         assert userEntity != null;
-        return new UserDTO(userEntity.getIdUni(), userEntity.getEmailUser(), userEntity.getNameUser(), userEntity.getLastnameUser(), userEntity.getPassUser(), userEntity.getPhoneUser(), userEntity.getCareerUser());
+        return new UserDTO(userEntity.getIdUser(), userEntity.getIdUni(), userEntity.getEmailUser(), userEntity.getNameUser(), userEntity.getLastNameUser(), userEntity.getPhoneUser(),userEntity.getPhotoUser(), userEntity.getCareerUser());
     }
 
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        List<UserEntity> users = userRepository.findAll();
+        if (!users.isEmpty()){
+            List<UserDTO> usersDTO = new ArrayList<>();
+            for (UserEntity user : users) {
+                usersDTO.add(new UserDTO(user.getIdUser(), user.getIdUni(), user.getEmailUser(), user.getNameUser(), user.getLastNameUser(), user.getPhoneUser(), user.getPhotoUser(), user.getCareerUser()));
+            }
+            return usersDTO;
+        }
+        return new ArrayList<>();
     }
 
     public void saveUser(UserDTO userDTO) {
         String defaultPassword = passwordGeneratorService.generate();
         String encodedPassword = passwordEncoder.encode(defaultPassword);
-        UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getEmailUser(), userDTO.getNameUser(), userDTO.getLastnameUser(), encodedPassword, userDTO.getPhoneUser(), null, userDTO.getCareerUser());
+        UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer());
         userRepository.save(user);
-        emailService.sendDefaultPassword(userDTO.getEmailUser(), defaultPassword);
+        emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
     }
 
     public void updateUser(Integer id, UserDTO userDTO) {
-        UserEntity user = new UserEntity(id, userDTO.getIdUni(), userDTO.getEmailUser(), userDTO.getNameUser(), userDTO.getLastnameUser(), userDTO.getPassUser(), userDTO.getPhoneUser(), null, userDTO.getCareerUser());
-        userRepository.save(user);
+        UserEntity oldUser = userRepository.findById(id).orElse(null);
+        if (oldUser != null) {
+            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer());
+            userRepository.save(newUser);
+        }
     }
 
-    public void deleteUser(Integer id){
+    public void deleteUser(Integer id) {
         userRepository.deleteById(id);
     }
 
-    public LoginRequest login(UserDTO userDTO) {
-        List<UserEntity> users = userRepository.findByEmail(userDTO.getEmailUser());
-        if (!users.isEmpty() && passwordEncoder.matches(userDTO.getPassUser(), users.get(0).getPassUser())) {
-            return new LoginRequest(true);
-        }else {
-            return new LoginRequest(false);
+    public LoginResponseDTO login(UserLoginDTO userLogin) {
+        List<UserEntity> users = userRepository.findByEmail(userLogin.getEmail());
+        if (!users.isEmpty() && passwordEncoder.matches(userLogin.getPassword(), users.get(0).getPassUser())) {
+            return new LoginResponseDTO(true);
+        } else {
+            return new LoginResponseDTO(false);
         }
     }
 }

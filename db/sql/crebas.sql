@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     6/25/2023 2:36:17 PM                         */
+/* Created on:     6/26/2023 9:35:34 PM                         */
 /*==============================================================*/
 
 
@@ -43,7 +43,7 @@ create table DRIVER
    ID_DRI               int not null auto_increment,
    PLATE_CAR_DRI        varchar(6),
    MODEL_CAR_DRI        varchar(20),
-   PHOTO_CAR_DRI        longblob,
+   PHOTO_CAR_DRI        varchar(30),
    PRICE_SEAT_DRI       decimal(10,2),
    NUM_SEATS_DRI        int,
    FREE_SEATS_DRI       int,
@@ -64,7 +64,7 @@ create table DRIVER_REQUEST
    EXPIRY_DATE_LIC_DR   date,
    PHOTO_LIC_DR         longblob,
    PLATE_CAR_DR         varchar(6),
-   PHOTO_CAR_DR         longblob,
+   PHOTO_CAR_DR         varchar(30),
    COD_USER_DR          int,
    primary key (ID_DR)
 );
@@ -142,11 +142,11 @@ create table USER
    ID_UNI               int not null,
    EMAIL_USER           varchar(30),
    NAME_USER            varchar(20),
-   LASTNAME_USER        varchar(20),
+   LAST_NAME_USER       varchar(20),
    PASS_USER            varchar(60),
    PHONE_USER           varchar(10),
-   PHOTO_USER           longblob,
-   CAREER_USER          varchar(25),
+   PHOTO_USER           varchar(30),
+   CAREER_USER          varchar(30),
    primary key (ID_USER)
 );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CounterProvider with ChangeNotifier {
+class CounterManager with ChangeNotifier {
   int value = 0;
   int value2 = 0;
 

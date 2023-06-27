@@ -7,6 +7,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginResponseDTO {
     private boolean access;
 }

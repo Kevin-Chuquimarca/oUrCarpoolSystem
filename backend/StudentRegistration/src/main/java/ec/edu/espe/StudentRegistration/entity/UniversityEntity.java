@@ -3,8 +3,10 @@ package ec.edu.espe.StudentRegistration.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
-@Table(name = "UNIVERSITY", schema = "student_registration_db")
+@Table(name = "university", schema = "student_registration_db")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,13 +15,13 @@ import lombok.*;
 public class UniversityEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_UNI")
+    @Column(name = "id_uni")
     private int idUni;
     @Basic
-    @Column(name = "NAME_UNI")
+    @Column(name = "name_uni")
     private String nameUni;
     @Basic
-    @Column(name = "EMAIL_DOMAIN_UNI")
+    @Column(name = "email_domain_uni")
     private String emailDomainUni;
 
     public UniversityEntity(String nameUni, String emailDomainUni) {

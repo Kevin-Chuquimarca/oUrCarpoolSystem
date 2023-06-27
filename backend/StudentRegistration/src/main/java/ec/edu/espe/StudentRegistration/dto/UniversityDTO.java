@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UniversityDTO {
-    private String nameUni;
-    private String emailDomainUni;
+    private int id;
+    private String name;
+    private String emailDomain;
 }

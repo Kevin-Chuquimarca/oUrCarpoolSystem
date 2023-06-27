@@ -1,7 +1,6 @@
 package ec.edu.espe.StudentRegistration.controller;
 
 import ec.edu.espe.StudentRegistration.dto.UniversityDTO;
-import ec.edu.espe.StudentRegistration.entity.UniversityEntity;
 import ec.edu.espe.StudentRegistration.service.UniversityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class UniversityController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<UniversityEntity> getAllUniversities(){
+    public List<UniversityDTO> getAllUniversities(){
         return universityService.getAllUniversities();
     }
 

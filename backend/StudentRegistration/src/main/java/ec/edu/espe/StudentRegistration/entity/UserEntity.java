@@ -3,54 +3,51 @@ package ec.edu.espe.StudentRegistration.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 @Entity
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "USER", schema = "student_registration_db")
+@Table(name = "user", schema = "student_registration_db")
 @NamedQueries(
         @NamedQuery(name = "UserEntity.findByEmail", query = "SELECT u FROM UserEntity u WHERE u.emailUser = :emailUser")
 )
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID_USER")
+    @Column(name = "id_user")
     private int idUser;
     @Basic
-    @Column(name = "ID_UNI")
+    @Column(name = "id_uni")
     private int idUni;
     @Basic
-    @Column(name = "EMAIL_USER")
+    @Column(name = "email_user")
     private String emailUser;
     @Basic
-    @Column(name = "NAME_USER")
+    @Column(name = "name_user")
     private String nameUser;
     @Basic
-    @Column(name = "LASTNAME_USER")
-    private String lastnameUser;
+    @Column(name = "last_name_user")
+    private String lastNameUser;
     @Basic
-    @Column(name = "PASS_USER")
+    @Column(name = "pass_user")
     private String passUser;
     @Basic
-    @Column(name = "PHONE_USER")
+    @Column(name = "phone_user")
     private String phoneUser;
     @Basic
-    @Column(name = "PHOTO_USER")
-    private byte[] photoUser;
+    @Column(name = "photo_user")
+    private String photoUser;
     @Basic
-    @Column(name = "CAREER_USER")
+    @Column(name = "career_user")
     private String careerUser;
 
-    public UserEntity(int idUni, String emailUser, String nameUser, String lastnameUser, String passUser, String phoneUser, byte[] photoUser, String careerUser) {
+    public UserEntity(int idUni, String emailUser, String nameUser, String lastNameUser, String passUser, String phoneUser, String photoUser, String careerUser) {
         this.idUni = idUni;
         this.emailUser = emailUser;
         this.nameUser = nameUser;
-        this.lastnameUser = lastnameUser;
+        this.lastNameUser = lastNameUser;
         this.passUser = passUser;
         this.phoneUser = phoneUser;
         this.photoUser = photoUser;

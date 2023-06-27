@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../business/counter_provider.dart';
+import '../../business/counter_manager.dart';
 
 class CounterWidget extends StatelessWidget {
   const CounterWidget({super.key});
@@ -13,7 +13,7 @@ class CounterWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text('You have pushed the button this many times:'),
-        Consumer<CounterProvider>(
+        Consumer<CounterManager>(
           builder: (context, counter, child) => Text(
             '${counter.value}',
             style: Theme.of(context).textTheme.headlineMedium,
@@ -21,7 +21,7 @@ class CounterWidget extends StatelessWidget {
         ),
         ElevatedButton(
             onPressed: () {
-              var counter = context.read<CounterProvider>();
+              var counter = context.read<CounterManager>();
               counter.increment();
             },
             child: const Text("Increment"))

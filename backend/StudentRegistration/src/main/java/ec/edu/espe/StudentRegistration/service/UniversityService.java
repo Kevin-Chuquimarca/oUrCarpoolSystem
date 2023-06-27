@@ -6,6 +6,7 @@ import ec.edu.espe.StudentRegistration.repository.UniversityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,20 +17,25 @@ public class UniversityService {
     public UniversityDTO getUniversityById(Integer id){
         UniversityEntity university = universityRepository.findById(id).orElse(null);
         assert university != null;
-        return new UniversityDTO(university.getNameUni(), university.getEmailDomainUni());
+        return new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni());
     }
 
-    public List<UniversityEntity> getAllUniversities() {
-        return universityRepository.findAll();
+    public List<UniversityDTO> getAllUniversities() {
+        List<UniversityEntity> universities = universityRepository.findAll();
+        List<UniversityDTO> universitiesDTO = new ArrayList<>();
+        for (UniversityEntity university : universities) {
+            universitiesDTO.add(new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni()));
+        }
+        return universitiesDTO;
     }
 
     public void saveUniversity(UniversityDTO universityDTO) {
-        UniversityEntity university = new UniversityEntity(universityDTO.getNameUni(), universityDTO.getEmailDomainUni());
+        UniversityEntity university = new UniversityEntity(universityDTO.getName(), universityDTO.getEmailDomain());
         universityRepository.save(university);
     }
 
     public void updateUniversity(Integer id, UniversityDTO universityDTO) {
-        UniversityEntity university = new UniversityEntity(id, universityDTO.getNameUni(), universityDTO.getEmailDomainUni());
+        UniversityEntity university = new UniversityEntity(id, universityDTO.getName(), universityDTO.getEmailDomain());
         universityRepository.save(university);
     }
 
