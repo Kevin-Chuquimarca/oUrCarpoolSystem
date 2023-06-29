@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:our_carpool/data/model/user.dart';
 import '../model/login_response.dart';
@@ -7,6 +9,15 @@ import '../model/user_login.dart';
 
 class UserProvider {
   final String baseUrl = 'http://192.168.55.219:8080/user';
+
+  Future<User> getUserByEmail(String email) async {
+    final response = await http.get(Uri.parse('$baseUrl/email/$email'));
+    if (response.statusCode == 200) {
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
 
   Future<LoginResponse> postLogin(UserLogin userLogin) async {
     final response = await http.post(
@@ -36,6 +47,28 @@ class UserProvider {
       return true;
     } else {
       throw Exception('Failed to register');
+    }
+  }
+
+  Future<bool> postProfilePicture(String ci, File file) async {
+    var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/img'));
+    request.fields['CI'] = ci;
+    request.files.add(await http.MultipartFile.fromPath('photo', file.path));
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Failed to upload profile picture');
+    }
+  }
+
+  Future<Uint8List> getProfilePicture(String fileName) async {
+    print('url: $baseUrl/img/$fileName');
+    final response = await http.get(Uri.parse('$baseUrl/img/$fileName'));
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to fetch image');
     }
   }
 }

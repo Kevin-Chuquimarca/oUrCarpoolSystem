@@ -8,19 +8,32 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UniversityService {
+public class UniversityService implements FacadeService<UniversityDTO, Integer>{
     private final UniversityRepository universityRepository;
 
-    public UniversityDTO getUniversityById(Integer id){
-        UniversityEntity university = universityRepository.findById(id).orElse(null);
-        assert university != null;
-        return new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni());
+    @Override
+    public UniversityDTO create(UniversityDTO universityDTO) {
+        UniversityEntity university = new UniversityEntity(universityDTO.getName(), universityDTO.getEmailDomain());
+        universityRepository.save(university);
+        return universityDTO;
     }
 
-    public List<UniversityDTO> getAllUniversities() {
+    @Override
+    public Optional<UniversityDTO> read(Integer id) {
+        Optional<UniversityEntity> university = universityRepository.findById(id);
+        if(university.isPresent()){
+            UniversityEntity universityEntity = university.get();
+            return Optional.of(new UniversityDTO(universityEntity.getIdUni(), universityEntity.getNameUni(), universityEntity.getEmailDomainUni()));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<UniversityDTO> readAll() {
         List<UniversityEntity> universities = universityRepository.findAll();
         List<UniversityDTO> universitiesDTO = new ArrayList<>();
         for (UniversityEntity university : universities) {
@@ -29,17 +42,15 @@ public class UniversityService {
         return universitiesDTO;
     }
 
-    public void saveUniversity(UniversityDTO universityDTO) {
-        UniversityEntity university = new UniversityEntity(universityDTO.getName(), universityDTO.getEmailDomain());
-        universityRepository.save(university);
-    }
-
-    public void updateUniversity(Integer id, UniversityDTO universityDTO) {
+    @Override
+    public UniversityDTO update(Integer id, UniversityDTO universityDTO) {
         UniversityEntity university = new UniversityEntity(id, universityDTO.getName(), universityDTO.getEmailDomain());
         universityRepository.save(university);
+        return universityDTO;
     }
 
-    public void deleteUniversity(Integer id){
+    @Override
+    public void delete(Integer id) {
         universityRepository.deleteById(id);
     }
 }

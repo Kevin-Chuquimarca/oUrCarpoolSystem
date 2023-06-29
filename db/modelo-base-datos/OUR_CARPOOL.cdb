@@ -1693,7 +1693,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 <o:RelationshipSymbol Id="o17">
 <a:ModificationDate>1687630799</a:ModificationDate>
 <a:CenterTextOffset>(375, 645)</a:CenterTextOffset>
-<a:Rect>((-12868,12159), (12691,15041))</a:Rect>
+<a:Rect>((-12868,12159), (12691,15020))</a:Rect>
 <a:ListOfPoints>((12291,13359),(-11468,13359))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -4358,12 +4358,12 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>OUR_CARPOOL</a:Code>
 <a:CreationDate>1687632559</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1687723277</a:ModificationDate>
+<a:ModificationDate>1687833282</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:TargetModelURL>file:///C|/Users/santi/Coding/oUrCarpoolSystem/db/modelo-base-datos/OUR_CARPOOL.ldm</a:TargetModelURL>
 <a:TargetModelID>3A5316F5-5D32-4DDD-A622-81A22D17505C</a:TargetModelID>
 <a:TargetModelClassID>5F45F978-C4F3-4E35-A3FC-AF3318663A0F</a:TargetModelClassID>
-<a:TargetModelLastModificationDate>1687723277</a:TargetModelLastModificationDate>
+<a:TargetModelLastModificationDate>1687833283</a:TargetModelLastModificationDate>
 <c:SessionShortcuts>
 <o:Shortcut Ref="o5"/>
 </c:SessionShortcuts>

@@ -15,7 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/user/**", "/university/**").permitAll()
+                        .requestMatchers("/user/**", "/university/**", "/image/**").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }

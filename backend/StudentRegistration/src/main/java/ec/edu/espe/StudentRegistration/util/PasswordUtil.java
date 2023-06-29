@@ -1,15 +1,13 @@
-package ec.edu.espe.StudentRegistration.service;
+package ec.edu.espe.StudentRegistration.util;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 
-@Service
 @RequiredArgsConstructor
-public class PasswordGeneratorService {
+public class PasswordUtil {
 
-    public String generate() {
+    public static String generate() {
         SecureRandom secureRandom = new SecureRandom();
         StringBuilder password = new StringBuilder();
         int PASSWORD_LENGTH = 8;

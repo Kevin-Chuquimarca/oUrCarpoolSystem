@@ -22,9 +22,10 @@ create table user
 (
     id_user              int not null auto_increment,
     id_uni               int not null,
+    ci_user	         varchar(10),
     email_user           varchar(30),
     name_user            varchar(20),
-    last_name_user        varchar(20),
+    last_name_user       varchar(20),
     pass_user            varchar(60),
     phone_user           varchar(10),
     photo_user           varchar(30),
@@ -38,6 +39,6 @@ alter table user add constraint fk_university_user foreign key (id_uni)
 insert into university (name_uni, email_domain_uni) value ('Fuerzas Armadas ESPE', 'espe.edu.ec');
 
 INSERT INTO user (id_uni, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user)
-VALUE (1, 'kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '', 'Software');
+VALUE (1, '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '', 'Software');
 
 select * from user;

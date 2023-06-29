@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/business/log_in_manager.dart';
-import 'package:our_carpool/presentation/screens/welcome_screen.dart';
+import 'package:our_carpool/business/user_manager.dart';
+import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -107,7 +107,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        LogInManager logInManager = LogInManager();
+                        UserManager logInManager = UserManager();
                         logInManager
                             .validateUser(
                                 emailController.text, passwordController.text)
@@ -118,7 +118,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const WelcomeScreen(),
+                                              UserProfileScreen(
+                                                  email: emailController.text),
                                         ),
                                       )
                                     }

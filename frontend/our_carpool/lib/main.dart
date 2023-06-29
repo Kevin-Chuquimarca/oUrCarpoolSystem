@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
-
-import 'business/counter_manager.dart';
 
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => CounterManager(),
+      create: (context) => UserManager(),
       child: const MyApp(),
     ),
   );

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_carpool/domain/user_domain.dart';
@@ -15,10 +18,10 @@ class SignUpStepTwoScreen extends StatefulWidget {
 }
 
 class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
-  late ImagePicker _imagePicker;
-  XFile? _selectedImage;
+  File _selectedImage = File('assets/images/default-user-profile.png');
 
   final _formKey = GlobalKey<FormState>();
+  TextEditingController ciController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -27,7 +30,6 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
   @override
   void initState() {
     super.initState();
-    _imagePicker = ImagePicker();
   }
 
   Future<void> _openImagePicker() async {
@@ -36,10 +38,8 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
         await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
-        _selectedImage = pickedImage;
+        _selectedImage = File(pickedImage.path);
       });
-      // ignore: avoid_print
-      print('Nombre de la imagen seleccionada: ${pickedImage.name}');
     }
   }
 
@@ -69,6 +69,30 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     ),
                   ),
                   const SizedBox(height: 24.0),
+                  const Text(
+                    'CI',
+                    style: TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  TextFormField(
+                    controller: ciController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFF111A35),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
                   const Text(
                     'NAME',
                     style: TextStyle(
@@ -197,15 +221,18 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         UserDomain userDomain = UserDomain();
+                        userDomain.registerUser(
+                            widget.idUni,
+                            ciController.text,
+                            widget.email,
+                            nameController.text,
+                            lastNameController.text,
+                            phoneController.text,
+                            "${ciController.text}${path.extension(_selectedImage.path)}",
+                            careerController.text);
                         userDomain
-                            .registerUser(
-                                widget.idUni,
-                                widget.email,
-                                nameController.text,
-                                lastNameController.text,
-                                phoneController.text,
-                                "userPhoto.png",
-                                careerController.text)
+                            .uploadProfilePicture(
+                                ciController.text, _selectedImage)
                             .then((value) => {
                                   if (value)
                                     {

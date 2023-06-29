@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     6/26/2023 9:35:34 PM                         */
+/* Created on:     6/28/2023 12:38:52 PM                        */
 /*==============================================================*/
 
 
@@ -140,6 +140,7 @@ create table USER
 (
    ID_USER              int not null auto_increment,
    ID_UNI               int not null,
+   CI_USER              varchar(10),
    EMAIL_USER           varchar(30),
    NAME_USER            varchar(20),
    LAST_NAME_USER       varchar(20),
