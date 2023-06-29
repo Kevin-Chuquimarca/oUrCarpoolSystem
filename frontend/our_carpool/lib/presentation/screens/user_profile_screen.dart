@@ -6,31 +6,62 @@ import 'package:provider/provider.dart';
 import '../../business/user_manager.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  const UserProfileScreen({super.key, required this.email});
+  const UserProfileScreen({Key? key, required this.email}) : super(key: key);
 
   final String email;
 
   @override
   Widget build(BuildContext context) {
-    var counter = context.read<UserManager>();
-    counter.getUserData(email);
+    var userManager = context.read<UserManager>();
+    userManager.getUserData(email);
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            const Text('User Profile Screen'),
-            Consumer<UserManager>(
-              builder: (context, userManager, child) => Column(
-                children: [
-                  if (userManager.profilePicture.isNotEmpty)
-                    Image.memory(userManager.profilePicture),
-                  Text("Name: ${userManager.user.name}"),
-                  Text("Last Name: ${userManager.user.lastName}"),
-                  Text("Email: ${userManager.user.email}"),
-                ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 230,
+                height: 230,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: userManager.profilePicture.isNotEmpty
+                    ? Image.memory(
+                        userManager.profilePicture,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey,
+                        ),
+                        child: const Text(
+                          "No image",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16.0),
+              Text(
+                "Name: ${userManager.user.name}",
+                style: const TextStyle(fontSize: 36),
+              ),
+              Text(
+                "Last Name: ${userManager.user.lastName}",
+                style: const TextStyle(fontSize: 36),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                "Email: ${userManager.user.email}",
+                style: const TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
         ),
       ),
     );
