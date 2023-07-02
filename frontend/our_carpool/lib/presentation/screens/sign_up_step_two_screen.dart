@@ -1,10 +1,12 @@
 import 'dart:io';
 
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_carpool/domain/user_domain.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
+
+import '../../utils/validators.dart';
 
 class SignUpStepTwoScreen extends StatefulWidget {
   const SignUpStepTwoScreen(
@@ -18,18 +20,28 @@ class SignUpStepTwoScreen extends StatefulWidget {
 }
 
 class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
-  File _selectedImage = File('assets/images/default-user-profile.png');
+  File? _selectedImage;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController ciController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController careerController = TextEditingController();
+  final _ciController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _careerController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _ciController.dispose();
+    _nameController.dispose();
+    _lastNameController.dispose();
+    _phoneController.dispose();
+    _careerController.dispose();
+    super.dispose();
   }
 
   Future<void> _openImagePicker() async {
@@ -77,10 +89,13 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: ciController,
+                    controller: _ciController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      }
+                      if (!isValidCI(_ciController.text)) {
+                        return 'Please enter a valid CI';
                       }
                       return null;
                     },
@@ -101,7 +116,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: nameController,
+                    controller: _nameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -125,7 +140,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: lastNameController,
+                    controller: _lastNameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -149,10 +164,13 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: phoneController,
+                    controller: _phoneController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      }
+                      if (!isValidPhoneNumber(value)) {
+                        return 'Please enter a valid phone number';
                       }
                       return null;
                     },
@@ -173,7 +191,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: careerController,
+                    controller: _careerController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -190,12 +208,26 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 24.0),
                   Center(
+                    child: (_selectedImage != null)
+                        ? Container(
+                            width: 150,
+                            height: 150,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.file(
+                              _selectedImage!,
+                              fit: BoxFit.cover,
+                            ))
+                        : const Text("Not image selected"),
+                  ),
+                  const SizedBox(height: 24.0),
+                  Center(
                     child: SizedBox(
                       width: 150,
                       height: 35,
                       child: ElevatedButton.icon(
-                        onPressed:
-                            _openImagePicker, // Abrir la galería al presionar el botón
+                        onPressed: _openImagePicker,
                         style: ElevatedButton.styleFrom(
                           foregroundColor: const Color(0xFF111A35),
                           backgroundColor: Colors.white,
@@ -219,29 +251,30 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   const SizedBox(height: 24.0),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() &&
+                          _selectedImage != null) {
                         UserDomain userDomain = UserDomain();
                         userDomain.registerUser(
                             widget.idUni,
-                            ciController.text,
+                            _ciController.text,
                             widget.email,
-                            nameController.text,
-                            lastNameController.text,
-                            phoneController.text,
-                            "${ciController.text}${path.extension(_selectedImage.path)}",
-                            careerController.text);
+                            _nameController.text,
+                            _lastNameController.text,
+                            _phoneController.text,
+                            "${_ciController.text}${p.extension(_selectedImage!.path)}",
+                            _careerController.text);
                         userDomain
                             .uploadProfilePicture(
-                                ciController.text, _selectedImage)
+                                _ciController.text, _selectedImage!)
                             .then((value) => {
                                   if (value)
                                     {
-                                      Navigator.push(
+                                      Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              const WelcomeScreen(),
-                                        ),
+                                            builder: (context) =>
+                                                const WelcomeScreen()),
+                                        (route) => false,
                                       )
                                     }
                                   else

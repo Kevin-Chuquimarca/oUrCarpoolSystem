@@ -24,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final screenHeight = constraints.maxHeight;
-                final paddingPercentage = 0.025;
+                const paddingPercentage = 0.025;
                 final padding = screenHeight * paddingPercentage;
 
                 return Padding(

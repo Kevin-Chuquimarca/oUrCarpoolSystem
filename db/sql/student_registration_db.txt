@@ -30,6 +30,7 @@ create table user
     phone_user           varchar(10),
     photo_user           varchar(30),
     career_user          varchar(30),
+    first_login_user     bool,
     primary key (id_user)
 );
 
@@ -38,7 +39,7 @@ alter table user add constraint fk_university_user foreign key (id_uni)
 
 insert into university (name_uni, email_domain_uni) value ('Fuerzas Armadas ESPE', 'espe.edu.ec');
 
-INSERT INTO user (id_uni, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user)
-VALUE (1, '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '', 'Software');
+INSERT INTO user (id_uni, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
+VALUE (1, '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '', 'Software', 1);
 
 select * from user;

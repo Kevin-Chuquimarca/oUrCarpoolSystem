@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/university.dart';
 import 'package:our_carpool/domain/university_domain.dart';
 import 'package:our_carpool/presentation/screens/sign_up_step_two_screen.dart';
+import 'package:our_carpool/utils/validators.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -11,18 +12,18 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  University selectedUniversity = University.empty();
-  List<University> universities = List.empty();
+  University _selectedUniversity = University.empty();
+  List<University> _universities = List.empty();
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  final _emailController = TextEditingController();
 
   _getUniversities() {
     UniversityDomain universityDomain = UniversityDomain();
     universityDomain.getUniversities().then((value) {
       setState(() {
-        universities = value;
-        selectedUniversity = value[0];
+        _universities = value;
+        _selectedUniversity = value[0];
       });
     });
   }
@@ -67,10 +68,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: emailController,
+                    controller: _emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      }
+                      if (!isValidEmailInstitutional(_emailController.text,
+                          _selectedUniversity.emailDomain)) {
+                        return 'Please enter a valid email';
                       }
                       return null;
                     },
@@ -96,13 +101,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: SizedBox(
                       height: 52,
                       child: DropdownButton<University>(
-                        value: selectedUniversity,
+                        value: _selectedUniversity,
                         onChanged: (University? newValue) {
                           setState(() {
-                            selectedUniversity = newValue!;
+                            _selectedUniversity = newValue!;
                           });
                         },
-                        items: universities
+                        items: _universities
                             .map<DropdownMenuItem<University>>((value) {
                           return DropdownMenuItem<University>(
                             value: value,
@@ -129,8 +134,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => SignUpStepTwoScreen(
-                                  idUni: selectedUniversity.id,
-                                  email: emailController.text)),
+                                  idUni: _selectedUniversity.id,
+                                  email: _emailController.text)),
                         );
                       }
                     },

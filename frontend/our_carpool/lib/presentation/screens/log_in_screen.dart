@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
+import 'package:our_carpool/utils/validators.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -13,8 +14,8 @@ class _LogInScreenState extends State<LogInScreen> {
   bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +51,13 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: emailController,
+                    controller: _emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      }
+                      if (!isValidEmail(_emailController.text)) {
+                        return 'Please enter a valid email';
                       }
                       return null;
                     },
@@ -74,7 +78,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   const SizedBox(height: 4.0),
                   TextFormField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -110,7 +114,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         UserManager logInManager = UserManager();
                         logInManager
                             .validateUser(
-                                emailController.text, passwordController.text)
+                                _emailController.text, _passwordController.text)
                             .then((value) => {
                                   if (value)
                                     {
@@ -119,7 +123,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               UserProfileScreen(
-                                                  email: emailController.text),
+                                                  email: _emailController.text),
                                         ),
                                       )
                                     }

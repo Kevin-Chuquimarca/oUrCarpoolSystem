@@ -45,8 +45,11 @@ public class UserEntity {
     @Basic
     @Column(name = "career_user")
     private String careerUser;
+    @Basic
+    @Column(name = "first_login_user")
+    private boolean  firstLogin;
 
-    public UserEntity(int idUni, String ciUser, String emailUser, String nameUser, String lastNameUser, String passUser, String phoneUser, String photoUser, String careerUser) {
+    public UserEntity(int idUni, String ciUser, String emailUser, String nameUser, String lastNameUser, String passUser, String phoneUser, String photoUser, String careerUser, boolean firstLogin) {
         this.idUni = idUni;
         this.ciUser = ciUser;
         this.emailUser = emailUser;
@@ -56,5 +59,6 @@ public class UserEntity {
         this.phoneUser = phoneUser;
         this.photoUser = photoUser;
         this.careerUser = careerUser;
+        this.firstLogin = firstLogin;
     }
 }

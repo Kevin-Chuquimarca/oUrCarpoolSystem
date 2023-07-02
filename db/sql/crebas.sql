@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     6/28/2023 12:38:52 PM                        */
+/* Created on:     7/1/2023 12:43:03 AM                         */
 /*==============================================================*/
 
 
@@ -148,6 +148,7 @@ create table USER
    PHONE_USER           varchar(10),
    PHOTO_USER           varchar(30),
    CAREER_USER          varchar(30),
+   FIRTS_LOGIN_USER      bool,
    primary key (ID_USER)
 );
 
