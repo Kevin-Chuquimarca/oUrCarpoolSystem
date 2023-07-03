@@ -37,9 +37,12 @@ create table user
 alter table user add constraint fk_university_user foreign key (id_uni)
     references university (id_uni) on delete restrict on update restrict;
 
-insert into university (name_uni, email_domain_uni) value ('Fuerzas Armadas ESPE', 'espe.edu.ec');
+insert into university (name_uni, email_domain_uni) value ('ESPE', 'espe.edu.ec');
+insert into university (name_uni, email_domain_uni) value ('UTPL', 'utpl.edu.ec');
+insert into university (name_uni, email_domain_uni) value ('UTA', 'uta.edu.ec');
+insert into university (name_uni, email_domain_uni) value ('UDLA', 'udla.edu.ec');
 
-INSERT INTO user (id_uni, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
-VALUE (1, '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '', 'Software', 1);
+INSERT INTO user (id_uni, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
+    VALUE (1, '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.jpg', 'Software', 1);
 
 select * from user;

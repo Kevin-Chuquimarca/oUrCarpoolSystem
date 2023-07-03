@@ -2,11 +2,11 @@ package ec.edu.espe.StudentRegistration.service;
 
 import ec.edu.espe.StudentRegistration.dto.UniversityDTO;
 import ec.edu.espe.StudentRegistration.entity.UniversityEntity;
+import ec.edu.espe.StudentRegistration.mapper.UniversityMapper;
 import ec.edu.espe.StudentRegistration.repository.UniversityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +17,8 @@ public class UniversityService implements FacadeService<UniversityDTO, Integer>{
 
     @Override
     public UniversityDTO create(UniversityDTO universityDTO) {
-        UniversityEntity university = new UniversityEntity(universityDTO.getName(), universityDTO.getEmailDomain());
-        universityRepository.save(university);
-        return universityDTO;
+        UniversityEntity university = UniversityMapper.INSTANCE.universityDTOToUniversityEntity(universityDTO);
+        return UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityRepository.save(university));
     }
 
     @Override
@@ -27,7 +26,7 @@ public class UniversityService implements FacadeService<UniversityDTO, Integer>{
         Optional<UniversityEntity> university = universityRepository.findById(id);
         if(university.isPresent()){
             UniversityEntity universityEntity = university.get();
-            return Optional.of(new UniversityDTO(universityEntity.getIdUni(), universityEntity.getNameUni(), universityEntity.getEmailDomainUni()));
+            return Optional.of(UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityEntity));
         }
         return Optional.empty();
     }
@@ -35,18 +34,13 @@ public class UniversityService implements FacadeService<UniversityDTO, Integer>{
     @Override
     public List<UniversityDTO> readAll() {
         List<UniversityEntity> universities = universityRepository.findAll();
-        List<UniversityDTO> universitiesDTO = new ArrayList<>();
-        for (UniversityEntity university : universities) {
-            universitiesDTO.add(new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni()));
-        }
-        return universitiesDTO;
+        return universities.stream().map(UniversityMapper.INSTANCE::universityEntityToUniversityDTO).toList();
     }
 
     @Override
     public UniversityDTO update(Integer id, UniversityDTO universityDTO) {
-        UniversityEntity university = new UniversityEntity(id, universityDTO.getName(), universityDTO.getEmailDomain());
-        universityRepository.save(university);
-        return universityDTO;
+        UniversityEntity university = UniversityMapper.INSTANCE.universityDTOToUniversityEntity(universityDTO);
+        return UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityRepository.save(university));
     }
 
     @Override

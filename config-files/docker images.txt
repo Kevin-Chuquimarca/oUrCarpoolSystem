@@ -1,0 +1,5 @@
+docker network create --subnet=192.168.0.0/24 our-carpool-nt
+
+docker container run -d --name=mysql-db -p 3307:3306 -e MYSQL_ROOT_PASSWORD=0936 --network=our-carpool-nt --ip 192.168.0.2 mysql
+
+docker run --rm -d -p 8080:8080 --name springboot-server --network=our-carpool-nt --ip 192.168.0.3 java-docker

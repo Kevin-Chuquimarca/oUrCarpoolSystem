@@ -16,13 +16,13 @@ public class UniversityEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_uni")
-    private int idUni;
+    public int idUni;
     @Basic
     @Column(name = "name_uni")
-    private String nameUni;
+    public String nameUni;
     @Basic
     @Column(name = "email_domain_uni")
-    private String emailDomainUni;
+    public String emailDomainUni;
 
     public UniversityEntity(String nameUni, String emailDomainUni) {
         this.nameUni = nameUni;

@@ -3,6 +3,7 @@ package ec.edu.espe.StudentRegistration.controller;
 import ec.edu.espe.StudentRegistration.dto.UniversityDTO;
 import ec.edu.espe.StudentRegistration.service.UniversityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
