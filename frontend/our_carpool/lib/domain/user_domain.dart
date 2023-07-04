@@ -20,6 +20,30 @@ class UserDomain {
     return user;
   }
 
+  Future<bool> registerNewUser(
+      int idUni,
+      String ci,
+      String email,
+      String name,
+      String lastName,
+      String phone,
+      String photo,
+      String career,
+      File file) async {
+    bool resPostUser = await _userProvider.postUser(User(
+        id: 0,
+        idUni: idUni,
+        ci: ci,
+        email: email,
+        name: name,
+        lastName: lastName,
+        phone: phone,
+        photo: photo,
+        career: career));
+    bool resPostPicture = await _userProvider.postProfilePicture(ci, file);
+    return resPostUser && resPostPicture;
+  }
+
   Future<bool> registerUser(int idUni, String ci, String email, String name,
       String lastName, String phone, String photo, String career) async {
     bool response = await _userProvider.postUser(User(

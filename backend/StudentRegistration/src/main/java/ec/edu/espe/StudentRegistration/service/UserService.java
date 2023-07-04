@@ -1,6 +1,7 @@
 package ec.edu.espe.StudentRegistration.service;
 
 import ec.edu.espe.StudentRegistration.dto.LoginResponseDTO;
+import ec.edu.espe.StudentRegistration.dto.MessageResponseDTO;
 import ec.edu.espe.StudentRegistration.dto.UserDTO;
 import ec.edu.espe.StudentRegistration.dto.UserLoginDTO;
 import ec.edu.espe.StudentRegistration.entity.UserEntity;
@@ -23,12 +24,25 @@ public class UserService implements FacadeService<UserDTO, Integer> {
 
     @Override
     public UserDTO create(UserDTO userDTO) {
-        String defaultPassword = PasswordUtil.generate();
-        String encodedPassword = passwordEncoder.encode(defaultPassword);
-        UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
-        UserEntity userEntity = userRepository.save(user);
-        emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
-        return UserMapper.INSTANCE.userEntityToUserDTO(userEntity);
+        if (!isUserRegistered(userDTO.getEmail()) && !isUserRegisteredCI(userDTO.getCi())){
+            String defaultPassword = PasswordUtil.generate();
+            String encodedPassword = passwordEncoder.encode(defaultPassword);
+            UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
+            UserEntity userEntity = userRepository.save(user);
+            emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
+            return UserMapper.INSTANCE.userEntityToUserDTO(userEntity);
+        }
+        return null;
+    }
+
+    public boolean isUserRegistered(String email) {
+        List<UserEntity> users = userRepository.findByEmail(email);
+        return !users.isEmpty();
+    }
+
+    public boolean isUserRegisteredCI(String ci) {
+        List<UserEntity> users = userRepository.findByCI(ci);
+        return !users.isEmpty();
     }
 
     @Override
@@ -51,7 +65,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     public UserDTO update(Integer id, UserDTO userDTO) {
         UserEntity oldUser = userRepository.findById(id).orElse(null);
         if (oldUser != null) {
-            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), userDTO.getCi(),userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
+            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
             userRepository.save(newUser);
         }
         return userDTO;
@@ -78,5 +92,18 @@ public class UserService implements FacadeService<UserDTO, Integer> {
             return (UserMapper.INSTANCE.userEntityToUserDTO(user));
         }
         return new UserDTO();
+    }
+
+    public MessageResponseDTO changePassword(Integer id, String newPassword) {
+        Optional<UserEntity> userOp = userRepository.findById(id);
+        if (userOp.isPresent()) {
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            UserEntity user = userOp.get();
+            user.setPassUser(encodedPassword);
+            user.setFirstLoginUser(true);
+            userRepository.save(user);
+            return new MessageResponseDTO("Password changed successfully");
+        }
+        return new MessageResponseDTO("User not found");
     }
 }

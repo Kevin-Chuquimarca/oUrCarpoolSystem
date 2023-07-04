@@ -92,7 +92,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _ciController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your CI';
                       }
                       if (!isValidCI(_ciController.text)) {
                         return 'Please enter a valid CI';
@@ -119,7 +119,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _nameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your name';
                       }
                       return null;
                     },
@@ -143,7 +143,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _lastNameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your last name';
                       }
                       return null;
                     },
@@ -167,7 +167,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _phoneController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your phone number';
                       }
                       if (!isValidPhoneNumber(value)) {
                         return 'Please enter a valid phone number';
@@ -194,7 +194,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _careerController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your career';
                       }
                       return null;
                     },
@@ -254,18 +254,17 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                       if (_formKey.currentState!.validate() &&
                           _selectedImage != null) {
                         UserDomain userDomain = UserDomain();
-                        userDomain.registerUser(
-                            widget.idUni,
-                            _ciController.text,
-                            widget.email,
-                            _nameController.text,
-                            _lastNameController.text,
-                            _phoneController.text,
-                            "${_ciController.text}${p.extension(_selectedImage!.path)}",
-                            _careerController.text);
                         userDomain
-                            .uploadProfilePicture(
-                                _ciController.text, _selectedImage!)
+                            .registerNewUser(
+                                widget.idUni,
+                                _ciController.text,
+                                widget.email,
+                                _nameController.text,
+                                _lastNameController.text,
+                                _phoneController.text,
+                                "${_ciController.text}${p.extension(_selectedImage!.path)}",
+                                _careerController.text,
+                                _selectedImage!)
                             .then((value) => {
                                   if (value)
                                     {

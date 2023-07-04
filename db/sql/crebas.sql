@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     7/1/2023 12:43:03 AM                         */
+/* Created on:     7/3/2023 9:51:51 PM                          */
 /*==============================================================*/
 
 
@@ -128,8 +128,8 @@ create table TRIP
 create table UNIVERSITY
 (
    ID_UNI               int not null auto_increment,
-   NAME_UNI             varchar(30),
-   EMAIL_DOMAIN_UNI     varchar(15),
+   NAME_UNI             varchar(30) not null,
+   EMAIL_DOMAIN_UNI     varchar(15) not null,
    primary key (ID_UNI)
 );
 
@@ -140,15 +140,15 @@ create table USER
 (
    ID_USER              int not null auto_increment,
    ID_UNI               int not null,
-   CI_USER              varchar(10),
-   EMAIL_USER           varchar(30),
-   NAME_USER            varchar(20),
-   LAST_NAME_USER       varchar(20),
-   PASS_USER            varchar(60),
-   PHONE_USER           varchar(10),
-   PHOTO_USER           varchar(30),
-   CAREER_USER          varchar(30),
-   FIRTS_LOGIN_USER      bool,
+   CI_USER              varchar(10) not null,
+   EMAIL_USER           varchar(30) not null,
+   NAME_USER            varchar(20) not null,
+   LAST_NAME_USER       varchar(20) not null,
+   PASS_USER            varchar(60) not null,
+   PHONE_USER           varchar(10) not null,
+   PHOTO_USER           varchar(30) not null,
+   CAREER_USER          varchar(30) not null,
+   FIRTS_LOGIN_USER     bool not null,
    primary key (ID_USER)
 );
 

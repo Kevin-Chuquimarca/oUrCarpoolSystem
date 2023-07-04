@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your email';
                       }
                       if (!isValidEmailInstitutional(_emailController.text,
                           _selectedUniversity.emailDomain)) {

@@ -54,7 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     controller: _emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your email';
                       }
                       if (!isValidEmail(_emailController.text)) {
                         return 'Please enter a valid email';
@@ -81,7 +81,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     controller: _passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your password';
                       }
                       return null;
                     },

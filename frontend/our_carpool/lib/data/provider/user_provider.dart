@@ -43,11 +43,7 @@ class UserProvider {
       },
       body: jsonEncode(user),
     );
-    if (response.statusCode == 201) {
-      return true;
-    } else {
-      throw Exception('Failed to register');
-    }
+    return (response.statusCode == 201) ? true : false;
   }
 
   Future<bool> postProfilePicture(String ci, File file) async {
@@ -55,15 +51,10 @@ class UserProvider {
     request.fields['CI'] = ci;
     request.files.add(await http.MultipartFile.fromPath('photo', file.path));
     var response = await request.send();
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      throw Exception('Failed to upload profile picture');
-    }
+    return (response.statusCode == 201) ? true : false;
   }
 
   Future<Uint8List> getProfilePicture(String fileName) async {
-    print('url: $baseUrl/img/$fileName');
     final response = await http.get(Uri.parse('$baseUrl/img/$fileName'));
     if (response.statusCode == 200) {
       return response.bodyBytes;

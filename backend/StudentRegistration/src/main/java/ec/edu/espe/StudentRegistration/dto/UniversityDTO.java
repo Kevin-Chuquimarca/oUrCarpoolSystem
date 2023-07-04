@@ -3,8 +3,6 @@ package ec.edu.espe.StudentRegistration.dto;
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UniversityDTO {

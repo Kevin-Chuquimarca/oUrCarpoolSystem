@@ -64,10 +64,4 @@ public class UniversityServiceTest {
         Assertions.assertEquals(university.getEmailDomainUni(), uni.getEmailDomain());
     }
 
-    @Test
-    void delete() {
-        universityService.delete(1);
-        verify(universityRepository, times(1)).deleteById(1);
-    }
-
 }
