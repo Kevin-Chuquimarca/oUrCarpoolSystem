@@ -8,4 +8,4 @@ CREATE STUDENT REGISTRATION IMAGE (OPTIONAL)
 docker build -t student-registration .
 
 CREATE STUDENT REGISTRATION CONTAINER
-docker run --rm -d -p 8080:8080 --name sr-service --network=our-carpool-nt --ip 192.168.0.3 kevin0936/student-registration
+docker run --rm -d -p 8080:8080 --name student-registration-s --network=our-carpool-nt --ip 192.168.0.3 kevin0936/student-registration

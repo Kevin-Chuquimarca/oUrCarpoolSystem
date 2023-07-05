@@ -30,7 +30,7 @@ public class ImageUtil {
             if (resource.exists()) {
                 return resource;
             } else {
-                throw new FileNotFoundException("Image file not found: " + filePath);
+                return null;
             }
         } catch (MalformedURLException ex) {
             throw new FileNotFoundException("Image file not found: " + filePath);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/university.dart';
 import 'package:our_carpool/domain/university_domain.dart';
+import 'package:our_carpool/domain/user_domain.dart';
 import 'package:our_carpool/presentation/screens/sign_up_step_two_screen.dart';
 import 'package:our_carpool/utils/validators.dart';
 
@@ -130,13 +131,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpStepTwoScreen(
-                                  idUni: _selectedUniversity.id,
-                                  email: _emailController.text)),
-                        );
+                        UserDomain userDomain = UserDomain();
+                        userDomain
+                            .checkIfUserExists(_emailController.text)
+                            .then((value) {
+                          if (!value) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpStepTwoScreen(
+                                      idUni: _selectedUniversity.id,
+                                      email: _emailController.text)),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('This email is already registered'),
+                              ),
+                            );
+                          }
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(

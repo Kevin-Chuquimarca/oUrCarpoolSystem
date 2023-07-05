@@ -20,6 +20,11 @@ class UserDomain {
     return user;
   }
 
+  Future<bool> checkIfUserExists(String email) async {
+    bool response = await _userProvider.checkIfUserExists(email);
+    return response;
+  }
+
   Future<bool> registerNewUser(
       int idUni,
       String ci,

@@ -19,6 +19,11 @@ class UserProvider {
     }
   }
 
+  Future<bool> checkIfUserExists(String email) async {
+    final response = await http.get(Uri.parse('$baseUrl/email/exist/$email'));
+    return response.statusCode == 200;
+  }
+
   Future<LoginResponse> postLogin(UserLogin userLogin) async {
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
@@ -27,7 +32,6 @@ class UserProvider {
       },
       body: jsonEncode(userLogin),
     );
-
     if (response.statusCode == 200) {
       return LoginResponse.fromJson(json.decode(response.body));
     } else {
@@ -43,7 +47,7 @@ class UserProvider {
       },
       body: jsonEncode(user),
     );
-    return (response.statusCode == 201) ? true : false;
+    return response.statusCode == 201;
   }
 
   Future<bool> postProfilePicture(String ci, File file) async {

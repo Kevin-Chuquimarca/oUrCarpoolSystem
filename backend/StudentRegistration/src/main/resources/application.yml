@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-db-service:3306/student_registration_db
+    url: jdbc:mysql://mysql-db-s:3306/student_registration_db
     username: root
     password: 0936
   jpa:

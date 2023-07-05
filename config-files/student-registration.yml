@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sr-service
+  name: student-registration-d
 spec:
   selector:
     matchLabels:
-      app: sr-service
+      app: student-registration-p
   replicas: 1
   template:
     metadata:
       labels:
-        app: sr-service
+        app: student-registration-p
     spec:
       containers:
-        - name: sr-service
+        - name: student-registration-c
           image: student-registration:latest
           imagePullPolicy: Never
           ports:
