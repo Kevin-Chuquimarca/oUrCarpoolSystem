@@ -118,13 +118,14 @@ class _LogInScreenState extends State<LogInScreen> {
                             .then((value) => {
                                   if (value)
                                     {
-                                      Navigator.push(
+                                      Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               UserProfileScreen(
                                                   email: _emailController.text),
                                         ),
+                                        (route) => false,
                                       )
                                     }
                                   else

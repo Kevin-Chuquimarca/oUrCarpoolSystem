@@ -82,7 +82,7 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 24.0),
                   const Text(
-                    'CI',
+                    'IDENTIFICATION NUMBER',
                     style: TextStyle(
                       fontSize: 10,
                     ),
@@ -92,10 +92,10 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                     controller: _ciController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your CI';
+                        return 'Please enter your identification number';
                       }
                       if (!isValidCI(_ciController.text)) {
-                        return 'Please enter a valid CI';
+                        return 'Please enter a valid identification number';
                       }
                       return null;
                     },

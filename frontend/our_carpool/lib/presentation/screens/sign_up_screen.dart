@@ -75,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                       if (!isValidEmailInstitutional(_emailController.text,
                           _selectedUniversity.emailDomain)) {
-                        return 'Please enter a valid email';
+                        return 'Please enter your university email';
                       }
                       return null;
                     },

@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @PostMapping("/img")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO postProfilePicture(@RequestParam("CI") String ci, @RequestParam("photo") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             String fileName = Optional.ofNullable(file.getOriginalFilename()).orElse("");
