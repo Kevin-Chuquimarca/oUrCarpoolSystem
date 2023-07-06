@@ -1170,7 +1170,7 @@ CheckModel=Yes
 SaveLinks=Yes
 NameToCode=No
 PreserveMode=Yes</a:ModelOptionsText>
-<a:RepositoryFilename>C:\Users\santi\Coding\oUrCarpoolSystem\db\modelo-base-datos\OUR_CARPOOL.cdm</a:RepositoryFilename>
+<a:RepositoryFilename>C:\Users\santi\Coding\oUrCarpoolSystem\diagrams\MER\conceptual\OUR_CARPOOL.cdm</a:RepositoryFilename>
 <c:GeneratedModels>
 <o:Shortcut Id="o3">
 <a:ObjectID>41B4B0A7-C6D6-4703-BD29-235647ED8AB2</a:ObjectID>
