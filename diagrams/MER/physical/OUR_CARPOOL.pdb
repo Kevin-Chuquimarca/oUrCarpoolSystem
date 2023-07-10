@@ -6561,7 +6561,7 @@ Shadow=0
 <c:Symbols>
 <o:ReferenceSymbol Id="o48">
 <a:ModificationDate>1688858075</a:ModificationDate>
-<a:Rect>((-2921,-7022), (2553,8971))</a:Rect>
+<a:Rect>((-2884,-7022), (2515,8971))</a:Rect>
 <a:ListOfPoints>((0,-6622),(0,2679),(-368,2679),(-368,8571))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
@@ -9234,7 +9234,7 @@ DAT 1688851315</a:History>
 <a:Code>OUR_CARPOOL</a:Code>
 <a:CreationDate>1688851315</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1688857696</a:ModificationDate>
+<a:ModificationDate>1688851315</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:TargetModelURL>file:///C|/Users/santi/Coding/oUrCarpoolSystem/diagrams/MER/logical/OUR_CARPOOL.ldm</a:TargetModelURL>
 <a:TargetModelID>3A5316F5-5D32-4DDD-A622-81A22D17505C</a:TargetModelID>

@@ -27,7 +27,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
         if (!isUserRegistered(userDTO.getEmail()) && !isUserRegisteredCI(userDTO.getCi())){
             String defaultPassword = PasswordUtil.generate();
             String encodedPassword = passwordEncoder.encode(defaultPassword);
-            UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
+            UserEntity user = new UserEntity(userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
             UserEntity userEntity = userRepository.save(user);
             emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
             return UserMapper.INSTANCE.userEntityToUserDTO(userEntity);
@@ -65,7 +65,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     public UserDTO update(Integer id, UserDTO userDTO) {
         Optional<UserEntity> oldUser = userRepository.findById(id);
         if (oldUser.isPresent()) {
-            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
+            UserEntity newUser = new UserEntity(id,  userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
             return UserMapper.INSTANCE.userEntityToUserDTO(userRepository.save(newUser));
         }
         return null;

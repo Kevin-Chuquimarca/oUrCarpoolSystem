@@ -12,6 +12,7 @@ public interface UserMapper {
 
     @Mapping(source = "idUser", target = "id")
     @Mapping(source = "idUni", target = "idUni")
+    @Mapping(source = "idRl", target = "idRl")
     @Mapping(source = "ciUser", target = "ci")
     @Mapping(source = "emailUser", target = "email")
     @Mapping(source = "nameUser", target = "name")
@@ -23,6 +24,7 @@ public interface UserMapper {
 
     @Mapping(source = "id", target = "idUser")
     @Mapping(source = "idUni", target = "idUni")
+    @Mapping(source = "idRl", target = "idRl")
     @Mapping(source = "ci", target = "ciUser")
     @Mapping(source = "email", target = "emailUser")
     @Mapping(source = "name", target = "nameUser")
