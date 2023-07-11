@@ -17,16 +17,16 @@ public class UniversityService implements FacadeService<UniversityDTO, Integer>{
 
     @Override
     public UniversityDTO create(UniversityDTO universityDTO) {
-        UniversityEntity university = UniversityMapper.INSTANCE.universityDTOToUniversityEntity(universityDTO);
-        return UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityRepository.save(university));
+        UniversityEntity university = UniversityMapper.INSTANCE.toUniversityEntity(universityDTO);
+        return UniversityMapper.INSTANCE.toUniversityDTO(universityRepository.save(university));
     }
 
     @Override
-    public Optional<UniversityDTO> read(Integer id) {
+    public Optional<UniversityDTO> readById(Integer id) {
         Optional<UniversityEntity> university = universityRepository.findById(id);
         if(university.isPresent()){
             UniversityEntity universityEntity = university.get();
-            return Optional.of(UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityEntity));
+            return Optional.of(UniversityMapper.INSTANCE.toUniversityDTO(universityEntity));
         }
         return Optional.empty();
     }
@@ -34,17 +34,17 @@ public class UniversityService implements FacadeService<UniversityDTO, Integer>{
     @Override
     public List<UniversityDTO> readAll() {
         List<UniversityEntity> universities = universityRepository.findAll();
-        return universities.stream().map(UniversityMapper.INSTANCE::universityEntityToUniversityDTO).toList();
+        return universities.stream().map(UniversityMapper.INSTANCE::toUniversityDTO).toList();
     }
 
     @Override
     public UniversityDTO update(Integer id, UniversityDTO universityDTO) {
-        UniversityEntity university = UniversityMapper.INSTANCE.universityDTOToUniversityEntity(universityDTO);
-        return UniversityMapper.INSTANCE.universityEntityToUniversityDTO(universityRepository.save(university));
+        UniversityEntity university = UniversityMapper.INSTANCE.toUniversityEntity(universityDTO);
+        return UniversityMapper.INSTANCE.toUniversityDTO(universityRepository.save(university));
     }
 
     @Override
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         universityRepository.deleteById(id);
     }
 }

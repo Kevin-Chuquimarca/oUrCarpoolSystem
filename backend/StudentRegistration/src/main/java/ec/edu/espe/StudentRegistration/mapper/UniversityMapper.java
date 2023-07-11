@@ -13,10 +13,10 @@ public interface UniversityMapper {
     @Mapping(source = "idUni", target = "id")
     @Mapping(source = "nameUni", target = "name")
     @Mapping(source = "emailDomainUni", target = "emailDomain")
-    UniversityDTO universityEntityToUniversityDTO(UniversityEntity universityEntity);
+    UniversityDTO toUniversityDTO(UniversityEntity universityEntity);
 
     @Mapping(source = "id", target = "idUni")
     @Mapping(source = "name", target = "nameUni")
     @Mapping(source = "emailDomain", target = "emailDomainUni")
-    UniversityEntity universityDTOToUniversityEntity(UniversityDTO universityDTO);
+    UniversityEntity toUniversityEntity(UniversityDTO universityDTO);
 }

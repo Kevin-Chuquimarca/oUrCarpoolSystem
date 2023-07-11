@@ -19,7 +19,7 @@ public class UniversityController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UniversityDTO> getUniversity(@PathVariable Integer id) {
-        Optional<UniversityDTO> universityDTOOptional = universityService.read(id);
+        Optional<UniversityDTO> universityDTOOptional = universityService.readById(id);
         return universityDTOOptional.map(universityDTO -> ResponseEntity.status(HttpStatus.OK).body(universityDTO)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
@@ -39,7 +39,7 @@ public class UniversityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UniversityDTO> updateUniversity(@PathVariable Integer id, @RequestBody UniversityDTO universityDTO) {
+    public ResponseEntity<UniversityDTO> putUniversity(@PathVariable Integer id, @RequestBody UniversityDTO universityDTO) {
         UniversityDTO university = universityService.update(id, universityDTO);
         return (university != null) ?
                 ResponseEntity.status(HttpStatus.OK).body(university)
@@ -50,6 +50,6 @@ public class UniversityController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUniversity(@PathVariable Integer id) {
-        universityService.delete(id);
+        universityService.deleteById(id);
     }
 }
