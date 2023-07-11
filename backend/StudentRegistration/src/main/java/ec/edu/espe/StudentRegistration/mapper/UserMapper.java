@@ -12,6 +12,7 @@ public interface UserMapper {
 
     @Mapping(source = "idUser", target = "id")
     @Mapping(source = "idUni", target = "idUni")
+    @Mapping(source = "idRl", target = "idRl")
     @Mapping(source = "ciUser", target = "ci")
     @Mapping(source = "emailUser", target = "email")
     @Mapping(source = "nameUser", target = "name")
@@ -19,10 +20,11 @@ public interface UserMapper {
     @Mapping(source = "phoneUser", target = "phone")
     @Mapping(source = "photoUser", target = "photo")
     @Mapping(source = "careerUser", target = "career")
-    UserDTO userEntityToUserDTO(UserEntity userEntity);
+    UserDTO toUserDTO(UserEntity userEntity);
 
     @Mapping(source = "id", target = "idUser")
     @Mapping(source = "idUni", target = "idUni")
+    @Mapping(source = "idRl", target = "idRl")
     @Mapping(source = "ci", target = "ciUser")
     @Mapping(source = "email", target = "emailUser")
     @Mapping(source = "name", target = "nameUser")
@@ -30,6 +32,6 @@ public interface UserMapper {
     @Mapping(source = "phone", target = "phoneUser")
     @Mapping(source = "photo", target = "photoUser")
     @Mapping(source = "career", target = "careerUser")
-    UserEntity userDTOToUserEntity(UserDTO userDTO);
+    UserEntity toUserEntity(UserDTO userDTO);
 
 }

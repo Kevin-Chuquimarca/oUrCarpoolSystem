@@ -27,10 +27,10 @@ public class UserService implements FacadeService<UserDTO, Integer> {
         if (!isUserRegistered(userDTO.getEmail()) && !isUserRegisteredCI(userDTO.getCi())){
             String defaultPassword = PasswordUtil.generate();
             String encodedPassword = passwordEncoder.encode(defaultPassword);
-            UserEntity user = new UserEntity(userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
+            UserEntity user = new UserEntity(userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
             UserEntity userEntity = userRepository.save(user);
             emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
-            return UserMapper.INSTANCE.userEntityToUserDTO(userEntity);
+            return UserMapper.INSTANCE.toUserDTO(userEntity);
         }
         return null;
     }
@@ -46,11 +46,11 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     }
 
     @Override
-    public Optional<UserDTO> read(Integer id) {
+    public Optional<UserDTO> readById(Integer id) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(id);
         if (userEntityOptional.isPresent()) {
             UserEntity userEntity = userEntityOptional.get();
-            return Optional.of(UserMapper.INSTANCE.userEntityToUserDTO(userEntity));
+            return Optional.of(UserMapper.INSTANCE.toUserDTO(userEntity));
         }
         return Optional.empty();
     }
@@ -58,21 +58,21 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     @Override
     public List<UserDTO> readAll() {
         List<UserEntity> users = userRepository.findAll();
-        return users.stream().map(UserMapper.INSTANCE::userEntityToUserDTO).toList();
+        return users.stream().map(UserMapper.INSTANCE::toUserDTO).toList();
     }
 
     @Override
     public UserDTO update(Integer id, UserDTO userDTO) {
         Optional<UserEntity> oldUser = userRepository.findById(id);
         if (oldUser.isPresent()) {
-            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
-            return UserMapper.INSTANCE.userEntityToUserDTO(userRepository.save(newUser));
+            UserEntity newUser = new UserEntity(id,  userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
+            return UserMapper.INSTANCE.toUserDTO(userRepository.save(newUser));
         }
         return null;
     }
 
     @Override
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         userRepository.deleteById(id);
     }
 
@@ -87,10 +87,10 @@ public class UserService implements FacadeService<UserDTO, Integer> {
 
     public Optional<UserDTO> readUserByEmail(String email) {
         Optional<UserEntity> user = userRepository.findByEmail(email);
-        return user.map(UserMapper.INSTANCE::userEntityToUserDTO);
+        return user.map(UserMapper.INSTANCE::toUserDTO);
     }
 
-    public Optional<MessageResponseDTO> changePassword(Integer id, String newPassword) {
+    public Optional<MessageResponseDTO> changeUserPassword(Integer id, String newPassword) {
         Optional<UserEntity> userOp = userRepository.findById(id);
         if (userOp.isPresent()) {
             String encodedPassword = passwordEncoder.encode(newPassword);

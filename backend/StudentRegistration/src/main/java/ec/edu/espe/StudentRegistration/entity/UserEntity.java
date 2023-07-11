@@ -21,6 +21,9 @@ public class UserEntity {
     @Column(name = "id_uni", nullable = false)
     private int idUni;
     @Basic
+    @Column(name = "id_rl", nullable = false, length = 3)
+    private String idRl;
+    @Basic
     @Column(name = "ci_user", nullable = false, length = 10)
     private String ciUser;
     @Basic
@@ -48,8 +51,9 @@ public class UserEntity {
     @Column(name = "first_login_user", nullable = false)
     private boolean firstLoginUser;
 
-    public UserEntity(int idUni, String ciUser, String emailUser, String nameUser, String lastNameUser, String passUser, String phoneUser, String photoUser, String careerUser, boolean firstLogin) {
+    public UserEntity(int idUni, String idRl, String ciUser, String emailUser, String nameUser, String lastNameUser, String passUser, String phoneUser, String photoUser, String careerUser, boolean firstLogin) {
         this.idUni = idUni;
+        this.idRl = idRl;
         this.ciUser = ciUser;
         this.emailUser = emailUser;
         this.nameUser = nameUser;

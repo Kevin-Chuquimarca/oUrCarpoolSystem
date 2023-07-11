@@ -5,8 +5,8 @@ import java.util.Optional;
 
 public interface FacadeService<T, K> {
     T create(T t);
-    Optional<T> read(K k);
+    Optional<T> readById(K k);
     List<T> readAll();
     T update(K k, T t);
-    void delete(K k);
+    void deleteById(K k);
 }

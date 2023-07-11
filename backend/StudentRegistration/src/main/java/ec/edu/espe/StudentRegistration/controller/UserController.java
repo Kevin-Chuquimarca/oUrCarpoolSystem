@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
-        Optional<UserDTO> userDTOOptional = userService.read(id);
+        Optional<UserDTO> userDTOOptional = userService.readById(id);
         return userDTOOptional.map(userDTO -> ResponseEntity.status(HttpStatus.OK).body(userDTO)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("email/exist/{email}")
-    public ResponseEntity<Boolean> existUserByEmail(@PathVariable String email) {
+    public ResponseEntity<Boolean> isEmailRegistered(@PathVariable String email) {
         boolean userExists = userService.isUserRegistered(email);
         return userExists ? ResponseEntity.status(HttpStatus.OK).body(null) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.create(userDTO);
         return (createdUser != null) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(createdUser)
@@ -60,7 +60,7 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> putUser(@PathVariable Integer id, @RequestBody UserDTO userDTO) {
         UserDTO user = userService.update(id, userDTO);
         return (user != null) ?
                 ResponseEntity.status(HttpStatus.OK).body(user)
@@ -71,7 +71,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable Integer id) {
-        userService.delete(id);
+        userService.deleteById(id);
     }
 
     @PostMapping("/login")
@@ -85,7 +85,7 @@ public class UserController {
         if (!file.isEmpty()) {
             String fileName = Optional.ofNullable(file.getOriginalFilename()).orElse("");
             String fileNameToSave = ci + fileName.substring(fileName.lastIndexOf("."));
-            ImageUtil.saveFile("img/user-profiles/", fileNameToSave, file);
+            ImageUtil.saveImageInLocal("img/user-profiles/", fileNameToSave, file);
             return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponseDTO("image uploaded successfully"));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponseDTO("image not uploaded"));
@@ -94,7 +94,7 @@ public class UserController {
     @GetMapping("/img/{fileName}")
     public ResponseEntity<Resource> getProfilePicture(@PathVariable String fileName) throws FileNotFoundException {
         String filePath = "img/user-profiles/" + fileName;
-        Resource resource = ImageUtil.loadFileAsResource(filePath);
+        Resource resource = ImageUtil.loadImageAsResource(filePath);
         if (resource != null) {
             return ResponseEntity.status(HttpStatus.OK)
                     .contentType(MediaType.IMAGE_JPEG)
@@ -104,8 +104,8 @@ public class UserController {
     }
 
     @PutMapping("/updatePassword/{id}")
-    public ResponseEntity<MessageResponseDTO> updatePassword(@PathVariable Integer id, @RequestBody UserLoginDTO userLoginDTO) {
-        Optional<MessageResponseDTO> messageResponseDTO = userService.changePassword(id, userLoginDTO.getPassword());
+    public ResponseEntity<MessageResponseDTO> putUserPassword(@PathVariable Integer id, @RequestBody UserLoginDTO userLoginDTO) {
+        Optional<MessageResponseDTO> messageResponseDTO = userService.changeUserPassword(id, userLoginDTO.getPassword());
         return messageResponseDTO.map(responseDTO -> ResponseEntity.status(HttpStatus.OK).body(responseDTO)).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
     }
 }

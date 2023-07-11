@@ -3,7 +3,6 @@ package ec.edu.espe.StudentRegistration.service;
 import ec.edu.espe.StudentRegistration.dto.UniversityDTO;
 import ec.edu.espe.StudentRegistration.entity.UniversityEntity;
 import ec.edu.espe.StudentRegistration.repository.UniversityRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class UniversityServiceTest {
@@ -29,11 +29,11 @@ public class UniversityServiceTest {
     }
 
     @Test
-    void read(){
+    void readById(){
         UniversityEntity university = new UniversityEntity(1, "ESPE", "espe.edu.ec");
         when(universityRepository.findById(1)).thenReturn(java.util.Optional.of(university));
-        Optional<UniversityDTO> uni = universityService.read(1);
-        uni.ifPresent(universityDTO -> Assertions.assertEquals(university.getIdUni(), universityDTO.getId()));
+        Optional<UniversityDTO> uni = universityService.readById(1);
+        uni.ifPresent(universityDTO -> assertEquals(university.getIdUni(), universityDTO.getId()));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class UniversityServiceTest {
         universities.add(new UniversityEntity(2, "UDLA", "udla.edu.ec"));
         when(universityRepository.findAll()).thenReturn(universities);
         List<UniversityDTO> unis = universityService.readAll();
-        Assertions.assertEquals(universities.size(), unis.size());
+        assertEquals(universities.size(), unis.size());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class UniversityServiceTest {
         UniversityEntity university = new UniversityEntity("ESPE", "espe.edu.ec");
         when(universityRepository.save(university)).thenReturn(university);
         UniversityDTO uni = universityService.create(new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni()));
-        Assertions.assertEquals(university.getIdUni(), uni.getId());
+        assertEquals(university.getIdUni(), uni.getId());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UniversityServiceTest {
         UniversityEntity university = new UniversityEntity(1, "ESPE", "espe2.edu.ec");
         when(universityRepository.save(university)).thenReturn(university);
         UniversityDTO uni = universityService.update(1, new UniversityDTO(university.getIdUni(), university.getNameUni(), university.getEmailDomainUni()));
-        Assertions.assertEquals(university.getEmailDomainUni(), uni.getEmailDomain());
+        assertEquals(university.getEmailDomainUni(), uni.getEmailDomain());
     }
 
 }
