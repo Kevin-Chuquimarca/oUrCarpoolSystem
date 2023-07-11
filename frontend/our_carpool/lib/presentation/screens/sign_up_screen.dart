@@ -3,6 +3,7 @@ import 'package:our_carpool/data/model/university.dart';
 import 'package:our_carpool/domain/university_domain.dart';
 import 'package:our_carpool/domain/user_domain.dart';
 import 'package:our_carpool/presentation/screens/sign_up_step_two_screen.dart';
+import 'package:our_carpool/utils/colors.dart';
 import 'package:our_carpool/utils/validators.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -83,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFF111A35),
+                          color: AppColors.primaryColor,
                         ),
                       ),
                     ),
@@ -118,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(color: AppColors.blackColor),
                         underline: Container(
                           height: 1,
                           color: Colors.black,
@@ -155,8 +156,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xFF111A35),
+                      foregroundColor: AppColors.whiteColor,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),

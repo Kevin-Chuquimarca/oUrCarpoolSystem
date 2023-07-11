@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
+import 'package:our_carpool/utils/colors.dart';
 
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'oUr Carpool',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF111A35)),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         useMaterial3: true,
       ),
       home: const WelcomeScreen(),

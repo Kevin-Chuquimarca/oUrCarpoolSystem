@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/presentation/screens/log_in_screen.dart';
 import 'package:our_carpool/presentation/screens/sign_up_screen.dart';
+import '../../utils/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -46,15 +47,15 @@ class WelcomeScreen extends StatelessWidget {
                             },
                             style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xFF111A35)),
+                                  AppColors.primaryColor),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
+                                  AppColors.whiteColor),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                   side: const BorderSide(
-                                    color: Color(0xFF111A35),
+                                    color: AppColors.primaryColor,
                                     width: 2.0,
                                   ),
                                 ),
@@ -84,9 +85,9 @@ class WelcomeScreen extends StatelessWidget {
                             },
                             style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
+                                  AppColors.whiteColor),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xFF111A35)),
+                                  AppColors.primaryColor),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
