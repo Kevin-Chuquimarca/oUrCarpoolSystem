@@ -22,6 +22,7 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
       email: 'johndoe@example.com',
       licenseType: 'Type A',
       requestDate: DateTime(2023, 7, 7),
+      photoLicense: 'a',
     ),
     Driver(
       id: '2',
@@ -29,6 +30,7 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
       email: 'janesmith@example.com',
       licenseType: 'Type B',
       requestDate: DateTime(2023, 7, 6),
+      photoLicense: 'b',
     ),
     Driver(
       id: '3',
@@ -36,6 +38,7 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
       email: 'alicejohnson@example.com',
       licenseType: 'Type C',
       requestDate: DateTime(2023, 7, 5),
+      photoLicense: 'c',
     ),
   ];
 

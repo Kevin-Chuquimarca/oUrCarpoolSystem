@@ -4,6 +4,7 @@ class Driver {
   final String email;
   final String licenseType;
   final DateTime requestDate;
+  final String photoLicense;
 
   Driver({
     required this.id,
@@ -11,5 +12,6 @@ class Driver {
     required this.email,
     required this.licenseType,
     required this.requestDate,
+    required this.photoLicense,
   });
 }
