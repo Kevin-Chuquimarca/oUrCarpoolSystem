@@ -4,24 +4,13 @@ import 'package:provider/provider.dart';
 import '../../business/user_manager.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key, required this.email}) : super(key: key);
-
-  final String email;
+  const UserProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  late UserManager _userManager;
-
-  @override
-  void initState() {
-    super.initState();
-    _userManager = context.read<UserManager>();
-    _userManager.getUserData(widget.email);
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

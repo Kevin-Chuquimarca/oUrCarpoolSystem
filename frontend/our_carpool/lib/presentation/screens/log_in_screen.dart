@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
+import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
 import 'package:our_carpool/utils/validators.dart';
+import 'package:provider/provider.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -111,22 +112,24 @@ class _LogInScreenState extends State<LogInScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        UserManager logInManager = UserManager();
+                        UserManager logInManager = context.read<UserManager>();
                         logInManager
                             .validateUser(
                                 _emailController.text, _passwordController.text)
                             .then((value) => {
                                   if (value)
                                     {
-                                      Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UserProfileScreen(
-                                                  email: _emailController.text),
-                                        ),
-                                        (route) => false,
-                                      )
+                                      logInManager
+                                          .getUserData(_emailController.text)
+                                          .then((value) =>
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const NavigationMenuScreen(),
+                                                ),
+                                                (route) => false,
+                                              )),
                                     }
                                   else
                                     {

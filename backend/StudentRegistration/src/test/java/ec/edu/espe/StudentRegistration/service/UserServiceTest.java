@@ -33,7 +33,7 @@ class UserServiceTest {
 
     @Test
     void readById() {
-        UserDTO userDTO = new UserDTO(0, 1, "adm", "1727195420", "kschuquimarca@espe.edu.ec", "Kevin", "Chuquimarca", "0987654321", "photo", "Software Engineering");
+        UserDTO userDTO = new UserDTO(0, 1, "adm", "1727195420", "kschuquimarca@espe.edu.ec", "Kevin", "Chuquimarca", "0987654321", "photo", "Software Engineering",false);
         UserEntity userEntity = UserMapper.INSTANCE.toUserEntity(userDTO);
         when(userRepository.findById(0)).thenReturn(java.util.Optional.of(userEntity));
         Optional<UserDTO> userOp = userService.readById(0);

@@ -1,52 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../business/user_manager.dart';
-import '../widgets/driver_list_item.dart';
-import '../../data/model/driver.dart';
-import '../screens/driver_approval_screen.dart';
+import 'package:our_carpool/data/model/driver_request.dart';
+import 'package:our_carpool/domain/driver_request_domain.dart';
 import '../../utils/colors.dart';
+import '../widgets/driver_list_item.dart';
 
 class AdminDriversListScreen extends StatefulWidget {
   const AdminDriversListScreen({Key? key}) : super(key: key);
 
   @override
-  _AdminDriversListScreenState createState() => _AdminDriversListScreenState();
+  State<AdminDriversListScreen> createState() => _AdminDriversListScreenState();
 }
 
 class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
-  late UserManager _userManager;
-  List<Driver> _drivers = [
-    Driver(
-      id: '1',
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      licenseType: 'Type A',
-      requestDate: DateTime(2023, 7, 7),
-      photoLicense: 'a',
-    ),
-    Driver(
-      id: '2',
-      name: 'Jane Smith',
-      email: 'janesmith@example.com',
-      licenseType: 'Type B',
-      requestDate: DateTime(2023, 7, 6),
-      photoLicense: 'b',
-    ),
-    Driver(
-      id: '3',
-      name: 'Alice Johnson',
-      email: 'alicejohnson@example.com',
-      licenseType: 'Type C',
-      requestDate: DateTime(2023, 7, 5),
-      photoLicense: 'c',
-    ),
-  ];
+  // late UserManager _userManager;
+  List<DriverRequest> _drivers = List.empty();
+
+  _getDriversRequests() {
+    DriverRequestDomain driverRequestDomain = DriverRequestDomain();
+    driverRequestDomain.getDriversRequest().then((value) {
+      setState(() {
+        _drivers = value;
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _userManager = context.read<UserManager>();
-    // Aquí puedes obtener los datos de los conductores
+    // _userManager = context.read<UserManager>();
+    _getDriversRequests();
   }
 
   @override
@@ -56,13 +38,6 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'Drivers to approve',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-              ),
               const Divider(height: 5, color: AppColors.dividerColor),
               Align(
                 alignment: Alignment.centerRight,
@@ -89,18 +64,7 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
                 itemCount: _drivers.length,
                 itemBuilder: (context, index) {
                   final driver = _drivers[index];
-                  return DriverListItem(
-                    driver: driver,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DriverApprovalScreen(driver: driver),
-                        ),
-                      );
-                    },
-                  );
+                  return DriverListItem(driverRequest: driver);
                 },
               ),
             ],

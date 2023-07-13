@@ -1,21 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/utils/colors.dart';
-import '../../data/model/driver.dart';
+import 'package:our_carpool/data/model/driver_request.dart';
+import 'package:our_carpool/data/model/user.dart';
+import 'package:our_carpool/domain/user_domain.dart';
 
-class DriverListItem extends StatelessWidget {
-  final Driver driver;
-  final VoidCallback onTap;
+import '../../utils/colors.dart';
+import '../screens/driver_approval_screen.dart';
+
+class DriverListItem extends StatefulWidget {
+  final DriverRequest driverRequest;
 
   const DriverListItem({
     super.key,
-    required this.driver,
-    required this.onTap,
+    required this.driverRequest,
   });
+
+  @override
+  State<DriverListItem> createState() => _DriverListItemState();
+}
+
+class _DriverListItemState extends State<DriverListItem> {
+  User user = User.empty();
+
+  _getUser() {
+    UserDomain userDomain = UserDomain();
+    userDomain.getDataUserByEmail(widget.driverRequest.email).then((value) {
+      setState(() {
+        user = value;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DriverApprovalScreen(
+              driver: widget.driverRequest,
+              user: user,
+            ),
+          ),
+        );
+      },
       child: Column(
         children: [
           Padding(
@@ -29,8 +63,6 @@ class DriverListItem extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Colors.grey,
                   ),
-                  // Aquí puedes cargar la imagen de perfil del conductor
-                  // usando driver.id y driver.name
                   child: const Icon(Icons.person),
                 ),
                 const SizedBox(width: 16.0),
@@ -39,7 +71,7 @@ class DriverListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        driver.name,
+                        user.name,
                         style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -47,17 +79,17 @@ class DriverListItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 4.0),
                       Text(
-                        'Mail: ${driver.email}',
+                        'Mail: ${widget.driverRequest.email}',
                         style: const TextStyle(fontSize: 13.0),
                       ),
                       const SizedBox(height: 4.0),
                       Text(
-                        'Type License: ${driver.licenseType}',
+                        'Type License: ${widget.driverRequest.typeLic}',
                         style: const TextStyle(fontSize: 13.0),
                       ),
                       const SizedBox(height: 4.0),
                       Text(
-                        'Request Date: ${driver.requestDate.day.toString().padLeft(2, '0')} ${_getMonthName(driver.requestDate.month)} ${driver.requestDate.year}',
+                        'Request Date: ${widget.driverRequest.shippingDate.day.toString().padLeft(2, '0')} ${_getMonthName(widget.driverRequest.shippingDate.month)} ${widget.driverRequest.shippingDate.year}',
                         style: const TextStyle(fontSize: 13.0),
                       ),
                     ],

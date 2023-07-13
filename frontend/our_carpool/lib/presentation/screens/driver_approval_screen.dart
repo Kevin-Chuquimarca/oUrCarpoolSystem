@@ -1,21 +1,27 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import '../../data/model/driver.dart';
-import '../../business/user_manager.dart';
+import 'package:our_carpool/data/model/driver_request.dart';
+import 'package:our_carpool/domain/driver_request_domain.dart';
+import '../../data/model/user.dart';
 import '../../utils/colors.dart';
-import 'package:provider/provider.dart';
 import 'profile_approved_screen.dart';
 import 'profile_denied_screen.dart';
 
 class DriverApprovalScreen extends StatefulWidget {
-  final Driver driver;
+  final DriverRequest driver;
+  final User user;
 
-  const DriverApprovalScreen({super.key, required this.driver});
+  const DriverApprovalScreen(
+      {super.key, required this.driver, required this.user});
 
   @override
   State<DriverApprovalScreen> createState() => _DriverApprovalScreenState();
 }
 
 class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
+  DriverRequestDomain driverRequestDomain = DriverRequestDomain();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,27 +42,25 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                   color: AppColors.primaryColor,
                 ),
               ),
-              SizedBox(
-                width: 337,
-                height: 200,
-                child: widget.driver.photoLicense.isNotEmpty
-                    ? Image.network(
-                        widget.driver.photoLicense,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                        ),
-                        child: const Text(
-                          "No image",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
+              FutureBuilder<Uint8List>(
+                future: driverRequestDomain
+                    .getLicensePicture(widget.driver.photoLic),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.hasData) {
+                    return Center(
+                      child: Image.memory(
+                        snapshot.data!,
+                        fit: BoxFit.contain,
                       ),
+                    );
+                  } else {
+                    return const Center(child: Text('No data available'));
+                  }
+                },
               ),
               const SizedBox(height: 16),
               const Text(
@@ -67,28 +71,25 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                   color: AppColors.primaryColor,
                 ),
               ),
-              SizedBox(
-                width: 283,
-                height: 283,
-                child: context.watch<UserManager>().profilePicture.isNotEmpty
-                    ? Image.memory(
-                        context.watch<UserManager>().profilePicture,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey,
-                        ),
-                        child: const Text(
-                          "No image",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
+              FutureBuilder<Uint8List>(
+                future:
+                    driverRequestDomain.getCarPicture(widget.driver.photoLic),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.hasData) {
+                    return Center(
+                      child: Image.memory(
+                        snapshot.data!,
+                        fit: BoxFit.contain,
                       ),
+                    );
+                  } else {
+                    return const Center(child: Text('No data available'));
+                  }
+                },
               ),
               const SizedBox(height: 16),
               const Text(
@@ -111,28 +112,28 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ID: ${context.watch<UserManager>().user.id}',
+                        'ID: ${widget.user.id}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        'Name: ${context.watch<UserManager>().user.name}',
+                        'Name: ${widget.user.name}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        'Last Name: ${context.watch<UserManager>().user.lastName}',
+                        'Last Name: ${widget.user.lastName}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        'Type License: ${widget.driver.licenseType}',
+                        'Type License: ${widget.driver.typeLic}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,

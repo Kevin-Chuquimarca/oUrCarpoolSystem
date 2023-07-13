@@ -17,7 +17,7 @@ public class DriverRequestDTO {
     private Date approvalDate;
     private String typeLic;
     private Date expiryDateLic;
-    private byte[] photoLic;
+    private String photoLic;
     private String plateCar;
     private String photoCar;
     private String state;

@@ -20,6 +20,7 @@ public interface UserMapper {
     @Mapping(source = "phoneUser", target = "phone")
     @Mapping(source = "photoUser", target = "photo")
     @Mapping(source = "careerUser", target = "career")
+    @Mapping(source = "firstLoginUser", target = "firstLogin")
     UserDTO toUserDTO(UserEntity userEntity);
 
     @Mapping(source = "id", target = "idUser")
@@ -32,6 +33,7 @@ public interface UserMapper {
     @Mapping(source = "phone", target = "phoneUser")
     @Mapping(source = "photo", target = "photoUser")
     @Mapping(source = "career", target = "careerUser")
+    @Mapping(source = "firstLogin", target = "firstLoginUser")
     UserEntity toUserEntity(UserDTO userDTO);
 
 }

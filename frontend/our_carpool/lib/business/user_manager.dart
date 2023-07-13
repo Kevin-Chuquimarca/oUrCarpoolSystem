@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:our_carpool/data/model/option_role.dart';
 
 import '../data/model/user.dart';
 import '../domain/user_domain.dart';
@@ -8,6 +9,7 @@ import '../domain/user_domain.dart';
 class UserManager with ChangeNotifier {
   User user = User.empty();
   Uint8List profilePicture = Uint8List(0);
+  List<OptionRole> optionsRole = List.empty();
 
   void setUser(User user) {
     this.user = user;

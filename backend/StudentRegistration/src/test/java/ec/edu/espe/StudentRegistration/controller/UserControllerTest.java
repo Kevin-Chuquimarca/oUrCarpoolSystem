@@ -43,7 +43,7 @@ class UserControllerTest {
     void getUserById_ReturnsUserDTOWhenFound() {
         Integer userId = 1;
         UserDTO userDTO = new UserDTO(userId, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science", false);
         when(userService.readById(userId)).thenReturn(Optional.of(userDTO));
         ResponseEntity<UserDTO> response = userController.getUserById(userId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -63,7 +63,7 @@ class UserControllerTest {
     void getUserByEmail_ReturnsUserDTOWhenFound() {
         String email = "test@example.com";
         UserDTO userDTO = new UserDTO(1, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science", false);
         when(userService.readUserByEmail(email)).thenReturn(Optional.of(userDTO));
         ResponseEntity<UserDTO> response = userController.getUserByEmail(email);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -100,9 +100,9 @@ class UserControllerTest {
     void getAllUsers_ReturnsListOfUsers() {
         List<UserDTO> users = Arrays.asList(
                 new UserDTO(1, 1234, "role1", "1234567890", "test1@example.com",
-                        "John", "Doe", "123456789", "photo1.jpg", "Computer Science"),
+                        "John", "Doe", "123456789", "photo1.jpg", "Computer Science", false),
                 new UserDTO(2, 5678, "role2", "0987654321", "test2@example.com",
-                        "Jane", "Smith", "987654321", "photo2.jpg", "Engineering")
+                        "Jane", "Smith", "987654321", "photo2.jpg", "Engineering", false)
         );
         when(userService.readAll()).thenReturn(users);
         List<UserDTO> response = userController.getAllUsers();
@@ -112,7 +112,7 @@ class UserControllerTest {
     @Test
     void postUser_ReturnsCreatedUser() {
         UserDTO userDTO = new UserDTO(1, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science", false);
         when(userService.create(userDTO)).thenReturn(userDTO);
         ResponseEntity<UserDTO> response = userController.postUser(userDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -122,7 +122,7 @@ class UserControllerTest {
     @Test
     void postUser_ReturnsBadRequestWhenUserNotCreated() {
         UserDTO userDTO = new UserDTO(1, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science",false);
         when(userService.create(userDTO)).thenReturn(null);
         ResponseEntity<UserDTO> response = userController.postUser(userDTO);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -133,7 +133,7 @@ class UserControllerTest {
     void putUser_ReturnsUpdatedUser() {
         Integer userId = 1;
         UserDTO userDTO = new UserDTO(userId, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science", false);
         when(userService.update(userId, userDTO)).thenReturn(userDTO);
         ResponseEntity<UserDTO> response = userController.putUser(userId, userDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -144,7 +144,7 @@ class UserControllerTest {
     void putUser_ReturnsNoContentWhenUserNotUpdated() {
         Integer userId = 1;
         UserDTO userDTO = new UserDTO(userId, 1234, "role", "1234567890", "test@example.com",
-                "John", "Doe", "123456789", "photo.jpg", "Computer Science");
+                "John", "Doe", "123456789", "photo.jpg", "Computer Science", false);
         when(userService.update(userId, userDTO)).thenReturn(null);
         ResponseEntity<UserDTO> response = userController.putUser(userId, userDTO);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());

@@ -16,4 +16,5 @@ public class UserDTO {
     private String phone;
     private String photo;
     private String career;
+    private boolean firstLogin;
 }

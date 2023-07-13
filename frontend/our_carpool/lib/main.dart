@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/presentation/screens/admin_drivers_list_screen.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 import 'package:our_carpool/utils/colors.dart';
 
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         useMaterial3: true,
       ),
-      home: const AdminDriversListScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

@@ -33,7 +33,7 @@ public class DriverRequestEntity {
     private Date expiryDateLicDr;
     @Basic
     @Column(name = "photo_lic_dr", nullable = false)
-    private byte[] photoLicDr;
+    private String photoLicDr;
     @Basic
     @Column(name = "plate_car_dr", nullable = false, length = 6)
     private String plateCarDr;

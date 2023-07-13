@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driver-approval-d
+spec:
+  selector:
+    matchLabels:
+      app: driver-approval-p
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: driver-approval-p
+    spec:
+      containers:
+        - name: driver-approval-c
+          image: driver-approval:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080

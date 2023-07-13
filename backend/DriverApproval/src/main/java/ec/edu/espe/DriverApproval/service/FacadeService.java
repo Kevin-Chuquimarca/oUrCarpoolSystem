@@ -8,5 +8,5 @@ public interface FacadeService<T, K> {
     Optional<T> readById(K k);
     List<T> readAll();
     T update(K k, T t);
-    void delete(K k);
+    void deleteById(K k);
 }
