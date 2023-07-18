@@ -18,6 +18,7 @@ public class DriverRequestService implements FacadeService<DriverRequestDTO, Int
     @Override
     public DriverRequestDTO create(DriverRequestDTO driverRequestDTO) {
         DriverRequestEntity driverRequestEntity = DriverRequestMapper.INSTANCE.toDriverRequestEntity(driverRequestDTO);
+        driverRequestEntity.setStateDr("P");
         DriverRequestEntity driverRequestSaved = driverRequestRepository.save(driverRequestEntity);
         return DriverRequestMapper.INSTANCE.toDriverRequestDTO(driverRequestSaved);
     }
@@ -43,5 +44,44 @@ public class DriverRequestService implements FacadeService<DriverRequestDTO, Int
     @Override
     public void deleteById(Integer id) {
         driverRequestRepository.deleteById(id);
+    }
+
+    public boolean approveDriverRequest(Integer id, String message) {
+        Optional<DriverRequestEntity> driverRequestEntity = driverRequestRepository.findById(id);
+        if (driverRequestEntity.isPresent()) {
+            DriverRequestEntity driverRequest = driverRequestEntity.get();
+            driverRequest.setStateDr("A");
+            driverRequest.setMessageDr(message);
+            driverRequestRepository.save(driverRequest);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean rejectDriverRequest(Integer id, String message) {
+        Optional<DriverRequestEntity> driverRequestEntity = driverRequestRepository.findById(id);
+        if (driverRequestEntity.isPresent()) {
+            DriverRequestEntity driverRequest = driverRequestEntity.get();
+            driverRequest.setStateDr("R");
+            driverRequest.setMessageDr(message);
+            driverRequestRepository.save(driverRequest);
+            return true;
+        }
+        return false;
+    }
+
+    public List<DriverRequestDTO> readAllPending() {
+        List<DriverRequestEntity> driversRequest = driverRequestRepository.findByStateDr("P");
+        return driversRequest.stream().map(DriverRequestMapper.INSTANCE::toDriverRequestDTO).toList();
+    }
+
+    public List<DriverRequestDTO> readAllApproved() {
+        List<DriverRequestEntity> driversRequest = driverRequestRepository.findByStateDr("A");
+        return driversRequest.stream().map(DriverRequestMapper.INSTANCE::toDriverRequestDTO).toList();
+    }
+
+    public List<DriverRequestDTO> readAllRejected() {
+        List<DriverRequestEntity> driversRequest = driverRequestRepository.findByStateDr("R");
+        return driversRequest.stream().map(DriverRequestMapper.INSTANCE::toDriverRequestDTO).toList();
     }
 }

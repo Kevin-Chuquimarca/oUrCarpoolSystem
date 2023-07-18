@@ -21,6 +21,7 @@ class SignUpStepTwoScreen extends StatefulWidget {
 
 class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
   File? _selectedImage;
+  static const int maxImageSize = 1024 * 1024;
 
   final _formKey = GlobalKey<FormState>();
   final _ciController = TextEditingController();
@@ -208,18 +209,23 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ),
                   const SizedBox(height: 24.0),
                   Center(
-                    child: (_selectedImage != null)
-                        ? Container(
-                            width: 150,
-                            height: 150,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.file(
-                              _selectedImage!,
-                              fit: BoxFit.cover,
-                            ))
-                        : const Text("Not image selected"),
+                    child: _selectedImage == null
+                        ? const Text(
+                            "Not image selected, the max image size is 1MB")
+                        : _selectedImage!.lengthSync() > maxImageSize
+                            ? const Text(
+                                "The image size is too big, the max image size is 1MB")
+                            : Container(
+                                width: 150,
+                                height: 150,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.file(
+                                  _selectedImage!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                   ),
                   const SizedBox(height: 24.0),
                   Center(
@@ -252,7 +258,8 @@ class _SignUpStepTwoScreenState extends State<SignUpStepTwoScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate() &&
-                          _selectedImage != null) {
+                          _selectedImage != null &&
+                          _selectedImage!.lengthSync() <= maxImageSize) {
                         UserDomain userDomain = UserDomain();
                         userDomain
                             .registerNewUser(

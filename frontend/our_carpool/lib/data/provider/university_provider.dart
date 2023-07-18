@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../model/university.dart';
+import 'host.dart';
 
 class UniversityProvider {
-  final String baseUrl = 'http://192.168.55.219:8080/university';
+  final String baseUrl = '$hostIp:8080/university';
 
   Future<List<University>> getUniversities() async {
     final response = await http.get(Uri.parse('$baseUrl/all'));

@@ -6,9 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:our_carpool/data/model/user.dart';
 import '../model/login_response.dart';
 import '../model/user_login.dart';
+import 'host.dart';
 
 class UserProvider {
-  final String baseUrl = 'http://192.168.55.219:8080/user';
+  final String baseUrl = '$hostIp:8080/user';
 
   Future<User> getUserByEmail(String email) async {
     final response = await http.get(Uri.parse('$baseUrl/email/$email'));
@@ -55,7 +56,7 @@ class UserProvider {
     request.fields['CI'] = ci;
     request.files.add(await http.MultipartFile.fromPath('photo', file.path));
     var response = await request.send();
-    return (response.statusCode == 201) ? true : false;
+    return response.statusCode == 201;
   }
 
   Future<Uint8List> getProfilePicture(String fileName) async {

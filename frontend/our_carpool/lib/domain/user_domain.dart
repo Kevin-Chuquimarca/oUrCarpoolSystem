@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:our_carpool/data/model/driver_request.dart';
+
 import '../data/model/login_response.dart';
 import '../data/model/user.dart';
 import '../data/model/user_login.dart';
@@ -38,6 +40,7 @@ class UserDomain {
     bool resPostUser = await _userProvider.postUser(User(
         id: 0,
         idUni: idUni,
+        idRl: 'psg',
         ci: ci,
         email: email,
         name: name,
@@ -49,28 +52,29 @@ class UserDomain {
     return resPostUser && resPostPicture;
   }
 
-  Future<bool> registerUser(int idUni, String ci, String email, String name,
-      String lastName, String phone, String photo, String career) async {
-    bool response = await _userProvider.postUser(User(
-        id: 0,
-        idUni: idUni,
-        ci: ci,
-        email: email,
-        name: name,
-        lastName: lastName,
-        phone: phone,
-        photo: photo,
-        career: career));
-    return response;
-  }
+  // Future<bool> registerUser(int idUni, String ci, String email, String name,
+  //     String lastName, String phone, String photo, String career) async {
+  //   bool response = await _userProvider.postUser(User(
+  //       id: 0,
+  //       idUni: idUni,
+  //       idRl: 'psg',
+  //       ci: ci,
+  //       email: email,
+  //       name: name,
+  //       lastName: lastName,
+  //       phone: phone,
+  //       photo: photo,
+  //       career: career));
+  //   return response;
+  // }
 
-  Future<bool> uploadProfilePicture(String ci, File file) async {
-    bool response = await _userProvider.postProfilePicture(ci, file);
-    return response;
-  }
+  // Future<bool> uploadProfilePicture(String ci, File file) async {
+  //   bool response = await _userProvider.postProfilePicture(ci, file);
+  //   return response;
+  // }
 
-  Future<Uint8List> getProfilePicture(String ci) async {
-    Uint8List response = await _userProvider.getProfilePicture(ci);
+  Future<Uint8List> getProfilePicture(String photo) async {
+    Uint8List response = await _userProvider.getProfilePicture(photo);
     return response;
   }
 }

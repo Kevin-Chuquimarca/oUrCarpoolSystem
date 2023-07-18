@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
-import 'package:our_carpool/data/model/user.dart';
-import 'package:our_carpool/domain/user_domain.dart';
 
 import '../../utils/colors.dart';
 import '../screens/driver_approval_screen.dart';
@@ -19,23 +17,6 @@ class DriverListItem extends StatefulWidget {
 }
 
 class _DriverListItemState extends State<DriverListItem> {
-  User user = User.empty();
-
-  _getUser() {
-    UserDomain userDomain = UserDomain();
-    userDomain.getDataUserByEmail(widget.driverRequest.email).then((value) {
-      setState(() {
-        user = value;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getUser();
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -45,7 +26,6 @@ class _DriverListItemState extends State<DriverListItem> {
           MaterialPageRoute(
             builder: (context) => DriverApprovalScreen(
               driver: widget.driverRequest,
-              user: user,
             ),
           ),
         );
@@ -70,13 +50,6 @@ class _DriverListItemState extends State<DriverListItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        user.name,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       const SizedBox(height: 4.0),
                       Text(
                         'Mail: ${widget.driverRequest.email}',

@@ -98,16 +98,39 @@ insert into university (name_uni, email_domain_uni) value ('UTA', 'uta.edu.ec');
 insert into university (name_uni, email_domain_uni) value ('UDLA', 'udla.edu.ec');
 
 insert into role_user (id_rl, name_rl, description_rl) value ('adm', 'admin', 'admin for drivers');
-insert into role_user (id_rl, name_rl, description_rl) value ('psg', 'passenger', 'passenger to trip');
 insert into role_user (id_rl, name_rl, description_rl) value ('drv', 'driver', 'driver for trips');
+insert into role_user (id_rl, name_rl, description_rl) value ('psg', 'passenger', 'passenger to trip');
 
-insert into option_role (id_op, name_op, description_op) value ('ad', 'approve drivers', 'approve drivers');
-insert into option_role (id_op, name_op, description_op) value ('cp', 'change password', 'change password');
+insert into option_role (id_op, name_op, description_op) value ('drv', 'drivers', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('prq', 'pending requests', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('arq', 'approved requests', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('rap', 'rejected requests', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('bdr', 'be driver', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('tps', 'trips', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('crt', 'current trip', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('ctp', 'create trip', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('pfl', 'profile', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('lgo', 'log out', 'sn');
 
-insert into role_option (id_op, id_rl) value ('ad', 'adm');
-insert into role_option (id_op, id_rl) value ('cp', 'adm');
-insert into role_option (id_op, id_rl) value ('cp', 'psg');
-insert into role_option (id_op, id_rl) value ('cp', 'drv');
+insert into role_option (id_op, id_rl) value ('drv', 'adm');
+insert into role_option (id_op, id_rl) value ('prq', 'adm');
+insert into role_option (id_op, id_rl) value ('arq', 'adm');
+insert into role_option (id_op, id_rl) value ('rap', 'adm');
+insert into role_option (id_op, id_rl) value ('pfl', 'adm');
+insert into role_option (id_op, id_rl) value ('lgo', 'adm');
+
+insert into role_option (id_op, id_rl) value ('tps', 'drv');
+insert into role_option (id_op, id_rl) value ('crt', 'drv');
+insert into role_option (id_op, id_rl) value ('ctp', 'drv');
+insert into role_option (id_op, id_rl) value ('pfl', 'drv');
+insert into role_option (id_op, id_rl) value ('lgo', 'drv');
+
+insert into role_option (id_op, id_rl) value ('tps', 'psg');
+insert into role_option (id_op, id_rl) value ('crt', 'psg');
+insert into role_option (id_op, id_rl) value ('bdr', 'psg');
+insert into role_option (id_op, id_rl) value ('pfl', 'psg');
+insert into role_option (id_op, id_rl) value ('lgo', 'psg');
+
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
     VALUE (1, 'adm', '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.jpg', 'Software', 1);

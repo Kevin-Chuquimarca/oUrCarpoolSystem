@@ -37,6 +37,24 @@ public class DriverRequestController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/pending/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DriverRequestDTO> getAllPending() {
+        return driverRequestService.readAllPending();
+    }
+
+    @GetMapping("/approved/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DriverRequestDTO> getAllApproved() {
+        return driverRequestService.readAllApproved();
+    }
+
+    @GetMapping("/rejected/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DriverRequestDTO> getAllRejected() {
+        return driverRequestService.readAllRejected();
+    }
+
     @PostMapping
     public ResponseEntity<DriverRequestDTO> createDriverRequest(@RequestBody DriverRequestDTO driverRequestDTO) {
         DriverRequestDTO driverSaved = driverRequestService.create(driverRequestDTO);
@@ -96,5 +114,23 @@ public class DriverRequestController {
                     .body(resource);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @PutMapping("/approved")
+    public ResponseEntity<DriverRequestDTO> approveDriverRequest(@RequestParam("id") Integer id, @RequestParam("message") String message) {
+        boolean response = driverRequestService.approveDriverRequest(id, message);
+        return response ?
+                ResponseEntity.status(HttpStatus.OK).build()
+                :
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/rejected")
+    public ResponseEntity<DriverRequestDTO> rejectDriverRequest(@RequestParam("id") Integer id, @RequestParam("message") String message) {
+        boolean response = driverRequestService.rejectDriverRequest(id, message);
+        return response ?
+                ResponseEntity.status(HttpStatus.OK).build()
+                :
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

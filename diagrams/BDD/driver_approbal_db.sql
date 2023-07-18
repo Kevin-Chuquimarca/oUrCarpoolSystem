@@ -48,7 +48,7 @@ alter table driver_request add constraint fk_admin_driver foreign key (id_ad)
 insert into driver_admin (name_ad, last_name_ad, email_ad, phone_ad) value ('Kevin', 'Chuquimarca', 'kschuquimarca@espe.edu.ec', '0984991746');
 
 insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr)
-    value (1, 'kschuquimarca@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC123.jpg', 'ABC123', 'ABC123.jpg', 'S', 'no message');
+    value (1, 'kschuquimarca@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC123.jpg', 'ABC123', 'ABC123.jpg', 'P', 'no message');
 
 insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr)
-    value (1, 'kschuquimarca@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC124.jpg', 'ABC123', 'ABC124.jpg', 'S', 'no message');
+    value (1, 'kschuquimarca@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC124.jpg', 'ABC123', 'ABC124.jpg', 'P', 'no message');

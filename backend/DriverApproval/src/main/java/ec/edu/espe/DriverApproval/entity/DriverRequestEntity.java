@@ -8,6 +8,9 @@ import java.sql.Date;
 @Entity
 @Data
 @Table(name = "driver_request", schema = "driver_approval_db")
+@NamedQueries({
+        @NamedQuery(name = "DriverRequestEntity.findByStateDr", query = "SELECT d FROM DriverRequestEntity d WHERE d.stateDr = :stateDr"),
+})
 public class DriverRequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -35,7 +38,7 @@ public class DriverRequestEntity {
     @Column(name = "photo_lic_dr", nullable = false)
     private String photoLicDr;
     @Basic
-    @Column(name = "plate_car_dr", nullable = false, length = 6)
+    @Column(name = "plate_car_dr", nullable = false, length = 7)
     private String plateCarDr;
     @Basic
     @Column(name = "photo_car_dr", nullable = false, length = 30)

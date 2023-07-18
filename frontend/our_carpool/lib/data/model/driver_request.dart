@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class DriverRequest {
   final int id;
   final int idAd;
@@ -49,10 +51,10 @@ class DriverRequest {
         'id': id,
         'idAd': idAd,
         'email': email,
-        'shippingDate': shippingDate,
-        'approvalDate': approvalDate,
+        'shippingDate': DateFormat('yyyy-MM-dd').format(shippingDate),
+        'approvalDate': DateFormat('yyyy-MM-dd').format(approvalDate),
         'typeLic': typeLic,
-        'expiryDateLic': expiryDateLic,
+        'expiryDateLic': DateFormat('yyyy-MM-dd').format(expiryDateLic),
         'photoLic': photoLic,
         'plateCar': plateCar,
         'photoCar': photoCar,

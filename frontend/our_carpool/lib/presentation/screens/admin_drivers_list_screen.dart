@@ -17,7 +17,7 @@ class _AdminDriversListScreenState extends State<AdminDriversListScreen> {
 
   _getDriversRequests() {
     DriverRequestDomain driverRequestDomain = DriverRequestDomain();
-    driverRequestDomain.getDriversRequest().then((value) {
+    driverRequestDomain.getAllPending().then((value) {
       setState(() {
         _drivers = value;
       });

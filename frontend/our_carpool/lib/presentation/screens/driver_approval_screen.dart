@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
 import '../../data/model/user.dart';
+import '../../domain/user_domain.dart';
 import '../../utils/colors.dart';
 import 'profile_approved_screen.dart';
 import 'profile_denied_screen.dart';
 
 class DriverApprovalScreen extends StatefulWidget {
-  final DriverRequest driver;
-  final User user;
+  const DriverApprovalScreen({super.key, required this.driver});
 
-  const DriverApprovalScreen(
-      {super.key, required this.driver, required this.user});
+  final DriverRequest driver;
 
   @override
   State<DriverApprovalScreen> createState() => _DriverApprovalScreenState();
@@ -21,6 +20,23 @@ class DriverApprovalScreen extends StatefulWidget {
 
 class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
   DriverRequestDomain driverRequestDomain = DriverRequestDomain();
+  UserDomain userDomain = UserDomain();
+
+  User user = User.empty();
+
+  _getUser() {
+    userDomain.getDataUserByEmail(widget.driver.email).then((value) {
+      setState(() {
+        user = value;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +88,34 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                 ),
               ),
               FutureBuilder<Uint8List>(
+                future: userDomain.getProfilePicture(user.photo),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.hasData) {
+                    return Center(
+                      child: Image.memory(
+                        snapshot.data!,
+                        fit: BoxFit.contain,
+                      ),
+                    );
+                  } else {
+                    return const Center(child: Text('No data available'));
+                  }
+                },
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'CAR PHOTO',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              FutureBuilder<Uint8List>(
                 future:
                     driverRequestDomain.getCarPicture(widget.driver.photoLic),
                 builder: (context, snapshot) {
@@ -112,21 +156,21 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ID: ${widget.user.id}',
+                        'ID: ${user.id}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        'Name: ${widget.user.name}',
+                        'Name: ${user.name}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        'Last Name: ${widget.user.lastName}',
+                        'Last Name: ${user.lastName}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
@@ -151,12 +195,11 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                       height: 52,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Lógica para aceptar al conductor
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const ProfileApprovedScreen(),
+                                  ProfileApprovedScreen(idDr: widget.driver.id),
                             ),
                           );
                         },
@@ -183,7 +226,8 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProfileDeniedScreen(),
+                              builder: (context) =>
+                                  ProfileDeniedScreen(idDr: widget.driver.id),
                             ),
                           );
                         },
