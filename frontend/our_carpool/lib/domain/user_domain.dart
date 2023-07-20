@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:our_carpool/data/model/driver_request.dart';
-
 import '../data/model/login_response.dart';
 import '../data/model/user.dart';
 import '../data/model/user_login.dart';

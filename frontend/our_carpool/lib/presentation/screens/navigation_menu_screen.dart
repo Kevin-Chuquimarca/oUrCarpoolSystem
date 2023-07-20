@@ -12,7 +12,7 @@ import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'drivers_screen.dart';
+import 'show_my_trips_screen.dart';
 
 class NavigationMenuScreen extends StatefulWidget {
   const NavigationMenuScreen({Key? key}) : super(key: key);
@@ -26,10 +26,10 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
   List<String> _idOptions = List.empty();
 
   static const Map<String, Widget> _widgetOptions = <String, Widget>{
-    'drv': DriversScreen(),
     'prq': AdminDriversListScreen(),
     'arq': ApprovedRequestScreen(),
     'rap': RejectedRequestScreen(),
+    'smt': ShowMyTripsScreen(),
     'bdr': DriverRequestScreen(),
     'tps': TripsScreen(),
     'crt': CurrentTripScreen(),
@@ -39,10 +39,10 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
   };
 
   static const Map<String, Text> _appBarTitles = <String, Text>{
-    'drv': Text('Drivers'),
     'prq': Text('Pending Requests'),
     'arq': Text('Approved Requests'),
     'rap': Text('Rejected Requests'),
+    'smt': Text('Show my Trips'),
     'bdr': Text('Driver Request'),
     'tps': Text('Trips'),
     'crt': Text('Current Trip'),
@@ -131,17 +131,9 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
                 },
               ),
             ),
-            if (_idOptions.contains('drv'))
-              ListTile(
-                title: const Text('Drivers'),
-                selected: _selectedIndex == 'drv',
-                onTap: () {
-                  _onItemTapped('drv');
-                  Navigator.pop(context);
-                },
-              ),
             if (_idOptions.contains('prq'))
               ListTile(
+                leading: const Icon(Icons.format_list_bulleted),
                 title: const Text('Pending Requests'),
                 selected: _selectedIndex == 'prq',
                 onTap: () {
@@ -151,6 +143,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('arq'))
               ListTile(
+                leading: const Icon(Icons.check_circle_outline),
                 title: const Text('Approved Requests'),
                 selected: _selectedIndex == 'arq',
                 onTap: () {
@@ -160,6 +153,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('rap'))
               ListTile(
+                leading: const Icon(Icons.block_flipped),
                 title: const Text('Rejected Requests'),
                 selected: _selectedIndex == 'rap',
                 onTap: () {
@@ -167,8 +161,19 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
                   Navigator.pop(context);
                 },
               ),
+            if (_idOptions.contains('smt'))
+              ListTile(
+                leading: const Icon(Icons.format_list_bulleted),
+                title: const Text('Show my Trips'),
+                selected: _selectedIndex == 'smt',
+                onTap: () {
+                  _onItemTapped('smt');
+                  Navigator.pop(context);
+                },
+              ),
             if (_idOptions.contains('bdr'))
               ListTile(
+                leading: const Icon(Icons.feed),
                 title: const Text('Driver Request'),
                 selected: _selectedIndex == 'bdr',
                 onTap: () {
@@ -178,6 +183,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('tps'))
               ListTile(
+                leading: const Icon(Icons.directions_car),
                 title: const Text('Trips'),
                 selected: _selectedIndex == 'tps',
                 onTap: () {
@@ -187,6 +193,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('crt'))
               ListTile(
+                leading: const Icon(Icons.place),
                 title: const Text('Current Trip'),
                 selected: _selectedIndex == 'crt',
                 onTap: () {
@@ -196,6 +203,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('ctp'))
               ListTile(
+                leading: const Icon(Icons.verified),
                 title: const Text('Create Trip'),
                 selected: _selectedIndex == 'ctp',
                 onTap: () {
@@ -205,6 +213,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('pfl'))
               ListTile(
+                leading: const Icon(Icons.account_circle),
                 title: const Text('Profile'),
                 selected: _selectedIndex == 'pfl',
                 onTap: () {
@@ -214,6 +223,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               ),
             if (_idOptions.contains('lgo'))
               ListTile(
+                leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
                 selected: _selectedIndex == 'lgo',
                 onTap: () {

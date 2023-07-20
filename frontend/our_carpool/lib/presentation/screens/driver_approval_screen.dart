@@ -80,6 +80,58 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
+                'PERSONAL INFORMATION',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ID: ${user.ci}',
+                        style: const TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'Name: ${user.name}',
+                        style: const TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'Last Name: ${user.lastName}',
+                        style: const TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'Type License: ${widget.driver.typeLic}',
+                        style: const TextStyle(
+                          color: AppColors.whiteColor,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
                 'PROFILE PHOTO',
                 style: TextStyle(
                   fontSize: 20,
@@ -87,25 +139,25 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                   color: AppColors.primaryColor,
                 ),
               ),
-              FutureBuilder<Uint8List>(
-                future: userDomain.getProfilePicture(user.photo),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (snapshot.hasData) {
-                    return Center(
-                      child: Image.memory(
-                        snapshot.data!,
-                        fit: BoxFit.contain,
-                      ),
-                    );
-                  } else {
-                    return const Center(child: Text('No data available'));
-                  }
-                },
-              ),
+              // FutureBuilder<Uint8List>(
+              //   future: userDomain.getProfilePicture(user.photo),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const Center(child: CircularProgressIndicator());
+              //     } else if (snapshot.hasError) {
+              //       return Center(child: Text('Error: ${snapshot.error}'));
+              //     } else if (snapshot.hasData) {
+              //       return Center(
+              //         child: Image.memory(
+              //           snapshot.data!,
+              //           fit: BoxFit.contain,
+              //         ),
+              //       );
+              //     } else {
+              //       return const Center(child: Text('No data available'));
+              //     }
+              //   },
+              // ),
               const SizedBox(height: 16),
               const Text(
                 'CAR PHOTO',
@@ -135,15 +187,6 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                   }
                 },
               ),
-              const SizedBox(height: 16),
-              const Text(
-                'PERSONAL INFORMATION',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor,
-                ),
-              ),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -156,28 +199,7 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ID: ${user.id}',
-                        style: const TextStyle(
-                          color: AppColors.whiteColor,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Text(
-                        'Name: ${user.name}',
-                        style: const TextStyle(
-                          color: AppColors.whiteColor,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Text(
-                        'Last Name: ${user.lastName}',
-                        style: const TextStyle(
-                          color: AppColors.whiteColor,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Text(
-                        'Type License: ${widget.driver.typeLic}',
+                        'Plate: ${widget.driver.plateCar}',
                         style: const TextStyle(
                           color: AppColors.whiteColor,
                           fontSize: 18,
@@ -222,7 +244,6 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                       height: 52,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Lógica para rechazar al conductor
                           Navigator.push(
                             context,
                             MaterialPageRoute(

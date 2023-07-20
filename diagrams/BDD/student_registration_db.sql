@@ -1,5 +1,7 @@
 create database student_registration_db;
 
+use student_registration_db;
+
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     7/8/2023 4:22:46 PM                          */
@@ -101,10 +103,10 @@ insert into role_user (id_rl, name_rl, description_rl) value ('adm', 'admin', 'a
 insert into role_user (id_rl, name_rl, description_rl) value ('drv', 'driver', 'driver for trips');
 insert into role_user (id_rl, name_rl, description_rl) value ('psg', 'passenger', 'passenger to trip');
 
-insert into option_role (id_op, name_op, description_op) value ('drv', 'drivers', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('prq', 'pending requests', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('arq', 'approved requests', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('rap', 'rejected requests', 'sn');
+insert into option_role (id_op, name_op, description_op) value ('smt', 'show my trips', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('bdr', 'be driver', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('tps', 'trips', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('crt', 'current trip', 'sn');
@@ -112,25 +114,30 @@ insert into option_role (id_op, name_op, description_op) value ('ctp', 'create t
 insert into option_role (id_op, name_op, description_op) value ('pfl', 'profile', 'sn');
 insert into option_role (id_op, name_op, description_op) value ('lgo', 'log out', 'sn');
 
-insert into role_option (id_op, id_rl) value ('drv', 'adm');
 insert into role_option (id_op, id_rl) value ('prq', 'adm');
 insert into role_option (id_op, id_rl) value ('arq', 'adm');
 insert into role_option (id_op, id_rl) value ('rap', 'adm');
 insert into role_option (id_op, id_rl) value ('pfl', 'adm');
 insert into role_option (id_op, id_rl) value ('lgo', 'adm');
 
-insert into role_option (id_op, id_rl) value ('tps', 'drv');
+insert into role_option (id_op, id_rl) value ('smt', 'drv');
 insert into role_option (id_op, id_rl) value ('crt', 'drv');
 insert into role_option (id_op, id_rl) value ('ctp', 'drv');
 insert into role_option (id_op, id_rl) value ('pfl', 'drv');
 insert into role_option (id_op, id_rl) value ('lgo', 'drv');
 
+insert into role_option (id_op, id_rl) value ('bdr', 'psg');
 insert into role_option (id_op, id_rl) value ('tps', 'psg');
 insert into role_option (id_op, id_rl) value ('crt', 'psg');
-insert into role_option (id_op, id_rl) value ('bdr', 'psg');
 insert into role_option (id_op, id_rl) value ('pfl', 'psg');
 insert into role_option (id_op, id_rl) value ('lgo', 'psg');
 
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
     VALUE (1, 'adm', '1727195420','kschuquimarca@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.jpg', 'Software', 1);
+
+insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
+    VALUE (1, 'drv', '1727195421','kschuquimarca1@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.jpg', 'Software', 1);
+
+insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
+    VALUE (1, 'psg', '1727195422','kschuquimarca2@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.jpg', 'Software', 1);

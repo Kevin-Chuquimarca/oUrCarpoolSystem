@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:intl/intl.dart';
+import 'package:our_carpool/presentation/screens/request_confirmation_screen.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -71,13 +72,14 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Photo License'),
+                  const Divider(height: 5, color: AppColors.dividerColor),
+                  const Text('PHOTO LICENSE'),
                   Center(
                     child: _photoLicense == null
                         ? const Text(
@@ -126,7 +128,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   const Text(
-                    'License Type',
+                    'LICENSE TYPE',
                     style: TextStyle(
                       fontSize: 10,
                     ),
@@ -165,7 +167,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   const Text(
-                    'Expiry Date License',
+                    'EXPIRY DATE LICENSE',
                     style: TextStyle(
                       fontSize: 10,
                     ),
@@ -200,7 +202,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                     },
                   ),
                   const SizedBox(height: 16.0),
-                  const Text('Photo Car'),
+                  const Text('PHOTO CAR'),
                   Center(
                     child: _photoCar == null
                         ? const Text(
@@ -249,7 +251,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   const Text(
-                    'Plate Car',
+                    'PLATE CAR',
                     style: TextStyle(
                       fontSize: 10,
                     ),
@@ -261,7 +263,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your plate car';
                       }
-                      if (value.length > 7) {
+                      if (value.length > 7 || value.length < 6) {
                         return 'Please enter a valid plate car';
                       }
                       return null;
@@ -272,6 +274,7 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                           color: Color(0xFF111A35),
                         ),
                       ),
+                      // hintText: 'ABC1234',
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -304,11 +307,11 @@ class _DriverRequestScreen extends State<DriverRequestScreen> {
                               .then((value) => {
                                     if (value)
                                       {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content:
-                                                Text('Request sent success'),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RequestConfirmationScreen(),
                                           ),
                                         )
                                       }

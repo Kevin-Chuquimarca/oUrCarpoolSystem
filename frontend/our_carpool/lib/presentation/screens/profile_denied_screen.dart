@@ -21,74 +21,133 @@ class _ProfileDeniedScreenState extends State<ProfileDeniedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        child: SingleChildScrollView(
           child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.check_circle,
-              color: AppColors.redColor,
-              size: 240,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'PROFILE DENIED',
-              style: TextStyle(fontSize: 40, color: AppColors.greenColor),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _messageController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the message';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.primaryColor,
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.redColor,
+                    size: 240,
                   ),
-                ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'PROFILE',
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: AppColors.redColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'DENIED',
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: AppColors.redColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _messageController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the message';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.redColor,
+                          ),
+                        ),
+                        hintText:
+                            'The reason the request has been denied is...'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        DriverRequestDomain driverRequestDomain =
+                            DriverRequestDomain();
+                        driverRequestDomain
+                            .sendRejectedDriverRequest(
+                                widget.idDr, _messageController.text)
+                            .then((value) => {
+                                  if (value)
+                                    {
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavigationMenuScreen(),
+                                        ),
+                                        (route) => false,
+                                      )
+                                    }
+                                  else
+                                    {
+                                      Navigator.pop(context),
+                                    }
+                                });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.redColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    child: const SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: Center(
+                        child: Text(
+                          'CONTINUE',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColors.redColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    child: const SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: Center(
+                        child: Text(
+                          'CANCEL',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                DriverRequestDomain driverRequestDomain = DriverRequestDomain();
-                driverRequestDomain
-                    .sendRejectedDriverRequest(
-                        widget.idDr, _messageController.text)
-                    .then((value) => {
-                          if (value)
-                            {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NavigationMenuScreen(),
-                                ),
-                                (route) => false,
-                              )
-                            }
-                          else
-                            {
-                              Navigator.pop(context),
-                            }
-                        });
-              },
-              child: const Text("Accept"),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Cancel"))
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
