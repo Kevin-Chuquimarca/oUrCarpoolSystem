@@ -6,7 +6,7 @@
 	<Local Expanded="Yes">
 		<Model ID="{BA6C4558-289B-4772-AF04-72FFB7A551E1}" Loaded="No" Name="ArchitectureDiagram" Type="{5215C79E-A9A1-4738-A627-36DA432EFE29}" URL="UML/architecture/ArchitectureDiagram.eam"/>
 		<Model ID="{0F276ECD-5C7C-42F3-ABEE-D58ED58FF97D}" Loaded="No" Name="InfraestructureDiagram" Type="{5215C79E-A9A1-4738-A627-36DA432EFE29}" URL="UML/infraestructure/InfraestructureDiagram.eam"/>
-		<Model Expanded="Yes" ID="{47694FE4-F499-42ED-9D8C-6949849E6F75}" Name="OUR_CARPOOL" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="MER/conceptual/OUR_CARPOOL.cdm"/>
+		<Model Expanded="Yes" ID="{47694FE4-F499-42ED-9D8C-6949849E6F75}" Name="OUR_CARPOOL" Selected="Yes" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="MER/conceptual/OUR_CARPOOL.cdm"/>
 		<Model Expanded="Yes" ID="{B70CD328-E8D4-407C-B0CC-799084AD22F0}" Loaded="No" Name="ClassDiagramDriverApproval" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UML/class/ClassDiagramDriverApproval.oom"/>
 		<Model Expanded="Yes" ID="{3A5316F5-5D32-4DDD-A622-81A22D17505C}" Loaded="No" Name="OUR_CARPOOL" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="MER/logical/OUR_CARPOOL.ldm"/>
 		<Model Expanded="Yes" ID="{9B5D6E9B-5EA8-4214-8F0B-427AD9BAC659}" Loaded="No" Name="OUR_CARPOOL" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="MER/physical/OUR_CARPOOL.pdm"/>
