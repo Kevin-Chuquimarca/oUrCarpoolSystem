@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/trip_service_db
+    username: root
+    password: 0936
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8082
