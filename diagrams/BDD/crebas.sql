@@ -1,105 +1,103 @@
-create database trip_service;
-
-use trip_service;
-
 /*==============================================================*/
-/* dbms name:      mysql 5.0                                    */
-/* created on:     7/26/2023 10:14:51 pm                        */
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     8/7/2023 11:17:08 PM                         */
 /*==============================================================*/
 
-drop table if exists driver;
-drop table if exists location;
-drop table if exists passenger;
-drop table if exists request;
-drop table if exists trip;
+
+drop table if exists DRIVER;
+
+drop table if exists LOCATION;
+
+drop table if exists PASSENGER;
+
+drop table if exists REQUEST;
+
+drop table if exists TRIP;
 
 /*==============================================================*/
-/* table: driver                                                */
+/* Table: DRIVER                                                */
 /*==============================================================*/
-create table driver
+create table DRIVER
 (
-   id_dri               int not null,
-   plate_car_dri        varchar(6),
-   model_car_dri        varchar(20),
-   photo_car_dri        varchar(30),
-   num_seats_dri        int,
-   free_seats_dri       int,
-   cod_user_dri         int,
-   primary key (id_dri)
+   ID_DRI               int not null auto_increment,
+   ID_LOC               bigint,
+   PLATE_CAR_DRI        varchar(6),
+   PHOTO_CAR_DRI        varchar(30),
+   COD_USER_DRI         int,
+   primary key (ID_DRI)
 );
 
 /*==============================================================*/
-/* table: location                                              */
+/* Table: LOCATION                                              */
 /*==============================================================*/
-create table location
+create table LOCATION
 (
-   id_loc               bigint not null,
-   id_pas               int not null,
-   id_dri               int not null,
-   id_trip              bigint not null,
-   lat_loc              decimal(9,6),
-   long_loc             decimal(9,6),
-   name_loc             varchar(30),
-   primary key (id_loc)
+   ID_LOC               bigint not null auto_increment,
+   LAT_LOC              decimal(9,6),
+   LONG_LOC             decimal(9,6),
+   NAME_LOC             varchar(30),
+   primary key (ID_LOC)
 );
 
 /*==============================================================*/
-/* table: passenger                                             */
+/* Table: PASSENGER                                             */
 /*==============================================================*/
-create table passenger
+create table PASSENGER
 (
-   id_pas               int not null,
-   id_trip              bigint not null,
-   cod_user_pas         int,
-   primary key (id_pas)
+   ID_PAS               int not null auto_increment,
+   ID_TRIP              bigint not null,
+   ID_LOC               bigint,
+   COD_USER_PAS         int,
+   primary key (ID_PAS)
 );
 
 /*==============================================================*/
-/* table: request                                               */
+/* Table: REQUEST                                               */
 /*==============================================================*/
-create table request
+create table REQUEST
 (
-   id_req               bigint not null,
-   id_dri               int not null,
-   id_pas               int not null,
-   price_trip_req       decimal(10,2),
-   phone_req            varchar(10),
-   state_req            varchar(1),
-   primary key (id_req)
+   ID_REQ               bigint not null auto_increment,
+   ID_DRI               int not null,
+   ID_PAS               int not null,
+   PHONE_REQ            varchar(10),
+   STATE_REQ            varchar(1),
+   primary key (ID_REQ)
 );
 
 /*==============================================================*/
-/* table: trip                                                  */
+/* Table: TRIP                                                  */
 /*==============================================================*/
-create table trip
+create table TRIP
 (
-   id_trip              bigint not null,
-   id_dri               int not null,
-   leave_hour_trip      time,
-   date_trip            date,
-   arrival_hour_trip    time,
-   available_trip       bool,
-   price_all_trip       decimal(10,2),
-   primary key (id_trip)
+   ID_TRIP              bigint not null auto_increment,
+   ID_DRI               int not null,
+   ID_LOC               bigint,
+   LEAVE_HOUR_TRIP      time,
+   DATE_TRIP            date,
+   AVAILABLE_TRIP       bool,
+   FREE_SEATS_TRIP      int,
+   TYPE_TRIP_TRIP       varchar(1),
+   primary key (ID_TRIP)
 );
 
-alter table location add constraint fk_driver_location foreign key (id_dri)
-      references driver (id_dri) on delete restrict on update restrict;
+alter table DRIVER add constraint FK_DRIVER_LOCATION foreign key (ID_LOC)
+      references LOCATION (ID_LOC) on delete restrict on update restrict;
 
-alter table location add constraint fk_passenger_location foreign key (id_pas)
-      references passenger (id_pas) on delete restrict on update restrict;
+alter table PASSENGER add constraint FK_PASSENGER_LOCATION foreign key (ID_LOC)
+      references LOCATION (ID_LOC) on delete restrict on update restrict;
 
-alter table location add constraint fk_trip_location foreign key (id_trip)
-      references trip (id_trip) on delete restrict on update restrict;
+alter table PASSENGER add constraint FK_TRIP_PASSENGER foreign key (ID_TRIP)
+      references TRIP (ID_TRIP) on delete restrict on update restrict;
 
-alter table passenger add constraint fk_trip_passenger foreign key (id_trip)
-      references trip (id_trip) on delete restrict on update restrict;
+alter table REQUEST add constraint FK_DRIVER_REQUEST foreign key (ID_DRI)
+      references DRIVER (ID_DRI) on delete restrict on update restrict;
 
-alter table request add constraint fk_driver_request foreign key (id_dri)
-      references driver (id_dri) on delete restrict on update restrict;
+alter table REQUEST add constraint FK_PASSENGER_RESQUEST foreign key (ID_PAS)
+      references PASSENGER (ID_PAS) on delete restrict on update restrict;
 
-alter table request add constraint fk_passenger_request foreign key (id_pas)
-      references passenger (id_pas) on delete restrict on update restrict;
+alter table TRIP add constraint FK_RELATIONSHIP_8 foreign key (ID_DRI)
+      references DRIVER (ID_DRI) on delete restrict on update restrict;
 
-alter table trip add constraint fk_driver_trip foreign key (id_dri)
-      references driver (id_dri) on delete restrict on update restrict;
+alter table TRIP add constraint FK_TRIP_LOCATION foreign key (ID_LOC)
+      references LOCATION (ID_LOC) on delete restrict on update restrict;
+
