@@ -37,7 +37,8 @@ class DriverRequestDomain {
       String state,
       String message,
       File licenseImg,
-      File carImg) async {
+      File carImg,
+      int codUser) async {
     DriverRequest driverRequestToSend = DriverRequest(
         id: 0,
         idAd: idAd,
@@ -50,7 +51,8 @@ class DriverRequestDomain {
         plateCar: plateCar,
         photoCar: photoCar,
         state: state,
-        message: message);
+        message: message,
+        codUser: codUser);
     bool responsePostDriver =
         await _driverRequestProvider.postDriverRequest(driverRequestToSend);
     bool responsePostLicense =

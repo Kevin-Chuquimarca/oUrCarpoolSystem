@@ -95,7 +95,7 @@ alter table REQUEST add constraint FK_DRIVER_REQUEST foreign key (ID_DRI)
 alter table REQUEST add constraint FK_PASSENGER_RESQUEST foreign key (ID_PAS)
       references PASSENGER (ID_PAS) on delete restrict on update restrict;
 
-alter table TRIP add constraint FK_RELATIONSHIP_8 foreign key (ID_DRI)
+alter table TRIP add constraint FK_TRIP_DRIVER foreign key (ID_DRI)
       references DRIVER (ID_DRI) on delete restrict on update restrict;
 
 alter table TRIP add constraint FK_TRIP_LOCATION foreign key (ID_LOC)

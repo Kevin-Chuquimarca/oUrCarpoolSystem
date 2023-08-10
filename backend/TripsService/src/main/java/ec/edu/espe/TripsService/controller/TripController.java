@@ -1,6 +1,7 @@
 package ec.edu.espe.TripsService.controller;
 
 import ec.edu.espe.TripsService.dto.TripDTO;
+import ec.edu.espe.TripsService.dto.TripLocationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("trip")
+@RequestMapping("/trip")
 @RequiredArgsConstructor
 public class TripController {
     private final TripService tripService;
@@ -34,7 +35,7 @@ public class TripController {
         TripDTO tripCreated = tripService.create(tripDTO);
         return (tripCreated != null) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(tripCreated) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")

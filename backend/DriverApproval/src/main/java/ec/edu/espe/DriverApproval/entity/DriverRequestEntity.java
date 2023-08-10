@@ -49,5 +49,7 @@ public class DriverRequestEntity {
     @Basic
     @Column(name = "message_dr", length = 150)
     private String messageDr;
-
+    @Basic
+    @Column(name = "cod_user_dr", nullable = false)
+    private int codUserDr;
 }

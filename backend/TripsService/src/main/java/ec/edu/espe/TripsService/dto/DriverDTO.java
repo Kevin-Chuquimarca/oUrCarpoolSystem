@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverDTO {
     private int id;
+    private Long idLoc;
     private String plateCar;
-    private String modelCar;
     private String photoCar;
-    private Integer numSeats;
-    private Integer freeSeats;
     private Integer codUser;
 }

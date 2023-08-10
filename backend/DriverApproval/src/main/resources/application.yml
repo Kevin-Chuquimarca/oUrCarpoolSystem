@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-db-s:3306/driver_approval_db
+    url: jdbc:mysql://localhost:3306/driver_approval_db
     username: root
-    password: 0936
+    password: password
   jpa:
     hibernate:
       ddl-auto: update

@@ -24,7 +24,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
 
     @Override
     public UserDTO create(UserDTO userDTO) {
-        if (!isUserRegistered(userDTO.getEmail()) && !isUserRegisteredCI(userDTO.getCi())){
+        if (!isUserRegistered(userDTO.getEmail()) && !isUserRegisteredCI(userDTO.getCi())) {
             String defaultPassword = PasswordUtil.generate();
             String encodedPassword = passwordEncoder.encode(defaultPassword);
             UserEntity user = new UserEntity(userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
@@ -65,7 +65,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     public UserDTO update(Integer id, UserDTO userDTO) {
         Optional<UserEntity> oldUser = userRepository.findById(id);
         if (oldUser.isPresent()) {
-            UserEntity newUser = new UserEntity(id,  userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
+            UserEntity newUser = new UserEntity(id, userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), oldUser.get().getPassUser(), userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), true);
             return UserMapper.INSTANCE.toUserDTO(userRepository.save(newUser));
         }
         return null;
@@ -101,5 +101,16 @@ public class UserService implements FacadeService<UserDTO, Integer> {
             return Optional.of(new MessageResponseDTO("Password changed successfully"));
         }
         return Optional.empty();
+    }
+
+    public boolean changeRoleToDriver(Integer id) {
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            user.setIdRl("drv");
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

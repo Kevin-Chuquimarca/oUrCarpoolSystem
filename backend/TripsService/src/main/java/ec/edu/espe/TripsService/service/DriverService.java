@@ -17,8 +17,11 @@ public class DriverService implements FacadeService<DriverDTO, Integer> {
 
     @Override
     public DriverDTO create(DriverDTO driverDTO) {
-        DriverEntity driverSaved = driverRepository.save(DriverMapper.INSTANCE.toDriverEntity(driverDTO));
-        return DriverMapper.INSTANCE.toDriverDTO(driverSaved);
+        if (driverDTO.getId() != 0) {
+            DriverEntity driverSaved = driverRepository.save(DriverMapper.INSTANCE.toDriverEntity(driverDTO));
+            return DriverMapper.INSTANCE.toDriverDTO(driverSaved);
+        }
+        return null;
     }
 
     @Override

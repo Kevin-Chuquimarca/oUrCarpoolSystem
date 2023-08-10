@@ -42,7 +42,7 @@ public class DriverController {
         DriverDTO driverCreated = driverService.create(driverDTO);
         return (driverCreated != null) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(driverCreated) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")

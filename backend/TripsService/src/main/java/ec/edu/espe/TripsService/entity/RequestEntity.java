@@ -2,11 +2,10 @@ package ec.edu.espe.TripsService.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "request", schema = "trip_service_db")
+@Table(name = "request", schema = "trip_service_db", catalog = "")
 public class RequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -18,9 +17,6 @@ public class RequestEntity {
     @Basic
     @Column(name = "id_pas", nullable = false)
     private int idPas;
-    @Basic
-    @Column(name = "price_trip_req", nullable = true, precision = 2)
-    private BigDecimal priceTripReq;
     @Basic
     @Column(name = "phone_req", nullable = true, length = 10)
     private String phoneReq;
@@ -58,14 +54,6 @@ public class RequestEntity {
         this.idPas = idPas;
     }
 
-    public BigDecimal getPriceTripReq() {
-        return priceTripReq;
-    }
-
-    public void setPriceTripReq(BigDecimal priceTripReq) {
-        this.priceTripReq = priceTripReq;
-    }
-
     public String getPhoneReq() {
         return phoneReq;
     }
@@ -87,12 +75,12 @@ public class RequestEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestEntity that = (RequestEntity) o;
-        return idReq == that.idReq && idDri == that.idDri && idPas == that.idPas && Objects.equals(priceTripReq, that.priceTripReq) && Objects.equals(phoneReq, that.phoneReq) && Objects.equals(stateReq, that.stateReq);
+        return idReq == that.idReq && idDri == that.idDri && idPas == that.idPas && Objects.equals(phoneReq, that.phoneReq) && Objects.equals(stateReq, that.stateReq);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idReq, idDri, idPas, priceTripReq, phoneReq, stateReq);
+        return Objects.hash(idReq, idDri, idPas, phoneReq, stateReq);
     }
 
     public DriverEntity getDriverByIdDri() {

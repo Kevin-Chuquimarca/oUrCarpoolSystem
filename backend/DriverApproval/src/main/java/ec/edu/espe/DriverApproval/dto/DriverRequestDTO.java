@@ -22,4 +22,5 @@ public class DriverRequestDTO {
     private String photoCar;
     private String state;
     private String message;
+    private int codUser;
 }

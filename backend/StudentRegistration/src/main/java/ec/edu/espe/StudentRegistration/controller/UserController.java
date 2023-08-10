@@ -103,9 +103,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @PutMapping("/updatePassword/{id}")
+    @PutMapping("/update-password/{id}")
     public ResponseEntity<MessageResponseDTO> putUserPassword(@PathVariable Integer id, @RequestBody UserLoginDTO userLoginDTO) {
         Optional<MessageResponseDTO> messageResponseDTO = userService.changeUserPassword(id, userLoginDTO.getPassword());
         return messageResponseDTO.map(responseDTO -> ResponseEntity.status(HttpStatus.OK).body(responseDTO)).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
+    }
+
+    @PatchMapping("/change-role-to-driver/{id}")
+    public ResponseEntity<String> changeRoleToDriver(@PathVariable Integer id) {
+        boolean success = userService.changeRoleToDriver(id);
+        if (success) {
+            return ResponseEntity.ok("Role changed to driver successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to change role to driver.");
+        }
     }
 }

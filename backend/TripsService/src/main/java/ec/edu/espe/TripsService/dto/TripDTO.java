@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -14,9 +13,10 @@ import java.sql.Time;
 public class TripDTO {
     private long id;
     private int idDri;
+    private Long idLoc;
     private Time leaveHour;
     private Date date;
-    private Time arrivalHour;
     private Byte available;
-    private BigDecimal priceAll;
+    private int freeSeats;
+    private String typeTrip;
 }

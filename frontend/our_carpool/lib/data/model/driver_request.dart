@@ -13,6 +13,7 @@ class DriverRequest {
   final String photoCar;
   final String state;
   final String message;
+  final int codUser;
 
   DriverRequest({
     required this.id,
@@ -27,6 +28,7 @@ class DriverRequest {
     required this.photoCar,
     required this.state,
     required this.message,
+    required this.codUser,
   });
 
   factory DriverRequest.fromJson(Map<String, dynamic> json) {
@@ -44,7 +46,8 @@ class DriverRequest {
         plateCar: json['plateCar'],
         photoCar: json['photoCar'],
         state: json['state'],
-        message: json['message']);
+        message: json['message'],
+        codUser: json['codUser']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -59,6 +62,7 @@ class DriverRequest {
         'plateCar': plateCar,
         'photoCar': photoCar,
         'state': state,
-        'message': message
+        'message': message,
+        'codUser': codUser,
       };
 }

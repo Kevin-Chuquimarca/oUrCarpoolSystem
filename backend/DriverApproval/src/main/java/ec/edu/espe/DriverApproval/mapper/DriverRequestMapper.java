@@ -22,6 +22,7 @@ public interface DriverRequestMapper {
     @Mapping(source = "photoCar", target = "photoCarDr")
     @Mapping(source = "state", target = "stateDr")
     @Mapping(source = "message", target = "messageDr")
+    @Mapping(source = "codUser", target = "codUserDr")
     DriverRequestEntity toDriverRequestEntity(DriverRequestDTO driverRequestDTO);
 
     @Mapping(source = "idDr", target = "id")
@@ -36,5 +37,6 @@ public interface DriverRequestMapper {
     @Mapping(source = "photoCarDr", target = "photoCar")
     @Mapping(source = "stateDr", target = "state")
     @Mapping(source = "messageDr", target = "message")
+    @Mapping(source = "codUserDr", target = "codUser")
     DriverRequestDTO toDriverRequestDTO(DriverRequestEntity driverRequestEntity);
 }

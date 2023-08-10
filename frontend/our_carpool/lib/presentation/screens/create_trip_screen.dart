@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:intl/intl.dart';
 import 'package:our_carpool/business/user_manager.dart';
+import 'package:our_carpool/data/model/trip-service/location.dart';
+import 'package:our_carpool/domain/trip-service/trip_location_domain.dart';
 import 'package:provider/provider.dart';
+import '../../data/model/trip-service/trip.dart';
+import '../../data/model/university_location.dart';
 import '../../utils/colors.dart';
+import 'map_screen.dart';
 
 class CreateTripScreen extends StatefulWidget {
   const CreateTripScreen({Key? key}) : super(key: key);
@@ -14,25 +20,37 @@ class CreateTripScreen extends StatefulWidget {
 
 class _CreateTripScreenState extends State<CreateTripScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _typeLicenseController = TextEditingController();
-  final _expiryDateLicenseController = TextEditingController();
-  final _expiryTimeLicenseController = TextEditingController();
-  final _plateCarController = TextEditingController();
+  final _leaveDate = TextEditingController();
+  final _leaveHour = TextEditingController();
 
-  String _selectedAvailablePlaces = "4";
-  final _availablePlaces = ["4", "3", "2", "1"];
+  UniversityLocation _selectedUniversity = UniversityLocation.empty();
+  List<UniversityLocation> _universities = List.empty();
+
+  bool _isChangedRoute = false;
+
+  String _selectedNumFreeSeats = "4";
+  final _numFreeSeats = ["4", "3", "2", "1"];
+
+  LatLng center = const LatLng(-1.8312, -78.1834);
+
+  void setCenter(LatLng newCenter) {
+    setState(() {
+      center = newCenter;
+    });
+  }
 
   @override
   void initState() {
-    _expiryDateLicenseController.text = "";
+    _leaveDate.text = "";
+    _universities = universitiesLocation;
+    _selectedUniversity = _universities[0];
     super.initState();
   }
 
   @override
   void dispose() {
-    _typeLicenseController.dispose();
-    _expiryDateLicenseController.dispose();
-    _plateCarController.dispose();
+    _leaveDate.dispose();
+    _leaveHour.dispose();
     super.dispose();
   }
 
@@ -61,7 +79,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                         ),
                         const SizedBox(height: 4.0),
                         TextFormField(
-                          controller: _expiryDateLicenseController,
+                          controller: _leaveDate,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter the date of the trip';
@@ -84,8 +102,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                               String formattedDate =
                                   DateFormat('yyyy-MM-dd').format(pickedDate);
                               setState(() {
-                                _expiryDateLicenseController.text =
-                                    formattedDate;
+                                _leaveDate.text = formattedDate;
                               });
                             }
                           },
@@ -101,7 +118,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                         ),
                         const SizedBox(height: 4.0),
                         TextFormField(
-                          controller: _expiryTimeLicenseController,
+                          controller: _leaveHour,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter the time of the trip';
@@ -122,10 +139,12 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                             );
 
                             if (pickedTime != null) {
-                              String formattedTime = pickedTime.format(context);
+                              DateTime now = DateTime(2023, 1, 1,
+                                  pickedTime.hour, pickedTime.minute);
+                              String formatTime =
+                                  DateFormat('HH:mm').format(now);
                               setState(() {
-                                _expiryTimeLicenseController.text =
-                                    formattedTime;
+                                _leaveHour.text = formatTime;
                               });
                             }
                           },
@@ -145,13 +164,13 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                             child: SizedBox(
                               height: 52,
                               child: DropdownButton<String>(
-                                value: _selectedAvailablePlaces,
+                                value: _selectedNumFreeSeats,
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                    _selectedAvailablePlaces = newValue!;
+                                    _selectedNumFreeSeats = newValue!;
                                   });
                                 },
-                                items: _availablePlaces
+                                items: _numFreeSeats
                                     .map<DropdownMenuItem<String>>((value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -177,65 +196,110 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                         ),
                         const SizedBox(height: 16.0),
                         const Text(
-                          'FROM',
+                          'POINT 1',
                           style: TextStyle(
                             fontSize: 10,
                           ),
                         ),
                         const SizedBox(height: 4.0),
-                        TextFormField(
-                          controller: _plateCarController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter starting location';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF111A35),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('Use old Location')),
+                              const SizedBox(width: 16.0),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MapScreen(
+                                          center: center, setCenter: setCenter),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Use new Location'),
                               ),
-                            ),
-                            icon: Icon(
-                              Icons.home_outlined,
-                              size: 35,
-                              color: AppColors.primaryColor,
-                            ),
-                            // hintText: 'ABC1234',
+                            ],
                           ),
                         ),
                         const SizedBox(height: 16.0),
                         const Text(
-                          'TO',
+                          'POINT 2',
                           style: TextStyle(
                             fontSize: 10,
                           ),
                         ),
                         const SizedBox(height: 4.0),
-                        TextFormField(
-                          controller: _plateCarController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter destination location';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF111A35),
+                        Container(
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            height: 52,
+                            child: DropdownButton<UniversityLocation>(
+                              value: _selectedUniversity,
+                              onChanged: (UniversityLocation? newValue) {
+                                setState(() {
+                                  _selectedUniversity = newValue!;
+                                });
+                              },
+                              items: _universities
+                                  .map<DropdownMenuItem<UniversityLocation>>(
+                                      (value) {
+                                return DropdownMenuItem<UniversityLocation>(
+                                  value: value,
+                                  child: Text(value.name),
+                                );
+                              }).toList(),
+                              icon: const Icon(Icons.arrow_drop_down),
+                              iconSize: 24,
+                              elevation: 16,
+                              style:
+                                  const TextStyle(color: AppColors.blackColor),
+                              underline: Container(
+                                height: 1,
+                                color: Colors.black,
                               ),
+                              isExpanded: true,
                             ),
-                            icon: Icon(
-                              Icons.location_on_outlined,
-                              size: 35,
-                              color: AppColors.primaryColor,
-                            ),
-                            // hintText: 'ABC1234',
                           ),
                         ),
                         const SizedBox(height: 16.0),
+                        (!_isChangedRoute)
+                            ? const Text(
+                                "Trip Route: From: Point 1 to: Point 2")
+                            : const Text(
+                                "Trip Route: From: Point 2 to: Point 1"),
+                        const SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _isChangedRoute = !_isChangedRoute;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: const Color(0xFF111A35),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          child: const SizedBox(
+                            width: double.infinity,
+                            height: 52,
+                            child: Center(
+                              child: Text(
+                                'CHANGE ROUTE',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -250,7 +314,28 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                   builder: (context, userManager, child) {
                     return ElevatedButton(
                       onPressed: () {
-                        // Antes estaba la lógica para crear la solicitud del conductor
+                        if (_formKey.currentState!.validate()) {
+                          TripLocationDomain tripLocationDomain =
+                              TripLocationDomain();
+                          final formatTime =
+                              DateFormat.Hm().parse(_leaveHour.text);
+                          tripLocationDomain.createTripLocation(
+                              Location(
+                                  id: 0,
+                                  lat: center.latitude,
+                                  lng: center.longitude,
+                                  name: ""),
+                              Trip(
+                                  id: 0,
+                                  idDri: userManager.user.id,
+                                  idLoc: 0,
+                                  leaveHour: DateTime(2023, 1, 1,
+                                      formatTime.hour, formatTime.minute),
+                                  date: DateTime.parse(_leaveDate.text),
+                                  available: 1,
+                                  freeSeats: int.parse(_selectedNumFreeSeats),
+                                  typeTrip: "P"));
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
