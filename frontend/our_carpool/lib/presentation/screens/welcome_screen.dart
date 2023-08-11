@@ -14,11 +14,11 @@ class WelcomeScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    "assets/background/background_oUrCarpool_Begin.png"),
-                fit: BoxFit.cover,
+                image: AssetImage("assets/background/oUrCarpoolLogo1.png"),
+                fit: BoxFit.fitWidth,
               ),
             ),
+            alignment: Alignment.center,
           ),
           Align(
             alignment: Alignment.bottomCenter,

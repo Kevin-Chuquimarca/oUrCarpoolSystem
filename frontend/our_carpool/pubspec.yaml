@@ -63,8 +63,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/background/background_oUrCarpool_Begin.png
-    - assets/images/google_logo.png
+    - assets/background/oUrCarpoolLogo1.png
     - assets/images/default-user-profile.png
 
   # The following line ensures that the Material Icons font is
