@@ -21,14 +21,14 @@ class _TripListItemState extends State<TripListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DriverApprovalScreen(
-              driver: widget.driverRequest,
-            ),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => DriverApprovalScreen(
+        //       driver: widget.driverRequest,
+        //     ),
+        //   ),
+        // );
       },
       child: Column(
         children: [

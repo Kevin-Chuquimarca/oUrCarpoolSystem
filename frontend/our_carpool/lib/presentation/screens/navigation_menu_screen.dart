@@ -7,7 +7,7 @@ import 'package:our_carpool/presentation/screens/create_trip_screen.dart';
 import 'package:our_carpool/presentation/screens/current_trip_screen.dart';
 import 'package:our_carpool/presentation/screens/driver_request_screen.dart';
 import 'package:our_carpool/presentation/screens/rejected_request_screen.dart';
-import 'package:our_carpool/presentation/screens/trips_screen.dart';
+import 'package:our_carpool/presentation/screens/trips_list_screen.dart';
 import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
 import 'package:our_carpool/presentation/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
     'rap': RejectedRequestScreen(),
     'smt': ShowMyTripsScreen(),
     'bdr': DriverRequestScreen(),
-    'tps': TripsScreen(),
+    'tps': TripsListScreen(),
     'crt': CurrentTripScreen(),
     'ctp': CreateTripScreen(),
     'pfl': UserProfileScreen(),
