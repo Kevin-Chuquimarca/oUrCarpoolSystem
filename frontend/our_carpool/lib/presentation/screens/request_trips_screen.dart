@@ -36,7 +36,23 @@ class _RequestTripsScreenState extends State<RequestTripsScreen> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+              const Center(
+                child: Text(
+                  'Request',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8.0),
               const Divider(height: 5, color: AppColors.dividerColor),
               ListView.builder(
                 shrinkWrap: true,
