@@ -112,7 +112,29 @@ values (15, -77.12, 'Av. Javier Prado'),
        (-12.1234567, -77.000000, 'Av. Javier');
 
 insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
-    value (2, 1, 'ABC123', 'toyota.jpg', 2);
+    value (2, 1, 'ABC123', 'ABC123.jpg', 2);
 
 insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
     value (2 , 2, '10:00:00', '2023-07-26', true, 4, 'P');
+
+insert into location (lat_loc, long_loc, name_loc)
+values (-15.521345, 7.121234, 'Av. Orellana'),
+       (12.1234567, -47.012345, 'Av. Francisco');
+
+insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
+    value (3, 3, 'ABC124', 'ABC124.jpg', 2);
+
+insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
+    value (3 , 4, '12:00:00', '2023-07-27', true, 3, 'R');
+
+insert into location (lat_loc, long_loc, name_loc)
+values (-25.521345, 57.121234, 'Av. New York'),
+       (2.1234567, -27.012345, 'Av. Americana');
+
+#crear dos usuarios mas en el servicio de registro, y dejar al correo kschuquimarca2@espe.edu.ec como driver
+insert into passenger (id_trip, id_loc, cod_user_pas)
+values(null, 5, 4), (null, 6, 5);
+
+insert into request (id_dri, id_pas, name_u_req, last_name_u_req, phone_u_req, date_req, state_req)
+values (2, 1, 'Marco', 'Iza', '0987654321', '2023-07-26', 'P'), (2, 2, 'Alexander', 'Maila', '0987654321', '2023-07-27', 'P');
+

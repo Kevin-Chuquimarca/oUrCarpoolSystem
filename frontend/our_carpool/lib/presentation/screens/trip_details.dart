@@ -248,13 +248,13 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ProfileApprovedScreen(idDr: widget.driver.id),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ProfileApprovedScreen(
+                  //         driverRequest: widget.driver.id),
+                  //   ),
+                  // );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,

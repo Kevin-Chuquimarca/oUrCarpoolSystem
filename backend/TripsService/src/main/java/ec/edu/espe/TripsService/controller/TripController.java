@@ -23,6 +23,12 @@ public class TripController {
         return tripService.readAll();
     }
 
+    @GetMapping("/available")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TripDTO> getAvailableTrips() {
+        return tripService.readAvailableTrips();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TripDTO> getTripById(@PathVariable Long id) {
         return tripService.readById(id)

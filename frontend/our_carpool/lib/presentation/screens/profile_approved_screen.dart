@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:our_carpool/data/model/driver_request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/domain/trip-service/driver_domain.dart';
 import 'package:our_carpool/utils/colors.dart';
 
 import 'navigation_menu_screen.dart';
 
 class ProfileApprovedScreen extends StatefulWidget {
-  const ProfileApprovedScreen({super.key, required this.idDr});
+  const ProfileApprovedScreen(
+      {super.key, required this.driverRequest, required this.photoCar});
 
-  final int idDr;
+  final DriverRequest driverRequest;
+  final File photoCar;
 
   @override
   State<ProfileApprovedScreen> createState() => _ProfileApprovedScreenState();
@@ -49,12 +55,19 @@ class _ProfileApprovedScreenState extends State<ProfileApprovedScreen> {
                 onPressed: () {
                   DriverRequestDomain driverRequestDomain =
                       DriverRequestDomain();
+                  DriverDomain driverDomain = DriverDomain();
+
                   driverRequestDomain
                       .sendApprovedDriverRequest(
-                          widget.idDr, "approved driver request")
+                          widget.driverRequest.id, "approved driver request")
                       .then((value) => {
                             if (value)
                               {
+                                driverDomain.saveDriverAndPhotoCar(
+                                    widget.driverRequest.plateCar,
+                                    widget.driverRequest.photoCar,
+                                    widget.driverRequest.codUser,
+                                    widget.photoCar),
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

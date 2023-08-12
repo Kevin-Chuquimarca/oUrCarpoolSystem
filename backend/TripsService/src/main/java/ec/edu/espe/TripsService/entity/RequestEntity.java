@@ -13,6 +13,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "request", schema = "trip_service_db")
+@NamedQueries({
+        @NamedQuery(name = "RequestEntity.findAllByIdDri", query = "SELECT r FROM RequestEntity r WHERE r.idDri = :idDri"),
+})
 public class RequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

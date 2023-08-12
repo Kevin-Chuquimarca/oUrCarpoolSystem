@@ -59,10 +59,10 @@ public class DriverController {
     }
 
     @PostMapping("/img")
-    public ResponseEntity<Void> postProfilePicture(@RequestParam("CI") String ci, @RequestParam("photo") MultipartFile file) throws IOException {
+    public ResponseEntity<Void> postProfilePicture(@RequestParam("plateCar") String plateCar, @RequestParam("photo") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             String fileName = Optional.ofNullable(file.getOriginalFilename()).orElse("");
-            String fileNameToSave = ci + fileName.substring(fileName.lastIndexOf("."));
+            String fileNameToSave = plateCar + fileName.substring(fileName.lastIndexOf("."));
             ImageUtil.saveImageInLocal("img/cars/", fileNameToSave, file);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         }

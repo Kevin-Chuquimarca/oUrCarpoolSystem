@@ -45,4 +45,8 @@ public class TripService implements FacadeService<TripDTO, Long> {
     public void deleteById(Long id) {
         tripRepository.deleteById(id);
     }
+
+    public List<TripDTO> readAvailableTrips() {
+        return tripRepository.findAllByAvailableTrip().stream().map(TripMapper.INSTANCE::toTripDTO).toList();
+    }
 }

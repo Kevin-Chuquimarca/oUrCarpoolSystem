@@ -1,13 +1,13 @@
 class Driver {
   final int id;
-  final double idLoc;
+  final double? idLoc;
   final String plateCar;
   final String photoCar;
   final int codUser;
 
   Driver(
       {required this.id,
-      required this.idLoc,
+      this.idLoc,
       required this.plateCar,
       required this.photoCar,
       required this.codUser});

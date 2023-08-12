@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class DriverApprovalScreen extends StatefulWidget {
 class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
   DriverRequestDomain driverRequestDomain = DriverRequestDomain();
   UserDomain userDomain = UserDomain();
+  late Uint8List photoCar;
 
   @override
   Widget build(BuildContext context) {
@@ -162,6 +164,7 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.hasData) {
+                    photoCar = snapshot.data!;
                     return Center(
                       child: Image.memory(
                         snapshot.data!,
@@ -206,9 +209,9 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ProfileApprovedScreen(
-                                  idDr: widget.driverRequest.id),
-                            ),
+                                builder: (context) => ProfileApprovedScreen(
+                                    driverRequest: widget.driverRequest,
+                                    photoCar: uint8ListToFile(photoCar))),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -259,4 +262,10 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
       ),
     );
   }
+}
+
+File uint8ListToFile(Uint8List uint8List) {
+  File file = File('${Directory.systemTemp.path}/temp_file');
+  file.writeAsBytesSync(uint8List);
+  return file;
 }
