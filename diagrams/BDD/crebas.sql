@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     8/7/2023 11:17:08 PM                         */
+/* Created on:     8/12/2023 5:39:28 AM                         */
 /*==============================================================*/
 
 
@@ -45,7 +45,7 @@ create table LOCATION
 create table PASSENGER
 (
    ID_PAS               int not null auto_increment,
-   ID_TRIP              bigint not null,
+   ID_TRIP              bigint,
    ID_LOC               bigint,
    COD_USER_PAS         int,
    primary key (ID_PAS)
@@ -59,7 +59,10 @@ create table REQUEST
    ID_REQ               bigint not null auto_increment,
    ID_DRI               int not null,
    ID_PAS               int not null,
+   NAME_REQ             varchar(20),
+   LAST_NAME_REQ        varchar(20),
    PHONE_REQ            varchar(10),
+   DATE_REQ             date,
    STATE_REQ            varchar(1),
    primary key (ID_REQ)
 );
@@ -95,7 +98,7 @@ alter table REQUEST add constraint FK_DRIVER_REQUEST foreign key (ID_DRI)
 alter table REQUEST add constraint FK_PASSENGER_RESQUEST foreign key (ID_PAS)
       references PASSENGER (ID_PAS) on delete restrict on update restrict;
 
-alter table TRIP add constraint FK_TRIP_DRIVER foreign key (ID_DRI)
+alter table TRIP add constraint FK_RELATIONSHIP_8 foreign key (ID_DRI)
       references DRIVER (ID_DRI) on delete restrict on update restrict;
 
 alter table TRIP add constraint FK_TRIP_LOCATION foreign key (ID_LOC)
