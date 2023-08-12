@@ -64,6 +64,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/background/oUrCarpoolLogo1.png
+    - assets/images/Current_Trip_Start.png
+    - assets/images/Warning_No_Trips.png
     - assets/images/default-user-profile.png
 
   # The following line ensures that the Material Icons font is
