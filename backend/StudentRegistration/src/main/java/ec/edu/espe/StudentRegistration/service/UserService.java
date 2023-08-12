@@ -21,6 +21,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final PassengerRestService passengerRestService;
 
     @Override
     public UserDTO create(UserDTO userDTO) {
@@ -29,6 +30,7 @@ public class UserService implements FacadeService<UserDTO, Integer> {
             String encodedPassword = passwordEncoder.encode(defaultPassword);
             UserEntity user = new UserEntity(userDTO.getIdUni(), "psg", userDTO.getCi(), userDTO.getEmail(), userDTO.getName(), userDTO.getLastName(), encodedPassword, userDTO.getPhone(), userDTO.getPhoto(), userDTO.getCareer(), false);
             UserEntity userEntity = userRepository.save(user);
+            passengerRestService.createPassengerInTripService(userEntity.getIdUser());
             emailService.sendDefaultPassword(userDTO.getEmail(), defaultPassword);
             return UserMapper.INSTANCE.toUserDTO(userEntity);
         }

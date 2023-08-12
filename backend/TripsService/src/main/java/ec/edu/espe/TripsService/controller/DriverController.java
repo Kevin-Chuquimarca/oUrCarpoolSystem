@@ -21,24 +21,19 @@ public class DriverController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<DriverDTO> getAllDrivers() {
+    public List<DriverDTO> getAll() {
         return driverService.readAll();
     }
 
-    @GetMapping("/all2")
-    public List<DriverEntity> getAllDriversEntity() {
-        return driverRepository.findAll();
-    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<DriverDTO> getDriverById(@PathVariable Integer id) {
+    public ResponseEntity<DriverDTO> getById(@PathVariable Integer id) {
         return driverService.readById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<DriverDTO> postDriver(@RequestBody DriverDTO driverDTO) {
+    public ResponseEntity<DriverDTO> post(@RequestBody DriverDTO driverDTO) {
         DriverDTO driverCreated = driverService.create(driverDTO);
         return (driverCreated != null) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(driverCreated) :
@@ -46,7 +41,7 @@ public class DriverController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DriverDTO> putDriver(@RequestBody DriverDTO driverDTO, @PathVariable Integer id) {
+    public ResponseEntity<DriverDTO> put(@RequestBody DriverDTO driverDTO, @PathVariable Integer id) {
         DriverDTO driverUpdated = driverService.update(id, driverDTO);
         return (driverUpdated != null) ?
                 ResponseEntity.ok(driverUpdated) :
@@ -54,7 +49,7 @@ public class DriverController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DriverDTO> deleteDriver(@PathVariable Integer id) {
+    public ResponseEntity<DriverDTO> delete(@PathVariable Integer id) {
         driverService.deleteById(id);
         return ResponseEntity.ok().build();
     }

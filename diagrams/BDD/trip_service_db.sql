@@ -1,11 +1,11 @@
+create database trip_service_db;
+
+use trip_service_db;
+
 /*==============================================================*/
 /* dbms name:      mysql 5.0                                    */
 /* created on:     8/7/2023 11:17:08 pm                         */
 /*==============================================================*/
-
-create database trip_service_db;
-
-use trip_service_db;
 
 drop table if exists request;
 
@@ -48,7 +48,7 @@ create table driver
 create table passenger
 (
     id_pas               int not null auto_increment,
-    id_trip              bigint not null,
+    id_trip              bigint,
     id_loc               bigint,
     cod_user_pas         int,
     primary key (id_pas)
@@ -62,7 +62,10 @@ create table request
     id_req               bigint not null auto_increment,
     id_dri               int not null,
     id_pas               int not null,
-    phone_req            varchar(10),
+    name_u_req           varchar(20),
+    last_name_u_req      varchar(20),
+    phone_u_req          varchar(10),
+    date_req             date,
     state_req            varchar(1),
     primary key (id_req)
 );
@@ -113,4 +116,3 @@ insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
 
 insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
     value (2 , 2, '10:00:00', '2023-07-26', true, 4, 'P');
-

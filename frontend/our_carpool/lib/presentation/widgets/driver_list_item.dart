@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 
+import '../../domain/user_domain.dart';
 import '../../utils/colors.dart';
 import '../screens/driver_approval_screen.dart';
 
@@ -21,14 +22,18 @@ class _DriverListItemState extends State<DriverListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DriverApprovalScreen(
-              driver: widget.driverRequest,
+        UserDomain userDomain = UserDomain();
+        userDomain.getDataUserByEmail(widget.driverRequest.email).then((value) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DriverApprovalScreen(
+                driverRequest: widget.driverRequest,
+                user: value,
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
       child: Column(
         children: [

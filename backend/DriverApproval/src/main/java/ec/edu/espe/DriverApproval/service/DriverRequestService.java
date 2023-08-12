@@ -14,6 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DriverRequestService implements FacadeService<DriverRequestDTO, Integer> {
     private final DriverRequestRepository driverRequestRepository;
+    private final UserRestService userRestService;
 
     @Override
     public DriverRequestDTO create(DriverRequestDTO driverRequestDTO) {
@@ -35,7 +36,6 @@ public class DriverRequestService implements FacadeService<DriverRequestDTO, Int
         return driverRequestEntities.stream().map(DriverRequestMapper.INSTANCE::toDriverRequestDTO).toList();
     }
 
-    //TODO: implements this method
     @Override
     public DriverRequestDTO update(Integer id, DriverRequestDTO driverRequestDTO) {
         return null;
@@ -52,8 +52,10 @@ public class DriverRequestService implements FacadeService<DriverRequestDTO, Int
             DriverRequestEntity driverRequest = driverRequestEntity.get();
             driverRequest.setStateDr("A");
             driverRequest.setMessageDr(message);
-            driverRequestRepository.save(driverRequest);
-            return true;
+            if (userRestService.changeUserRoleToDriver(driverRequest.getCodUserDr())){
+                driverRequestRepository.save(driverRequest);
+                return true;
+            }
         }
         return false;
     }
