@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 
 import '../../utils/colors.dart';
-import '../screens/driver_approval_screen.dart';
+import '../screens/trip_details.dart';
 
 class TripListItem extends StatefulWidget {
   final DriverRequest driverRequest;
@@ -21,14 +21,13 @@ class _TripListItemState extends State<TripListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DriverApprovalScreen(
-        //       driver: widget.driverRequest,
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                TripDetailsScreen(driver: widget.driverRequest),
+          ),
+        );
       },
       child: Column(
         children: [

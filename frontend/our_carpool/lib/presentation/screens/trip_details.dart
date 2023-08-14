@@ -3,10 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/user.dart';
 import '../../domain/user_domain.dart';
 import '../../utils/colors.dart';
-import 'profile_approved_screen.dart';
 
 class TripDetailsScreen extends StatefulWidget {
   const TripDetailsScreen({super.key, required this.driver});
@@ -61,11 +61,26 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(user.photo ??
-                        ''), // Fallback to a default image if the URL is null
-                    backgroundColor: Colors.grey, // Fallback background color
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey,
+                    ),
+                    child: ClipOval(
+                      child: Image.network(
+                        user.photo,
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          // Mostrar el fondo gris en caso de error de carga, deberia funcionar mostrar la imagen, pero no. ojo
+                          return Container(
+                            color: Colors.grey,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -91,8 +106,19 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {
-                            // TODO: Redirigir a Whatsapp
+                          onPressed: () async {
+                            final message =
+                                'Hola ${user.name} ${user.lastName}, te escribo por el puesto disponible para el recorrido.';
+                            final phoneNumber = '593${user.phone}';
+                            final whatsappUrl =
+                                'whatsapp://send/?phone=$phoneNumber&text=${Uri.encodeComponent(message)}';
+
+                            try {
+                              await launch(whatsappUrl);
+                            } catch (e) {
+                              // Manejar el error, mostrar un mensaje al usuario
+                              print('Error al abrir el enlace: $e');
+                            }
                           },
                           icon: const Icon(Icons.chat_bubble,
                               color: Colors.white),
