@@ -29,7 +29,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
     'prq': AdminDriversListScreen(),
     'arq': ApprovedRequestScreen(),
     'rap': RejectedRequestScreen(),
-    'smt': ShowMyTripsScreen(),
+    //'smt': ShowMyTripsScreen(),
     'bdr': DriverRequestScreen(),
     'tps': TripsListScreen(),
     'crt': NoTrips(),
@@ -42,7 +42,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
     'prq': Text('Pending Requests'),
     'arq': Text('Approved Requests'),
     'rap': Text('Rejected Requests'),
-    'smt': Text('Show my Trips'),
+    //'smt': Text('Show my Trips'),
     'bdr': Text('Driver Request'),
     'tps': Text('Trips'),
     'crt': Text('Current Trip'),
@@ -161,16 +161,16 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
                   Navigator.pop(context);
                 },
               ),
-            if (_idOptions.contains('smt'))
-              ListTile(
-                leading: const Icon(Icons.format_list_bulleted),
-                title: const Text('Show my Trips'),
-                selected: _selectedIndex == 'smt',
-                onTap: () {
-                  _onItemTapped('smt');
-                  Navigator.pop(context);
-                },
-              ),
+            // if (_idOptions.contains('smt'))
+            //   ListTile(
+            //     leading: const Icon(Icons.format_list_bulleted),
+            //     title: const Text('Show my Trips'),
+            //     selected: _selectedIndex == 'smt',
+            //     onTap: () {
+            //       _onItemTapped('smt');
+            //       Navigator.pop(context);
+            //     },
+            //   ),
             if (_idOptions.contains('bdr'))
               ListTile(
                 leading: const Icon(Icons.feed),

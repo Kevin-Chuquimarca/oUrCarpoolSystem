@@ -210,7 +210,17 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                             children: [
                               ElevatedButton(
                                   onPressed: () {},
-                                  child: const Text('Use old Location')),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.lightGray,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.all(14),
+                                    //minimumSize: const Size(double.infinity, 0),
+                                  ),
+                                  child: const Text('Use old Location',
+                                      style: TextStyle(
+                                          color: AppColors.primaryColor))),
                               const SizedBox(width: 16.0),
                               ElevatedButton(
                                 onPressed: () {
@@ -222,7 +232,17 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                                     ),
                                   );
                                 },
-                                child: const Text('Use new Location'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.lightGray,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.all(14),
+                                  //minimumSize: const Size(double.infinity, 0),
+                                ),
+                                child: const Text('Use new Location',
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor)),
                               ),
                             ],
                           ),
