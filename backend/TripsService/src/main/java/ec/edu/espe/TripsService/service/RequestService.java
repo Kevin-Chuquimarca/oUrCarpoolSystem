@@ -1,6 +1,9 @@
 package ec.edu.espe.TripsService.service;
 
+import ec.edu.espe.TripsService.dto.DriverDTO;
+import ec.edu.espe.TripsService.dto.PassengerDTO;
 import ec.edu.espe.TripsService.dto.RequestDTO;
+import ec.edu.espe.TripsService.dto.TripDTO;
 import ec.edu.espe.TripsService.entity.RequestEntity;
 import ec.edu.espe.TripsService.mapper.RequestMapper;
 import ec.edu.espe.TripsService.repository.RequestRepository;
@@ -14,6 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RequestService implements FacadeService<RequestDTO, Long> {
     private final RequestRepository requestRepository;
+    private final PassengerService passengerService;
+    private final TripService tripService;
 
     @Override
     public RequestDTO create(RequestDTO requestDTO) {
@@ -55,7 +60,13 @@ public class RequestService implements FacadeService<RequestDTO, Long> {
         if(request.isPresent()){
             request.get().setStateReq("A");
             requestRepository.save(request.get());
-            return true;
+            Optional<PassengerDTO> passengerDTO = passengerService.readById(request.get().getIdPas());
+            Optional<TripDTO> tripDTO = tripService.readByIdDriAndAvailableTrip(request.get().getIdDri());
+            if (passengerDTO.isPresent() && tripDTO.isPresent()) {
+                passengerDTO.get().setIdTrip(tripDTO.get().getId());
+                passengerService.update(passengerDTO.get().getId(), passengerDTO.get());
+                return true;
+            }
         }
         return false;
     }

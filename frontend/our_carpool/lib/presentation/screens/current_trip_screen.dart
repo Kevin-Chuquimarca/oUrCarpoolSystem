@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:our_carpool/presentation/screens/current_trip_map.dart';
+import 'package:our_carpool/business/user_manager.dart';
+import 'package:our_carpool/data/model/trip-service/location.dart';
+import 'package:our_carpool/data/model/trip-service/trip.dart';
+import 'package:our_carpool/domain/trip-service/route_domain.dart';
+import 'package:our_carpool/domain/trip-service/trip_domain.dart';
 import 'package:our_carpool/presentation/screens/request_trips_screen.dart';
 import 'package:our_carpool/presentation/screens/trip_screen.dart';
+import 'package:provider/provider.dart';
 import '../../utils/colors.dart';
 
 class CurrentTripScreen extends StatefulWidget {
@@ -69,6 +73,27 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                     //         center: center, setCenter: setCenter),
                     //   ),
                     // );
+                    // TripDomain tripDomain = TripDomain();
+                    // RouteDomain routeDomain = RouteDomain();
+                    // int idDri = context.read<UserManager>().user.id;
+                    // tripDomain.getAvailable(idDri).then(
+                    //   (value) {
+                    //     routeDomain.get(value.idDri).then(
+                    //           (value) => {
+                    //             Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                 builder: (context) => TripScreen(
+                    //                   allPoints:
+                    //                       convertToLatLng(value.locations),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           },
+                    //         );
+                    //   },
+                    // );
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -120,4 +145,12 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
       ),
     );
   }
+}
+
+List<LatLng> convertToLatLng(List<Location> locations) {
+  List<LatLng> latLngList = [];
+  for (Location location in locations) {
+    latLngList.add(LatLng(location.lat, location.lng));
+  }
+  return latLngList;
 }

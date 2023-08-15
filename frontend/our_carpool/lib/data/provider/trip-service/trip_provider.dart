@@ -33,4 +33,14 @@ class TripProvider {
         await http.get(Uri.parse('$baseUrl/have-available/$idTrip'));
     return response.statusCode == 200;
   }
+
+  Future<Trip> getAvailable(int idTrip) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/have-available/$idTrip'));
+    if (response.statusCode == 200) {
+      return Trip.fromJson(json.decode(response.body));
+    } else {
+      return Trip.empty();
+    }
+  }
 }

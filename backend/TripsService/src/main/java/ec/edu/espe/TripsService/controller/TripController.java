@@ -58,8 +58,18 @@ public class TripController {
     }
 
     @GetMapping("/have-available/{idDri}")
-    public ResponseEntity<Void> getAllByIdDri(@PathVariable int idDri){
-        boolean res = tripService.haveAvailableTrip(idDri);
-        return res ? ResponseEntity.ok().build() : ResponseEntity.noContent().build();
+    public ResponseEntity<TripDTO> getAllByIdDri(@PathVariable int idDri){
+        return tripService.readByIdDriAndAvailableTrip(idDri)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("finish/{id}")
+    public ResponseEntity<Boolean> finish(@PathVariable Long id){
+        if (tripService.finish(id)){
+            return ResponseEntity.ok(true);
+        } else{
+            return ResponseEntity.noContent().build();
+        }
     }
 }

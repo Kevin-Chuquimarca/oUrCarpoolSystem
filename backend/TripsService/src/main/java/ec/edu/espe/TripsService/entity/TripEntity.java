@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name = "trip", schema = "trip_service_db")
 @NamedQueries({
         @NamedQuery(name = "TripEntity.findAllByAvailableTrip", query = "SELECT t FROM TripEntity t WHERE t.availableTrip = 1"),
-        @NamedQuery(name="TripEntity.findAllByIdDriAndAvailableTrip", query="SELECT t FROM TripEntity t WHERE t.idDri = :idDri AND t.availableTrip = 1"),
+        @NamedQuery(name="TripEntity.findByIdDriAndAvailableTrip", query="SELECT t FROM TripEntity t WHERE t.idDri = :idDri AND t.availableTrip = 1"),
 })
 public class TripEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,6 +13,9 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "location", schema = "trip_service_db")
+@NamedQueries({
+        @NamedQuery(name = "LocationEntity.findAllByIdLocAndIdTrip", query = "SELECT l FROM LocationEntity l INNER JOIN PassengerEntity p ON l.idLoc = p.idLoc where p.idTrip = :idTrip"),
+})
 public class LocationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

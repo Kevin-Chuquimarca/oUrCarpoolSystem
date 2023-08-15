@@ -46,4 +46,8 @@ public class LocationService implements FacadeService<LocationDTO, Long> {
     public void deleteById(Long id) {
         locationRepository.deleteById(id);
     }
+
+    public List<LocationDTO> readAllByIdLocAndIdTrip(Long idLoc){
+        return locationRepository.findAllByIdLocAndIdTrip(idLoc).stream().map(LocationMapper.INSTANCE::toLocationDTO).toList();
+    }
 }

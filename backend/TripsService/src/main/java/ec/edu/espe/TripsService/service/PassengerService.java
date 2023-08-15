@@ -45,4 +45,8 @@ public class PassengerService implements FacadeService<PassengerDTO, Integer> {
     public void deleteById(Integer id) {
         passengerRepository.deleteById(id);
     }
+
+    public List<PassengerDTO> readAllByIdTrip(long idTrip){
+        return passengerRepository.findAllByIdTrip(idTrip).stream().map(PassengerMapper.INSTANCE::toPassengerDTO).toList();
+    }
 }

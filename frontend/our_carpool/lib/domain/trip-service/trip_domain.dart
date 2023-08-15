@@ -16,4 +16,8 @@ class TripDomain {
   Future<bool> haveAvailableTrip(int idDri) async {
     return await _tripProvider.haveAvailableTrip(idDri);
   }
+
+  Future<Trip> getAvailable(int id) async {
+    return _tripProvider.getAvailable(id);
+  }
 }

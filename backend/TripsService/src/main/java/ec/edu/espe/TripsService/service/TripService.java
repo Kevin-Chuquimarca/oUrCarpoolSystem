@@ -1,6 +1,8 @@
 package ec.edu.espe.TripsService.service;
 
+import ec.edu.espe.TripsService.dto.PassengerDTO;
 import ec.edu.espe.TripsService.dto.TripDTO;
+import ec.edu.espe.TripsService.entity.PassengerEntity;
 import ec.edu.espe.TripsService.entity.TripEntity;
 import ec.edu.espe.TripsService.mapper.TripMapper;
 import ec.edu.espe.TripsService.repository.TripRepository;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TripService implements FacadeService<TripDTO, Long> {
     private final TripRepository tripRepository;
+    private final PassengerService passengerService;
 
     @Override
     public TripDTO create(TripDTO tripDTO) {
@@ -50,7 +53,30 @@ public class TripService implements FacadeService<TripDTO, Long> {
         return tripRepository.findAllByAvailableTrip().stream().map(TripMapper.INSTANCE::toTripDTO).toList();
     }
 
-    public boolean haveAvailableTrip(int idDri){
-        return !tripRepository.findAllByIdDriAndAvailableTrip(idDri).isEmpty();
+    public Optional<TripDTO> readByIdDriAndAvailableTrip(int idDri){
+        try{
+            Optional<TripEntity> tripAvailable = tripRepository.findByIdDriAndAvailableTrip(idDri);
+            if (tripAvailable.isPresent()){
+            return tripAvailable.map(TripMapper.INSTANCE::toTripDTO);
+        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    public boolean finish(long id){
+        Optional<TripEntity> trip = tripRepository.findById(id);
+        if(trip.isPresent()){
+            trip.get().setAvailableTrip(Byte.valueOf("0"));
+            tripRepository.save(trip.get());
+            List<PassengerDTO> passengers = passengerService.readAllByIdTrip(trip.get().getIdTrip());
+            for (PassengerDTO passenger: passengers) {
+                passenger.setIdTrip(null);
+                passengerService.update(passenger.getId(), passenger);
+            }
+            return true;
+        }
+        return false;
     }
 }
