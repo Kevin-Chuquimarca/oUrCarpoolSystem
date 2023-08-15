@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
-import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/data/model/trip-service/driver_trip_route.dart';
+import 'package:our_carpool/domain/trip-service/driver_trip_route_domain.dart';
 import '../../utils/colors.dart';
 import '../widgets/trips_list_item.dart';
 
@@ -12,13 +12,13 @@ class TripsListScreen extends StatefulWidget {
 }
 
 class _TripsListScreenState extends State<TripsListScreen> {
-  List<DriverRequest> _drivers = List.empty();
+  List<DriverTripRoute> _dtr = List.empty();
 
-  _getDriversRequests() {
-    DriverRequestDomain driverRequestDomain = DriverRequestDomain();
-    driverRequestDomain.getAllPending().then((value) {
+  _getTripsRequests() {
+    DriverTripRouteDomain driverRequestDomain = DriverTripRouteDomain();
+    driverRequestDomain.get().then((value) {
       setState(() {
-        _drivers = value;
+        _dtr = value;
       });
     });
   }
@@ -27,7 +27,7 @@ class _TripsListScreenState extends State<TripsListScreen> {
   void initState() {
     super.initState();
     // _userManager = context.read<UserManager>();
-    _getDriversRequests();
+    _getTripsRequests();
   }
 
   @override
@@ -40,10 +40,10 @@ class _TripsListScreenState extends State<TripsListScreen> {
               const Divider(height: 5, color: AppColors.dividerColor),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: _drivers.length,
+                itemCount: _dtr.length,
                 itemBuilder: (context, index) {
-                  final driver = _drivers[index];
-                  return TripListItem(driverRequest: driver);
+                  final dtr = _dtr[index];
+                  return TripListItem(dtr: dtr);
                 },
               ),
             ],

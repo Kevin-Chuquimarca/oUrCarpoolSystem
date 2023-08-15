@@ -11,6 +11,15 @@ import 'host.dart';
 class UserProvider {
   final String baseUrl = '$hostIp:8080/user';
 
+  Future<User> getById(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/$id'));
+    if (response.statusCode == 200) {
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
+
   Future<User> getUserByEmail(String email) async {
     final response = await http.get(Uri.parse('$baseUrl/email/$email'));
     if (response.statusCode == 200) {

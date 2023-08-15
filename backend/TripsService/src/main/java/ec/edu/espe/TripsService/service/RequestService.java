@@ -45,4 +45,28 @@ public class RequestService implements FacadeService<RequestDTO, Long> {
     public void deleteById(Long id) {
         requestRepository.deleteById(id);
     }
+
+    public List<RequestDTO> readAllByIdDri(Long idDri){
+        return requestRepository.findAllByIdDri(idDri).stream().map(RequestMapper.INSTANCE::toRequestDTO).toList();
+    }
+
+    public boolean accept(long id){
+        Optional<RequestEntity> request = requestRepository.findById(id);
+        if(request.isPresent()){
+            request.get().setStateReq("A");
+            requestRepository.save(request.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deny(long id){
+        Optional<RequestEntity> request = requestRepository.findById(id);
+        if(request.isPresent()){
+            request.get().setStateReq("R");
+            requestRepository.save(request.get());
+            return true;
+        }
+        return false;
+    }
 }

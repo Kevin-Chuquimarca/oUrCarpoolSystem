@@ -9,6 +9,11 @@ import '../data/provider/user_provider.dart';
 class UserDomain {
   final UserProvider _userProvider = UserProvider();
 
+  Future<User> getById(int id) async {
+    User user = await _userProvider.getById(id);
+    return user;
+  }
+
   Future<bool> loginUser(String email, String password) async {
     LoginResponse loginResponse = await UserProvider()
         .postLogin(UserLogin(email: email, password: password));

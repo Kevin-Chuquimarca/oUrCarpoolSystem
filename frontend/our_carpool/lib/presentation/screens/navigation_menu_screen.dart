@@ -4,7 +4,6 @@ import 'package:our_carpool/domain/option_role_domain.dart';
 import 'package:our_carpool/presentation/screens/admin_drivers_list_screen.dart';
 import 'package:our_carpool/presentation/screens/approved_request_screen.dart';
 import 'package:our_carpool/presentation/screens/create_trip_screen.dart';
-import 'package:our_carpool/presentation/screens/current_trip_screen.dart';
 import 'package:our_carpool/presentation/screens/driver_request_screen.dart';
 import 'package:our_carpool/presentation/screens/no_trips_screen.dart';
 import 'package:our_carpool/presentation/screens/rejected_request_screen.dart';

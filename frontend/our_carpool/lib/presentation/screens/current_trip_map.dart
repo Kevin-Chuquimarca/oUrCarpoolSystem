@@ -131,7 +131,7 @@ class _CurrentTripMapState extends State<CurrentTripMap> {
                 height: 52,
                 child: Center(
                   child: Text(
-                    'MARCO IZA: ON THE WAY!',
+                    'FINISH TRIP',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,

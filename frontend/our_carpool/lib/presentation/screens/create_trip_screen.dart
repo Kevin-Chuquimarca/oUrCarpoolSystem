@@ -4,6 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/data/model/trip-service/location.dart';
+import 'package:our_carpool/domain/trip-service/driver_domain.dart';
+import 'package:our_carpool/domain/trip-service/location_domain.dart';
 import 'package:our_carpool/domain/trip-service/trip_location_domain.dart';
 import 'package:provider/provider.dart';
 import '../../data/model/trip-service/trip.dart';
@@ -26,7 +28,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
   UniversityLocation _selectedUniversity = UniversityLocation.empty();
   List<UniversityLocation> _universities = List.empty();
 
-  bool _isChangedRoute = false;
+  bool _isReturnRoute = false;
 
   String _selectedNumFreeSeats = "4";
   final _numFreeSeats = ["4", "3", "2", "1"];
@@ -267,7 +269,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                           ),
                         ),
                         const SizedBox(height: 16.0),
-                        (!_isChangedRoute)
+                        (!_isReturnRoute)
                             ? const Text(
                                 "Trip Route: From: Point 1 to: Point 2")
                             : const Text(
@@ -276,7 +278,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              _isChangedRoute = !_isChangedRoute;
+                              _isReturnRoute = !_isReturnRoute;
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -317,6 +319,8 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                         if (_formKey.currentState!.validate()) {
                           TripLocationDomain tripLocationDomain =
                               TripLocationDomain();
+                          LocationDomain locationDomain = LocationDomain();
+                          DriverDomain driverDomain = DriverDomain();
                           final formatTime =
                               DateFormat.Hm().parse(_leaveHour.text);
                           tripLocationDomain.createTripLocation(
@@ -334,7 +338,16 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                                   date: DateTime.parse(_leaveDate.text),
                                   available: 1,
                                   freeSeats: int.parse(_selectedNumFreeSeats),
-                                  typeTrip: "P"));
+                                  typeTrip: (_isReturnRoute) ? "R" : "P"));
+                          driverDomain
+                              .getDriver(userManager.user.id)
+                              .then((value) => {
+                                    locationDomain.update(
+                                        value.idLoc!,
+                                        _selectedUniversity.latitude,
+                                        _selectedUniversity.longitude,
+                                        _selectedUniversity.name),
+                                  });
                         }
                       },
                       style: ElevatedButton.styleFrom(

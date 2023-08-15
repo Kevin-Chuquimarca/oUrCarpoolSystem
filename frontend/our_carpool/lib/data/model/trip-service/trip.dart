@@ -36,7 +36,7 @@ class Trip {
       id: json['id'],
       idDri: json['idDri'],
       idLoc: json['idLoc'],
-      leaveHour: DateTime.parse(json['leaveHour']),
+      leaveHour: DateFormat("HH:mm:ss").parse(json['leaveHour']),
       date: DateTime.parse(json['date']),
       available: json['available'],
       freeSeats: json['freeSeats'],

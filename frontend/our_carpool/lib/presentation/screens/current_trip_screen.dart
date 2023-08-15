@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:our_carpool/presentation/screens/current_trip_map.dart';
 import 'package:our_carpool/presentation/screens/request_trips_screen.dart';
+import 'package:our_carpool/presentation/screens/trip_screen.dart';
 import '../../utils/colors.dart';
 
 class CurrentTripScreen extends StatefulWidget {
@@ -60,11 +62,17 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
                   onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => CurrentTripMap(
+                    //         center: center, setCenter: setCenter),
+                    //   ),
+                    // );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CurrentTripMap(
-                            center: center, setCenter: setCenter),
+                        builder: (context) => const TripScreen(),
                       ),
                     );
                   },

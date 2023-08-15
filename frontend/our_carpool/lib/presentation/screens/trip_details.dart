@@ -1,17 +1,18 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
+import 'package:our_carpool/data/model/trip-service/driver_trip_route.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/domain/user_domain.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/user.dart';
-import '../../domain/user_domain.dart';
 import '../../utils/colors.dart';
 
 class TripDetailsScreen extends StatefulWidget {
-  const TripDetailsScreen({super.key, required this.driver});
+  const TripDetailsScreen({super.key, required this.dtr, required this.user});
 
-  final DriverRequest driver;
+  final DriverTripRoute dtr;
+  final User user;
 
   @override
   State<TripDetailsScreen> createState() => _TripDetailsScreenState();
@@ -21,20 +22,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   DriverRequestDomain driverRequestDomain = DriverRequestDomain();
   UserDomain userDomain = UserDomain();
 
-  User user = User.empty();
-
-  _getUser() {
-    userDomain.getDataUserByEmail(widget.driver.email).then((value) {
-      setState(() {
-        user = value;
-      });
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _getUser();
   }
 
   @override
@@ -69,15 +59,27 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       color: Colors.grey,
                     ),
                     child: ClipOval(
-                      child: Image.network(
-                        user.photo,
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          // Mostrar el fondo gris en caso de error de carga, deberia funcionar mostrar la imagen, pero no. ojo
-                          return Container(
-                            color: Colors.grey,
-                          );
+                      child: FutureBuilder<Uint8List>(
+                        future: userDomain.getProfilePicture(widget.user.photo),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (snapshot.hasData) {
+                            return Center(
+                              child: Image.memory(
+                                snapshot.data!,
+                                fit: BoxFit.contain,
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                                child: Text('No data available'));
+                          }
                         },
                       ),
                     ),
@@ -88,28 +90,28 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Name: ${user.name} ${user.lastName}',
+                          'Name: ${widget.user.name} ${widget.user.lastName}',
                           style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         ),
-                        const Text(
-                          'Career: Software',
-                          style: TextStyle(
+                        Text(
+                          'Career: ${widget.user.career}',
+                          style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         ),
-                        const Text(
-                          'Phone number: 0986432220',
-                          style: TextStyle(
+                        Text(
+                          'Phone number: ${widget.user.phone}',
+                          style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         ),
                         ElevatedButton.icon(
                           onPressed: () async {
                             final message =
-                                'Hola ${user.name} ${user.lastName}, te escribo por el puesto disponible para el recorrido.';
-                            final phoneNumber = '593${user.phone}';
+                                'Hola ${widget.user.name} ${widget.user.lastName}, te escribo por el puesto disponible para el recorrido.';
+                            final phoneNumber = '593${widget.user.phone}';
                             final whatsappUrl =
                                 'whatsapp://send/?phone=$phoneNumber&text=${Uri.encodeComponent(message)}';
 
@@ -147,8 +149,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               ),
               const SizedBox(height: 8),
               FutureBuilder<Uint8List>(
-                future:
-                    driverRequestDomain.getCarPicture(widget.driver.photoLic),
+                future: driverRequestDomain
+                    .getCarPicture(widget.dtr.driver.photoCar),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -191,10 +193,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 4.0),
-                            const Center(
+                            Center(
                               child: Text(
-                                'To: Universidad de las Fuerzas Armadas ESPE',
-                                style: TextStyle(
+                                'To: ${widget.dtr.endLocation.name}',
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.0,
                                     color: Colors.white),
@@ -209,9 +211,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                       color: Colors.white),
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'From: Place ID',
-                                  style: TextStyle(
+                                Text(
+                                  'From: ${widget.dtr.startLocation.name}',
+                                  style: const TextStyle(
                                       fontSize: 13.0, color: Colors.white),
                                 ),
                               ],
@@ -225,9 +227,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                       color: Colors.white),
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Date: Date',
-                                  style: TextStyle(
+                                Text(
+                                  'Date: ${widget.dtr.trip.date.toString().substring(0, 10)}',
+                                  style: const TextStyle(
                                       fontSize: 13.0, color: Colors.white),
                                 ),
                               ],
@@ -241,9 +243,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                       color: Colors.white),
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Time: Time',
-                                  style: TextStyle(
+                                Text(
+                                  'Time: ${widget.dtr.trip.leaveHour.toString().substring(11, 16)}',
+                                  style: const TextStyle(
                                       fontSize: 13.0, color: Colors.white),
                                 ),
                               ],
@@ -257,9 +259,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                       color: Colors.white),
                                 ),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Free Seats: Available Seats',
-                                  style: TextStyle(
+                                Text(
+                                  'Free Seats: ${widget.dtr.trip.freeSeats}',
+                                  style: const TextStyle(
                                       fontSize: 13.0, color: Colors.white),
                                 ),
                               ],
@@ -278,7 +280,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   //   context,
                   //   MaterialPageRoute(
                   //     builder: (context) => ProfileApprovedScreen(
-                  //         driverRequest: widget.driver.id),
+                  //         driverRequest: widget.dtr.id),
                   //   ),
                   // );
                 },

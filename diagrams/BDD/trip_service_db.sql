@@ -25,7 +25,7 @@ create table location
     id_loc               bigint not null auto_increment,
     lat_loc              decimal(9,6),
     long_loc             decimal(9,6),
-    name_loc             varchar(30),
+    name_loc             varchar(60),
     primary key (id_loc)
 );
 
@@ -122,7 +122,7 @@ values (-15.521345, 7.121234, 'Av. Orellana'),
        (12.1234567, -47.012345, 'Av. Francisco');
 
 insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
-    value (3, 3, 'ABC124', 'ABC124.jpg', 2);
+    value (3, 3, 'ABC124', 'ABC124.jpg', 3);
 
 insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
     value (3 , 4, '12:00:00', '2023-07-27', true, 3, 'R');

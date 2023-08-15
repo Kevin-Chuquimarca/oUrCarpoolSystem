@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -26,7 +25,7 @@ public class LocationEntity {
     @Column(name = "long_loc", nullable = true, precision = 9, scale = 6)
     private BigDecimal longLoc;
     @Basic
-    @Column(name = "name_loc", nullable = true, length = 30)
+    @Column(name = "name_loc", nullable = true, length = 60)
     private String nameLoc;
     @OneToMany(mappedBy = "locationByIdLoc")
     private Collection<DriverEntity> driversByIdLoc;

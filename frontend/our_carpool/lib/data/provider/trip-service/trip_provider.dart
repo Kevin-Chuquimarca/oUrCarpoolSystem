@@ -27,4 +27,10 @@ class TripProvider {
     );
     return response.statusCode == 201;
   }
+
+  Future<bool> haveAvailableTrip(int idTrip) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/have-available/$idTrip'));
+    return response.statusCode == 200;
+  }
 }

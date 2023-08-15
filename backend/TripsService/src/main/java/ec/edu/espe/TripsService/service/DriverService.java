@@ -1,12 +1,14 @@
 package ec.edu.espe.TripsService.service;
 
 import ec.edu.espe.TripsService.dto.DriverDTO;
+import ec.edu.espe.TripsService.dto.LocationDTO;
 import ec.edu.espe.TripsService.entity.DriverEntity;
 import ec.edu.espe.TripsService.mapper.DriverMapper;
 import ec.edu.espe.TripsService.repository.DriverRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +16,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DriverService implements FacadeService<DriverDTO, Integer> {
     private final DriverRepository driverRepository;
+    private final LocationService locationService;
 
     @Override
     public DriverDTO create(DriverDTO driverDTO) {
         if (driverDTO.getId() != 0) {
+            LocationDTO locationDTO = locationService.create(new LocationDTO(0,new BigDecimal("0.0"),new BigDecimal("0.0"),""));
+            driverDTO.setIdLoc(locationDTO.getId());
             DriverEntity driverSaved = driverRepository.save(DriverMapper.INSTANCE.toDriverEntity(driverDTO));
             return DriverMapper.INSTANCE.toDriverDTO(driverSaved);
         }

@@ -1,13 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
+import 'package:our_carpool/data/model/trip-service/request.dart';
+import 'package:our_carpool/domain/trip-service/passenger_domain.dart';
+import 'package:our_carpool/domain/trip-service/request_domain.dart';
+import 'package:our_carpool/domain/user_domain.dart';
 import '../../utils/colors.dart';
 
 class RequestTripsItem extends StatefulWidget {
-  final DriverRequest driverRequest;
+  final Request request;
 
   const RequestTripsItem({
     super.key,
-    required this.driverRequest,
+    required this.request,
   });
 
   @override
@@ -15,6 +20,30 @@ class RequestTripsItem extends StatefulWidget {
 }
 
 class _RequestTripsItemState extends State<RequestTripsItem> {
+  final UserDomain userDomain = UserDomain();
+  final RequestDomain requestDomain = RequestDomain();
+  final PassengerDomain passengerDomain = PassengerDomain();
+  bool isAccepted = false;
+  bool isDenied = false;
+
+  void setIsAccepted() {
+    setState(() {
+      isAccepted = true;
+    });
+  }
+
+  void setIsDenied() {
+    setState(() {
+      isDenied = true;
+    });
+  }
+
+  Future<Uint8List> getProfilePicture() async {
+    final passenger = await passengerDomain.get(widget.request.id);
+    final user = await userDomain.getById(passenger.codUser);
+    return await userDomain.getProfilePicture(user.photo);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,18 +63,30 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
                       color: Colors.grey,
                     ),
                     child: ClipOval(
-                        // child: Image.network(
-                        //   user.photo,
-                        //   fit: BoxFit.cover,
-                        //   errorBuilder: (BuildContext context, Object exception,
-                        //       StackTrace? stackTrace) {
-                        //     // Mostrar el fondo gris en caso de error de carga
-                        //     return Container(
-                        //       color: Colors.grey,
-                        //     );
-                        //   },
-                        // ),
-                        ),
+                      child: FutureBuilder<Uint8List>(
+                        future: getProfilePicture(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (snapshot.hasData) {
+                            return Center(
+                              child: Image.memory(
+                                snapshot.data!,
+                                fit: BoxFit.contain,
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                                child: Text('No data available'));
+                          }
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -55,61 +96,67 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Name: Marco Iza',
-                      style: TextStyle(
+                    Text(
+                      'Name: ${widget.request.nameU} ${widget.request.lastNameU}',
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 4.0),
                     Text(
-                      'Phone: 0984228239', // Use the correct field for passenger phone
+                      'Phone: ${widget.request.phoneU}',
                       style: const TextStyle(fontSize: 13.0),
                     ),
-                    const Text(
-                      'Request Date: 07 August 2023', // Use the correct field
-                      style: TextStyle(fontSize: 13.0),
+                    Text(
+                      'Request Date: ${widget.request.date}',
+                      style: const TextStyle(fontSize: 13.0),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 8),
               // Column for buttons
-              Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Handle ACCEPT button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.greenColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+              if (!isAccepted)
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        requestDomain.accept(widget.request.id).then(
+                              (value) => {setIsAccepted()},
+                            );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.greenColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'ACCEPT',
+                        style: TextStyle(color: AppColors.whiteColor),
                       ),
                     ),
-                    child: const Text(
-                      'ACCEPT',
-                      style: TextStyle(color: AppColors.whiteColor),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Handle DENY button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.redColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                    if (!isDenied)
+                      ElevatedButton(
+                        onPressed: () {
+                          requestDomain.deny(widget.request.id).then(
+                                (value) => {setIsDenied()},
+                              );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.redColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'DENY',
+                          style: TextStyle(color: AppColors.whiteColor),
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'DENY',
-                      style: TextStyle(color: AppColors.whiteColor),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),

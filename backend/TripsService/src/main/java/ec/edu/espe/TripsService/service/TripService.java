@@ -49,4 +49,8 @@ public class TripService implements FacadeService<TripDTO, Long> {
     public List<TripDTO> readAvailableTrips() {
         return tripRepository.findAllByAvailableTrip().stream().map(TripMapper.INSTANCE::toTripDTO).toList();
     }
+
+    public boolean haveAvailableTrip(int idDri){
+        return !tripRepository.findAllByIdDriAndAvailableTrip(idDri).isEmpty();
+    }
 }

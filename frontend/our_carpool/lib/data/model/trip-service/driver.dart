@@ -1,6 +1,6 @@
 class Driver {
   final int id;
-  final double? idLoc;
+  final int? idLoc;
   final String plateCar;
   final String photoCar;
   final int codUser;

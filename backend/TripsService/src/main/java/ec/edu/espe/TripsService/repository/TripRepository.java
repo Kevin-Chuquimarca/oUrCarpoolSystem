@@ -10,4 +10,6 @@ import java.util.List;
 public interface TripRepository extends JpaRepository<TripEntity, Long> {
 
     List<TripEntity> findAllByAvailableTrip();
+
+    List<TripEntity> findAllByIdDriAndAvailableTrip(int idDri);
 }

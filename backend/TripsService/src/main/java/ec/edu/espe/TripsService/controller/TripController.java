@@ -1,7 +1,6 @@
 package ec.edu.espe.TripsService.controller;
 
 import ec.edu.espe.TripsService.dto.TripDTO;
-import ec.edu.espe.TripsService.dto.TripLocationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +55,11 @@ public class TripController {
     public ResponseEntity<TripDTO> deleteTrip(@PathVariable Long id) {
         tripService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/have-available/{idDri}")
+    public ResponseEntity<Void> getAllByIdDri(@PathVariable int idDri){
+        boolean res = tripService.haveAvailableTrip(idDri);
+        return res ? ResponseEntity.ok().build() : ResponseEntity.noContent().build();
     }
 }

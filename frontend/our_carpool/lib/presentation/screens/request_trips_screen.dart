@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
-import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/business/user_manager.dart';
+import 'package:our_carpool/data/model/trip-service/request.dart';
+import 'package:our_carpool/domain/trip-service/request_domain.dart';
+import 'package:our_carpool/domain/user_domain.dart';
+import 'package:provider/provider.dart';
 import '../../utils/colors.dart';
 import '../widgets/request_trips_item.dart';
 
@@ -12,13 +15,15 @@ class RequestTripsScreen extends StatefulWidget {
 }
 
 class _RequestTripsScreenState extends State<RequestTripsScreen> {
-  List<DriverRequest> _drivers = List.empty();
+  List<Request> requestsOfDriver = List.empty();
+  final UserDomain userDomain = UserDomain();
 
-  _getDriversRequests() {
-    DriverRequestDomain driverRequestDomain = DriverRequestDomain();
-    driverRequestDomain.getAllPending().then((value) {
+  _getRequestsDriver() {
+    RequestDomain requestDomain = RequestDomain();
+    int idDri = context.read<UserManager>().user.id;
+    requestDomain.getByIdDri(idDri).then((value) {
       setState(() {
-        _drivers = value;
+        requestsOfDriver = value;
       });
     });
   }
@@ -27,7 +32,7 @@ class _RequestTripsScreenState extends State<RequestTripsScreen> {
   void initState() {
     super.initState();
     // _userManager = context.read<UserManager>();
-    _getDriversRequests();
+    _getRequestsDriver();
   }
 
   @override
@@ -56,10 +61,10 @@ class _RequestTripsScreenState extends State<RequestTripsScreen> {
               const Divider(height: 5, color: AppColors.dividerColor),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: _drivers.length,
+                itemCount: requestsOfDriver.length,
                 itemBuilder: (context, index) {
-                  final driver = _drivers[index];
-                  return RequestTripsItem(driverRequest: driver);
+                  final request = requestsOfDriver[index];
+                  return RequestTripsItem(request: request);
                 },
               ),
             ],
