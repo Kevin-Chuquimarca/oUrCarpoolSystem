@@ -208,20 +208,20 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.lightGray,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    padding: const EdgeInsets.all(14),
-                                    //minimumSize: const Size(double.infinity, 0),
-                                  ),
-                                  child: const Text('Use old Location',
-                                      style: TextStyle(
-                                          color: AppColors.primaryColor))),
-                              const SizedBox(width: 16.0),
+                              // ElevatedButton(
+                              //     onPressed: () {},
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor: AppColors.lightGray,
+                              //       shape: RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.circular(8),
+                              //       ),
+                              //       padding: const EdgeInsets.all(14),
+                              //       //minimumSize: const Size(double.infinity, 0),
+                              //     ),
+                              //     child: const Text('Use old Location',
+                              //         style: TextStyle(
+                              //             color: AppColors.primaryColor))),
+                              // const SizedBox(width: 16.0),
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -348,7 +348,7 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                                   id: 0,
                                   lat: center.latitude,
                                   lng: center.longitude,
-                                  name: ""),
+                                  name: "Driver House"),
                               Trip(
                                   id: 0,
                                   idDri: userManager.user.id,

@@ -108,33 +108,39 @@ alter table trip add constraint fk_trip_location foreign key (id_loc)
     references location (id_loc) on delete restrict on update restrict;
 
 insert into location (lat_loc, long_loc, name_loc)
-values (15, -77.12, 'Av. Javier Prado'),
-       (-12.1234567, -77.000000, 'Av. Javier');
+values (-0.306368, -78.449416, 'CASA FLIA LOPEZ'),
+       (-0.302377, -78.448847, 'Quito');
 
 insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
-    value (2, 1, 'ABC123', 'ABC123.jpg', 2);
+    value (2, 1, 'ABC122', 'ABC122.jpg', 2);
 
 insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
-    value (2 , 2, '10:00:00', '2023-07-26', true, 4, 'P');
+    value (2 , 2, '10:00:00', '2023-08-16', true, 4, 'P');
 
 insert into location (lat_loc, long_loc, name_loc)
-values (-15.521345, 7.121234, 'Av. Orellana'),
-       (12.1234567, -47.012345, 'Av. Francisco');
+values (-0.300564, -78.453911, 'OE10-381'),
+       (-0.297463, -78.448182, 'Río Pastaza');
 
 insert into driver (id_dri, id_loc, plate_car_dri, photo_car_dri, cod_user_dri)
-    value (3, 3, 'ABC124', 'ABC124.jpg', 3);
+    value (3, 3, 'ABC123', 'ABC123.jpg', 3);
 
 insert into trip (id_dri, id_loc, leave_hour_trip, date_trip, available_trip, free_seats_trip, type_trip_trip)
-    value (3 , 4, '12:00:00', '2023-07-27', true, 3, 'R');
+    value (3 , 4, '12:00:00', '2023-08-17', true, 3, 'R');
 
 insert into location (lat_loc, long_loc, name_loc)
-values (-25.521345, 57.121234, 'Av. New York'),
-       (2.1234567, -27.012345, 'Av. Americana');
+values (-0.306111, -78.445982, 'Alangasí'),
+       (-0.299050, -78.443372, 'Av. Argentina'),
+       (-0.332198, -78.434183, 'E20'),
+       (-0.339834, -78.434183, 'Av. Salinas');
 
-#crear dos usuarios mas en el servicio de registro, y dejar al correo kschuquimarca2@espe.edu.ec como driver
 insert into passenger (id_trip, id_loc, cod_user_pas)
-values(null, 5, 4), (null, 6, 5);
+values(null, 5, 2),(null, 6, 3),(1, 7, 4), (1, 8, 5);
 
 insert into request (id_dri, id_pas, name_u_req, last_name_u_req, phone_u_req, date_req, state_req)
-values (2, 1, 'Marco', 'Iza', '0987654321', '2023-07-26', 'P'), (2, 2, 'Alexander', 'Maila', '0987654321', '2023-07-27', 'P');
+values (2, 1, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P'), (2, 2, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P');
 
+insert into location (lat_loc, long_loc, name_loc)
+values (-0.296116, -78.444412, 'San Juan de Dios');
+
+insert into passenger (id_trip, id_loc, cod_user_pas)
+values(2, 9, 6);

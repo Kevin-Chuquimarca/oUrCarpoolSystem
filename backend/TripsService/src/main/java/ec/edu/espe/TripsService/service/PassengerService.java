@@ -1,5 +1,6 @@
 package ec.edu.espe.TripsService.service;
 
+import ec.edu.espe.TripsService.dto.LocationDTO;
 import ec.edu.espe.TripsService.dto.PassengerDTO;
 import ec.edu.espe.TripsService.entity.PassengerEntity;
 import ec.edu.espe.TripsService.mapper.PassengerMapper;
@@ -7,6 +8,7 @@ import ec.edu.espe.TripsService.repository.PassengerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +16,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PassengerService implements FacadeService<PassengerDTO, Integer> {
     private final PassengerRepository passengerRepository;
+    private final LocationService locationService;
 
     @Override
     public PassengerDTO create(PassengerDTO passengerDTO) {
+        LocationDTO locationDTO = locationService.create(new LocationDTO(0,new BigDecimal("0.0"),new BigDecimal("0.0"),"Passenger House"));
+        passengerDTO.setIdLoc(locationDTO.getId());
         PassengerEntity passengerSaved = passengerRepository.save(PassengerMapper.INSTANCE.toPassengerEntity(passengerDTO));
         return PassengerMapper.INSTANCE.toPassengerDTO(passengerSaved);
     }

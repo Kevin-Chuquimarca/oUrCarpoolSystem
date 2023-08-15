@@ -48,11 +48,17 @@ create table driver_request
 alter table driver_request add constraint fk_admin_driver foreign key (id_ad)
     references driver_admin (id_ad) on delete restrict on update restrict;
 
-insert into driver_admin (name_ad, last_name_ad, email_ad, phone_ad) value ('Kevin', 'Chuquimarca', 'kschuquimarca@espe.edu.ec', '0984991746');
+insert into driver_admin (name_ad, last_name_ad, email_ad, phone_ad) value ('Kevin', 'Chuquimarca', 'kschuquimarca1@espe.edu.ec', '0984991746');
 
 insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr, cod_user_dr)
-    value (1, 'kschuquimarca2@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC123.jpg', 'ABC123', 'ABC123.jpg', 'P', 'no message', 3);
+    value (1, 'kschuquimarca2@espe.edu.ec', '2023-08-12', NULL, 'B', '2025-07-08', 'ABC122.jpg', 'ABC122', 'ABC122.jpg', 'A', 'no message', 2);
 
 insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr, cod_user_dr)
-    value (1, 'kschuquimarca2@espe.edu.ec', '2023-07-12', NULL, 'B', '2025-07-08', 'ABC124.jpg', 'ABC123', 'ABC124.jpg', 'P', 'no message', 3);
+    value (1, 'kschuquimarca3@espe.edu.ec', '2023-08-14', NULL, 'B', '2027-10-09', 'ABC123.jpg', 'ABC123', 'ABC123.jpg', 'A', 'no message', 3);
 
+insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr, cod_user_dr)
+    value (1, 'kschuquimarca4@espe.edu.ec', '2023-08-15', NULL, 'A', '2027-10-09', 'ABC124.jpg', 'ABC124', 'ABC124.jpg', 'P', 'no message', 4);
+
+insert into driver_request (id_ad, email_dr, shipping_date_dr, approval_date_dr, type_lic_dr, expiry_date_lic_dr, photo_lic_dr, plate_car_dr, photo_car_dr, state_dr, message_dr, cod_user_dr)
+    value (1, 'kschuquimarca5@espe.edu.ec', '2023-08-15', NULL, 'B', '2027-10-09', 'ABC125.jpg', 'ABC125', 'ABC125.jpg', 'P', 'no message', 5);
+    
