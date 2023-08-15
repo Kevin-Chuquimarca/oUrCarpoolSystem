@@ -109,7 +109,7 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
                       style: const TextStyle(fontSize: 13.0),
                     ),
                     Text(
-                      'Request Date: ${widget.request.date}',
+                      'Request Date: ${widget.request.date.toString().substring(0, 10)}',
                       style: const TextStyle(fontSize: 13.0),
                     ),
                   ],

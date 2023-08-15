@@ -15,4 +15,8 @@ class RequestDomain {
   Future<bool> deny(int id) async {
     return await _requestProvider.deny(id);
   }
+
+  Future<bool> create(Request request) async {
+    return await _requestProvider.post(request);
+  }
 }

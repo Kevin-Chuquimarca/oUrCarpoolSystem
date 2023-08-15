@@ -2,8 +2,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/trip-service/driver_trip_route.dart';
+import 'package:our_carpool/data/model/trip-service/request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/domain/trip-service/request_domain.dart';
 import 'package:our_carpool/domain/user_domain.dart';
+import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/user.dart';
 import '../../utils/colors.dart';
@@ -276,13 +279,37 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => ProfileApprovedScreen(
-                  //         driverRequest: widget.dtr.id),
-                  //   ),
-                  // );
+                  RequestDomain requestDomain = RequestDomain();
+                  requestDomain
+                      .create(Request(
+                          id: 0,
+                          idDri: widget.dtr.driver.id,
+                          idPas: widget.user.id,
+                          nameU: widget.user.name,
+                          lastNameU: widget.user.lastName,
+                          phoneU: widget.user.phone,
+                          date: DateTime.now(),
+                          state: "P"))
+                      .then((value) => {
+                            if (value)
+                              {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavigationMenuScreen()),
+                                  (route) => false,
+                                ),
+                              }
+                            else
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Failed to register user'),
+                                  ),
+                                )
+                              }
+                          });
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,

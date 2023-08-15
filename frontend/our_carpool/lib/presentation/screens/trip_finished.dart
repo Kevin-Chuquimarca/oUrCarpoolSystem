@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
 import 'package:our_carpool/utils/colors.dart';
 
 class TripFinishedScreen extends StatefulWidget {
@@ -42,7 +43,12 @@ class _TripFinishedScreenState extends State<TripFinishedScreen> {
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
-                  //TODO continue buttom
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NavigationMenuScreen()),
+                    (route) => false,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

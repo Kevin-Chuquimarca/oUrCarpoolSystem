@@ -6,6 +6,15 @@ import 'package:our_carpool/data/provider/host.dart';
 class RequestProvider {
   final String baseUrl = '$hostIp:8082/request';
 
+  Future<bool> post(Request request) async {
+    final response = await http.post(Uri.parse(baseUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(request.toJson()));
+    return response.statusCode == 201;
+  }
+
   Future<List<Request>> getByIdDri(int idDri) async {
     final response = await http.get(Uri.parse('$baseUrl/all/id-dri/$idDri'));
     if (response.statusCode == 200) {
