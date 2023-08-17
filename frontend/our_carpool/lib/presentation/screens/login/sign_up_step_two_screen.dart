@@ -4,9 +4,9 @@ import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_carpool/domain/user_domain.dart';
-import 'package:our_carpool/presentation/screens/welcome_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/welcome_screen.dart';
 
-import '../../utils/validators.dart';
+import '../../../utils/validators.dart';
 
 class SignUpStepTwoScreen extends StatefulWidget {
   const SignUpStepTwoScreen(

@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:our_carpool/presentation/screens/trip_finished.dart';
 
-import '../../utils/colors.dart';
+import '../../../utils/colors.dart';
 
 class CurrentTripMap extends StatefulWidget {
   const CurrentTripMap(

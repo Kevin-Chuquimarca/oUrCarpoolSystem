@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/domain/trip-service/trip_domain.dart';
 import 'package:our_carpool/presentation/screens/current_trip_screen.dart';
-import '../../utils/colors.dart';
+import '../../../utils/colors.dart';
 
 import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/domain/user_domain.dart';

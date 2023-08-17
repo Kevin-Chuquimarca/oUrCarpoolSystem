@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/presentation/screens/log_in_screen.dart';
-import 'package:our_carpool/presentation/screens/sign_up_screen.dart';
-import '../../utils/colors.dart';
+import 'package:our_carpool/presentation/screens/login/log_in_screen.dart';
+import 'package:our_carpool/presentation/screens/login/sign_up_screen.dart';
+import '../../../utils/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

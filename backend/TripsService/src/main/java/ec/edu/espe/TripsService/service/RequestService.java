@@ -1,6 +1,5 @@
 package ec.edu.espe.TripsService.service;
 
-import ec.edu.espe.TripsService.dto.DriverDTO;
 import ec.edu.espe.TripsService.dto.PassengerDTO;
 import ec.edu.espe.TripsService.dto.RequestDTO;
 import ec.edu.espe.TripsService.dto.TripDTO;
@@ -38,7 +37,7 @@ public class RequestService implements FacadeService<RequestDTO, Long> {
 
     @Override
     public RequestDTO update(Long id, RequestDTO requestDTO) {
-        if (requestRepository.findById(id).isPresent()){
+        if (requestRepository.findById(id).isPresent()) {
             requestDTO.setId(id);
             RequestEntity requestUpdated = requestRepository.save(RequestMapper.INSTANCE.toRequestEntity(requestDTO));
             return RequestMapper.INSTANCE.toRequestDTO(requestUpdated);
@@ -51,29 +50,33 @@ public class RequestService implements FacadeService<RequestDTO, Long> {
         requestRepository.deleteById(id);
     }
 
-    public List<RequestDTO> readAllByIdDri(Long idDri){
-        return requestRepository.findAllByIdDri(idDri).stream().map(RequestMapper.INSTANCE::toRequestDTO).toList();
+    public List<RequestDTO> readAllByIdDri(Long idDri) {
+        return requestRepository.findAllByIdDri(idDri).stream()
+                .map(RequestMapper.INSTANCE::toRequestDTO)
+                .toList();
     }
 
-    public boolean accept(long id){
+    public boolean accept(long id) {
         Optional<RequestEntity> request = requestRepository.findById(id);
-        if(request.isPresent()){
-            request.get().setStateReq("A");
-            requestRepository.save(request.get());
-            Optional<PassengerDTO> passengerDTO = passengerService.readById(request.get().getIdPas());
+        if (request.isPresent()) {
             Optional<TripDTO> tripDTO = tripService.readByIdDriAndAvailableTrip(request.get().getIdDri());
-            if (passengerDTO.isPresent() && tripDTO.isPresent()) {
+            Optional<PassengerDTO> passengerDTO = passengerService.readById(request.get().getIdPas());
+            if (passengerDTO.isPresent() && tripDTO.isPresent() && tripDTO.get().getFreeSeats() > 0) {
+                tripDTO.get().setFreeSeats(tripDTO.get().getFreeSeats() - 1);
+                tripService.update(tripDTO.get().getId(), tripDTO.get());
                 passengerDTO.get().setIdTrip(tripDTO.get().getId());
                 passengerService.update(passengerDTO.get().getId(), passengerDTO.get());
+                request.get().setStateReq("A");
+                requestRepository.save(request.get());
                 return true;
             }
         }
         return false;
     }
 
-    public boolean deny(long id){
+    public boolean deny(long id) {
         Optional<RequestEntity> request = requestRepository.findById(id);
-        if(request.isPresent()){
+        if (request.isPresent()) {
             request.get().setStateReq("R");
             requestRepository.save(request.get());
             return true;

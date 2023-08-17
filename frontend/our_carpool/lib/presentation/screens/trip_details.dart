@@ -6,7 +6,7 @@ import 'package:our_carpool/data/model/trip-service/request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
 import 'package:our_carpool/domain/trip-service/request_domain.dart';
 import 'package:our_carpool/domain/user_domain.dart';
-import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/navigation_menu_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/user.dart';
 import '../../utils/colors.dart';

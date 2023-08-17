@@ -21,7 +21,7 @@ public class DriverEntity {
     @Column(name = "id_loc", nullable = true)
     private Long idLoc;
     @Basic
-    @Column(name = "plate_car_dri", nullable = true, length = 6)
+    @Column(name = "plate_car_dri", nullable = true, length = 7)
     private String plateCarDri;
     @Basic
     @Column(name = "photo_car_dri", nullable = true, length = 30)

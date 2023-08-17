@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 
-import '../../domain/driver_request_domain.dart';
-import '../../utils/colors.dart';
+import '../../../domain/driver_request_domain.dart';
+import '../../../utils/colors.dart';
 
 class ApprovedRequestScreen extends StatefulWidget {
   const ApprovedRequestScreen({Key? key}) : super(key: key);

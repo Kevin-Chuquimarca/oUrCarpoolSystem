@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/university.dart';
 import 'package:our_carpool/domain/university_domain.dart';
 import 'package:our_carpool/domain/user_domain.dart';
-import 'package:our_carpool/presentation/screens/sign_up_step_two_screen.dart';
+import 'package:our_carpool/presentation/screens/login/sign_up_step_two_screen.dart';
 import 'package:our_carpool/utils/colors.dart';
 import 'package:our_carpool/utils/validators.dart';
 

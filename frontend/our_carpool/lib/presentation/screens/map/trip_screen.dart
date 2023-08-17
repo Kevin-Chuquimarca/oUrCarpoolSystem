@@ -4,11 +4,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math' as math;
 
-import 'package:our_carpool/presentation/screens/trip_finished.dart';
-import 'package:our_carpool/utils/colors.dart';
-
 class TripScreen extends StatefulWidget {
-  const TripScreen({Key? key}) : super(key: key);
+  final List<LatLng> allPoints;
+
+  const TripScreen({Key? key, required this.allPoints}) : super(key: key);
   @override
   State<TripScreen> createState() => _TripScreen();
 }
@@ -32,12 +31,7 @@ class _TripScreen extends State<TripScreen> {
 
   Future<void> _getDirections() async {
     String apiKey = 'AIzaSyBHVK4JKaJLYO6mekiA-CXD7Emg14j2Vxo';
-    LatLng origin = const LatLng(0.326233, -78.129720);
-    LatLng destination = const LatLng(0.343251, -78.125521);
-    LatLng waypoint1 = const LatLng(0.338639, -78.129756);
-    LatLng waypoint2 = const LatLng(0.342851, -78.123332);
-
-    List<LatLng> allCoordinates = [origin, destination, waypoint1, waypoint2];
+    List<LatLng> allCoordinates = [...widget.allPoints];
 
     double minLat = double.infinity;
     double maxLat = -double.infinity;
@@ -56,11 +50,19 @@ class _TripScreen extends State<TripScreen> {
       northeast: LatLng(maxLat, maxLng),
     );
 
+    LatLng origin = allCoordinates.removeAt(0);
+    LatLng destination = allCoordinates.removeLast();
+
+    String waypoints = '';
+
+    for (LatLng l in allCoordinates) {
+      waypoints += 'via:${l.latitude},${l.longitude}|';
+    }
+
     String url = 'https://maps.googleapis.com/maps/api/directions/json?'
         'origin=${origin.latitude},${origin.longitude}&'
         'destination=${destination.latitude},${destination.longitude}&'
-        'waypoints=via:${waypoint1.latitude},${waypoint1.longitude}|'
-        'via:${waypoint2.latitude},${waypoint2.longitude}&'
+        'waypoints=${waypoints.substring(0, waypoints.length - 1)}&'
         'key=$apiKey';
 
     var response = await http.get(Uri.parse(url));
@@ -118,65 +120,13 @@ class _TripScreen extends State<TripScreen> {
             points: polylineCoordinates,
           ),
         },
-        markers: {
-          const Marker(
-            markerId: MarkerId('origin'),
-            position: LatLng(0.326233, -78.129720),
-          ),
-          const Marker(
-            markerId: MarkerId('waypoint1'),
-            position: LatLng(0.338639, -78.129756),
-          ),
-          const Marker(
-            markerId: MarkerId('waypoint2'),
-            position: LatLng(0.342851, -78.123332),
-          ),
-          const Marker(
-            markerId: MarkerId('destination'),
-            position: LatLng(0.343251, -78.125521),
-          ),
-        },
+        markers: widget.allPoints.toSet().map((LatLng point) {
+          return Marker(
+            markerId: MarkerId(point.toString()),
+            position: point,
+          );
+        }).toSet(),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TripFinishedScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: AppColors.whiteColor,
-                backgroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              child: const SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: Center(
-                  child: Text(
-                    'FINISH TRIP',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

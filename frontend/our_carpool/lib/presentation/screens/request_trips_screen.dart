@@ -3,9 +3,9 @@ import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/data/model/trip-service/request.dart';
 import 'package:our_carpool/domain/trip-service/request_domain.dart';
 import 'package:our_carpool/domain/user_domain.dart';
+import 'package:our_carpool/presentation/widgets/request_trips_item.dart';
+import 'package:our_carpool/utils/colors.dart';
 import 'package:provider/provider.dart';
-import '../../utils/colors.dart';
-import '../widgets/request_trips_item.dart';
 
 class RequestTripsScreen extends StatefulWidget {
   const RequestTripsScreen({Key? key}) : super(key: key);

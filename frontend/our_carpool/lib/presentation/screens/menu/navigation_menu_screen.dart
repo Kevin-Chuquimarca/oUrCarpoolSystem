@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
 import 'package:our_carpool/domain/option_role_domain.dart';
-import 'package:our_carpool/presentation/screens/admin_drivers_list_screen.dart';
-import 'package:our_carpool/presentation/screens/approved_request_screen.dart';
-import 'package:our_carpool/presentation/screens/create_trip_screen.dart';
-import 'package:our_carpool/presentation/screens/driver_request_screen.dart';
-import 'package:our_carpool/presentation/screens/no_trips_screen.dart';
-import 'package:our_carpool/presentation/screens/rejected_request_screen.dart';
-import 'package:our_carpool/presentation/screens/trips_list_screen.dart';
-import 'package:our_carpool/presentation/screens/user_profile_screen.dart';
-import 'package:our_carpool/presentation/screens/welcome_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/admin_drivers_list_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/approved_request_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/create_trip_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/driver_request_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/no_trips_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/rejected_request_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/trips_list_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/user_profile_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/welcome_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'show_my_trips_screen.dart';
 
 class NavigationMenuScreen extends StatefulWidget {
   const NavigationMenuScreen({Key? key}) : super(key: key);

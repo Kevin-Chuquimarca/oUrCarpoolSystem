@@ -23,18 +23,11 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
   final UserDomain userDomain = UserDomain();
   final RequestDomain requestDomain = RequestDomain();
   final PassengerDomain passengerDomain = PassengerDomain();
-  bool isAccepted = false;
-  bool isDenied = false;
+  bool isAcceptedOrDenied = false;
 
-  void setIsAccepted() {
+  void setIsAcceptedOrDenied() {
     setState(() {
-      isAccepted = true;
-    });
-  }
-
-  void setIsDenied() {
-    setState(() {
-      isDenied = true;
+      isAcceptedOrDenied = true;
     });
   }
 
@@ -117,13 +110,13 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
               ),
               const SizedBox(width: 8),
               // Column for buttons
-              if (!isAccepted)
+              if (widget.request.state == 'P' && !isAcceptedOrDenied)
                 Column(
                   children: [
                     ElevatedButton(
                       onPressed: () {
                         requestDomain.accept(widget.request.id).then(
-                              (value) => {setIsAccepted()},
+                              (value) => {setIsAcceptedOrDenied()},
                             );
                       },
                       style: ElevatedButton.styleFrom(
@@ -137,24 +130,23 @@ class _RequestTripsItemState extends State<RequestTripsItem> {
                         style: TextStyle(color: AppColors.whiteColor),
                       ),
                     ),
-                    if (!isDenied)
-                      ElevatedButton(
-                        onPressed: () {
-                          requestDomain.deny(widget.request.id).then(
-                                (value) => {setIsDenied()},
-                              );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.redColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text(
-                          'DENY',
-                          style: TextStyle(color: AppColors.whiteColor),
+                    ElevatedButton(
+                      onPressed: () {
+                        requestDomain.deny(widget.request.id).then(
+                              (value) => {setIsAcceptedOrDenied()},
+                            );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.redColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
+                      child: const Text(
+                        'DENY',
+                        style: TextStyle(color: AppColors.whiteColor),
+                      ),
+                    ),
                   ],
                 ),
             ],

@@ -7,11 +7,13 @@ import 'package:our_carpool/data/model/trip-service/location.dart';
 import 'package:our_carpool/domain/trip-service/driver_domain.dart';
 import 'package:our_carpool/domain/trip-service/location_domain.dart';
 import 'package:our_carpool/domain/trip-service/trip_location_domain.dart';
+import 'package:our_carpool/presentation/screens/menu/navigation_menu_screen.dart';
+import 'package:our_carpool/presentation/widgets/api_button.dart';
 import 'package:provider/provider.dart';
-import '../../data/model/trip-service/trip.dart';
-import '../../data/model/university_location.dart';
-import '../../utils/colors.dart';
-import 'map_screen.dart';
+import '../../../data/model/trip-service/trip.dart';
+import '../../../data/model/university_location.dart';
+import '../../../utils/colors.dart';
+import '../map/map_screen.dart';
 
 class CreateTripScreen extends StatefulWidget {
   const CreateTripScreen({Key? key}) : super(key: key);
@@ -334,7 +336,8 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                 width: double.infinity,
                 child: Consumer<UserManager>(
                   builder: (context, userManager, child) {
-                    return ElevatedButton(
+                    return APIButton(
+                      textButton: 'CREATE',
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           TripLocationDomain tripLocationDomain =
@@ -367,26 +370,16 @@ class _CreateTripScreenState extends State<CreateTripScreen> {
                                         _selectedUniversity.latitude,
                                         _selectedUniversity.longitude,
                                         _selectedUniversity.name),
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavigationMenuScreen()),
+                                      (route) => false,
+                                    )
                                   });
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color(0xFF111A35),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          'CREATE',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
                     );
                   },
                 ),

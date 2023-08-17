@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/driver_request.dart';
 import 'package:our_carpool/domain/driver_request_domain.dart';
-import '../../utils/colors.dart';
-import '../widgets/driver_list_item.dart';
+import '../../../utils/colors.dart';
+import '../../widgets/driver_list_item.dart';
 
 class AdminDriversListScreen extends StatefulWidget {
   const AdminDriversListScreen({Key? key}) : super(key: key);

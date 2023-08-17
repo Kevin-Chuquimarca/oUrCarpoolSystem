@@ -6,7 +6,7 @@ import 'package:our_carpool/domain/driver_request_domain.dart';
 import 'package:our_carpool/domain/trip-service/driver_domain.dart';
 import 'package:our_carpool/utils/colors.dart';
 
-import 'navigation_menu_screen.dart';
+import 'menu/navigation_menu_screen.dart';
 
 class ProfileApprovedScreen extends StatefulWidget {
   const ProfileApprovedScreen(

@@ -36,7 +36,7 @@ create table driver
 (
     id_dri               int not null,
     id_loc               bigint,
-    plate_car_dri        varchar(6),
+    plate_car_dri        varchar(7),
     photo_car_dri        varchar(30),
     cod_user_dri         int,
     primary key (id_dri)
@@ -131,16 +131,11 @@ insert into location (lat_loc, long_loc, name_loc)
 values (-0.306111, -78.445982, 'Alangasí'),
        (-0.299050, -78.443372, 'Av. Argentina'),
        (-0.332198, -78.434183, 'E20'),
-       (-0.339834, -78.434183, 'Av. Salinas');
+       (-0.339834, -78.434183, 'Av. Salinas'),
+       (-0.296116, -78.444412, 'San Juan de Dios');
 
 insert into passenger (id_trip, id_loc, cod_user_pas)
-values(null, 5, 2),(null, 6, 3),(1, 7, 4), (1, 8, 5);
+values(null, 5, 2), (null, 6, 3), (1, 7, 4), (1, 8, 5), (2, 9, 6);
 
 insert into request (id_dri, id_pas, name_u_req, last_name_u_req, phone_u_req, date_req, state_req)
-values (2, 1, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P'), (2, 2, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P');
-
-insert into location (lat_loc, long_loc, name_loc)
-values (-0.296116, -78.444412, 'San Juan de Dios');
-
-insert into passenger (id_trip, id_loc, cod_user_pas)
-values(2, 9, 6);
+values (2, 4, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P'), (2, 5, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P');

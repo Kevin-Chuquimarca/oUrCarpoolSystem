@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/data/model/trip-service/driver_trip_route.dart';
 import 'package:our_carpool/domain/trip-service/driver_trip_route_domain.dart';
-import '../../utils/colors.dart';
-import '../widgets/trips_list_item.dart';
+import '../../../utils/colors.dart';
+import '../../widgets/trips_list_item.dart';
 
 class TripsListScreen extends StatefulWidget {
   const TripsListScreen({Key? key}) : super(key: key);

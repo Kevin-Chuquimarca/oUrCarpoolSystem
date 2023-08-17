@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/navigation_menu_screen.dart';
 import 'package:our_carpool/utils/colors.dart';
 
 class TripFinishedScreen extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/presentation/screens/navigation_menu_screen.dart';
+import 'package:our_carpool/presentation/screens/menu/navigation_menu_screen.dart';
+import 'package:our_carpool/presentation/widgets/api_button.dart';
 import 'package:our_carpool/utils/validators.dart';
 import 'package:provider/provider.dart';
 
@@ -109,62 +110,46 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
                   const SizedBox(height: 24.0),
-                  ElevatedButton(
+                  APIButton(
+                    textButton: 'LOG IN',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         UserManager logInManager = context.read<UserManager>();
                         logInManager
                             .validateUser(
                                 _emailController.text, _passwordController.text)
-                            .then((value) => {
-                                  if (value)
-                                    {
-                                      logInManager
-                                          .getUserData(_emailController.text)
-                                          .then((value) =>
+                            .then(
+                              (value) => {
+                                if (value)
+                                  {
+                                    logInManager
+                                        .getUserData(_emailController.text)
+                                        .then(
+                                          (value) =>
                                               Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const NavigationMenuScreen(),
-                                                ),
-                                                (route) => false,
-                                              )),
-                                    }
-                                  else
-                                    {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Incorrect email or password'),
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const NavigationMenuScreen(),
+                                            ),
+                                            (route) => false,
+                                          ),
                                         ),
-                                      )
-                                    }
-                                });
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text('Incorrect email or password'),
+                                      ),
+                                    )
+                                  }
+                              },
+                            );
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xFF111A35),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    child: const SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: Center(
-                        child: Text(
-                          'LOG IN',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),

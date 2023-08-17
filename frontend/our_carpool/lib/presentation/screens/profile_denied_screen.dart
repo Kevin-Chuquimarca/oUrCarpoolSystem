@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_carpool/utils/colors.dart';
 
 import '../../domain/driver_request_domain.dart';
-import 'navigation_menu_screen.dart';
+import 'menu/navigation_menu_screen.dart';
 
 class ProfileDeniedScreen extends StatefulWidget {
   const ProfileDeniedScreen({super.key, required this.idDr});

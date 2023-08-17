@@ -46,25 +46,23 @@ public class RequestController {
     }
 
     @GetMapping("/all/id-dri/{idDri}")
-    public ResponseEntity<List<RequestDTO>> getAllByIdDri(@PathVariable Long idDri){
+    public ResponseEntity<List<RequestDTO>> getAllByIdDri(@PathVariable Long idDri) {
         return ResponseEntity.ok(requestService.readAllByIdDri(idDri));
     }
 
     @PutMapping("/accept/{id}")
-    public ResponseEntity<Boolean> accept(@PathVariable Long id){
-        if (requestService.accept(id)){
+    public ResponseEntity<Boolean> accept(@PathVariable Long id) {
+        if (requestService.accept(id)) {
             return ResponseEntity.ok(true);
-        } else{
-            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/deny/{id}")
-    public ResponseEntity<Boolean> deny(@PathVariable Long id){
-        if (requestService.deny(id)){
+    public ResponseEntity<Boolean> deny(@PathVariable Long id) {
+        if (requestService.deny(id)) {
             return ResponseEntity.ok(true);
-        } else{
-            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.noContent().build();
     }
 }
