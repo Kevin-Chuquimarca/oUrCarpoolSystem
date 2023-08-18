@@ -1,4 +1,4 @@
-name: ci-trip-service
+name: ci-trips-service
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./backend/TripService
-          file: ./backend/TripService/Dockerfile
+          context: ./backend/TripsService
+          file: ./backend/TripsService/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/student-registration:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/trips-service:latest

@@ -1,6 +1,6 @@
-create database trip_service_db;
+create database trips_service_db;
 
-use trip_service_db;
+use trips_service_db;
 
 /*==============================================================*/
 /* dbms name:      mysql 5.0                                    */

@@ -28,4 +28,4 @@ jobs:
           context: ./backend/DriverApproval
           file: ./backend/DriverApproval/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/student-registration:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/driver-approval:latest

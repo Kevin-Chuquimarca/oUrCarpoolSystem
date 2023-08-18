@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trip-service-d
+  name: trips-service-d
 spec:
   selector:
     matchLabels:
-      app: trip-service-p
+      app: trips-service-p
   replicas: 1
   template:
     metadata:
       labels:
-        app: trip-service-p
+        app: trips-service-p
     spec:
       containers:
-        - name: trip-service-c
-          image: trip-service:latest
+        - name: trips-service-c
+          image: trips-service:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8082
           env:
             - name: DB_URL
-              value: jdbc:mysql://mysql-db-s:3306/trip_service_db
+              value: jdbc:mysql://mysql-db-s:3306/trips_service_db
             - name: DB_USERNAME
               value: root
             - name: DB_PASSWORD
