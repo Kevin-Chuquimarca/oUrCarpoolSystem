@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: driver-approval-d
+  name: trip-service-d
 spec:
   selector:
     matchLabels:
-      app: driver-approval-p
+      app: trip-service-p
   replicas: 1
   template:
     metadata:
       labels:
-        app: driver-approval-p
+        app: trip-service-p
     spec:
       containers:
-        - name: driver-approval-c
-          image: driver-approval:latest
+        - name: trip-service-c
+          image: trip-service:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 8081
+            - containerPort: 8082
           env:
             - name: DB_URL
-              value: jdbc:mysql://mysql-db-s:3306/driver_approval_db
+              value: jdbc:mysql://mysql-db-s:3306/trip_service_db
             - name: DB_USERNAME
               value: root
             - name: DB_PASSWORD
               value: "0936"
             - name: SERVER_PORT
-              value: "8081"
+              value: "8082"

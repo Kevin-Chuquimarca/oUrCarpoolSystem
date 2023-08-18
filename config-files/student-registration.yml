@@ -18,3 +18,12 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          env:
+            - name: DB_URL
+              value: jdbc:mysql://mysql-db-s:3306/student_registration_db
+            - name: DB_USERNAME
+              value: root
+            - name: DB_PASSWORD
+              value: "0936"
+            - name: SERVER_PORT
+              value: "8080"
