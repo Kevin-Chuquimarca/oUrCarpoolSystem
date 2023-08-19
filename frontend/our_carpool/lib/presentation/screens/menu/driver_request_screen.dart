@@ -6,7 +6,7 @@ import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/domain/driver_approval/driver_request_domain.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/colors.dart';

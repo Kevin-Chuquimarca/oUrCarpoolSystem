@@ -1,12 +1,10 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
-import 'package:our_carpool/domain/driver_request_domain.dart';
-import '../../data/model/user.dart';
-import '../../domain/user_domain.dart';
-import '../../utils/colors.dart';
+import 'package:our_carpool/data/model/driver_approval/driver_request.dart';
+import 'package:our_carpool/data/model/student_registration/user.dart';
+import 'package:our_carpool/domain/driver_approval/driver_request_domain.dart';
+import 'package:our_carpool/domain/student_registration/user_domain.dart';
+import 'package:our_carpool/utils/colors.dart';
 import 'profile_approved_screen.dart';
 import 'profile_denied_screen.dart';
 
@@ -210,8 +208,7 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProfileApprovedScreen(
-                                    driverRequest: widget.driverRequest,
-                                    photoCar: uint8ListToFile(photoCar))),
+                                    driverRequest: widget.driverRequest)),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -262,10 +259,4 @@ class _DriverApprovalScreenState extends State<DriverApprovalScreen> {
       ),
     );
   }
-}
-
-File uint8ListToFile(Uint8List uint8List) {
-  File file = File('${Directory.systemTemp.path}/temp_file');
-  file.writeAsBytesSync(uint8List);
-  return file;
 }

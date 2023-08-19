@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/driver_request.dart';
-import 'package:our_carpool/domain/driver_request_domain.dart';
+import 'package:our_carpool/data/model/driver_approval/driver_request.dart';
+import 'package:our_carpool/domain/driver_approval/driver_request_domain.dart';
 import '../../../utils/colors.dart';
 import '../../widgets/driver_list_item.dart';
 

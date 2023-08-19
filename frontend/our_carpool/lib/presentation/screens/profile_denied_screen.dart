@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:our_carpool/domain/driver_approval/driver_approval_domain.dart';
 import 'package:our_carpool/utils/colors.dart';
-
-import '../../domain/driver_request_domain.dart';
 import 'menu/navigation_menu_screen.dart';
 
 class ProfileDeniedScreen extends StatefulWidget {
@@ -72,9 +71,9 @@ class _ProfileDeniedScreenState extends State<ProfileDeniedScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        DriverRequestDomain driverRequestDomain =
-                            DriverRequestDomain();
-                        driverRequestDomain
+                        DriverApprovalDomain driverApprovalDomain =
+                            DriverApprovalDomain();
+                        driverApprovalDomain
                             .sendRejectedDriverRequest(
                                 widget.idDr, _messageController.text)
                             .then((value) => {

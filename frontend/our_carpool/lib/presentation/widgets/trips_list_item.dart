@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/trip-service/driver_trip_route.dart';
-import 'package:our_carpool/domain/user_domain.dart';
+import 'package:our_carpool/data/model/trips_service/driver_trip_route.dart';
+import 'package:our_carpool/domain/student_registration/user_domain.dart';
 
 import '../../utils/colors.dart';
-import '../screens/trip_details.dart';
+import '../screens/trip_details_screen.dart';
 
 class TripListItem extends StatefulWidget {
   final DriverTripRoute dtr;

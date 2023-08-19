@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/trip-service/request.dart';
-import 'package:our_carpool/domain/trip-service/passenger_domain.dart';
-import 'package:our_carpool/domain/trip-service/request_domain.dart';
-import 'package:our_carpool/domain/user_domain.dart';
+import 'package:our_carpool/data/model/trips_service/request.dart';
+import 'package:our_carpool/domain/trips_service/passenger_domain.dart';
+import 'package:our_carpool/domain/trips_service/request_domain.dart';
+import 'package:our_carpool/domain/student_registration/user_domain.dart';
 import '../../utils/colors.dart';
 
 class RequestTripsItem extends StatefulWidget {

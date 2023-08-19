@@ -14,7 +14,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DriverRequestService implements FacadeService<DriverRequestDTO, Integer> {
     private final DriverRequestRepository driverRequestRepository;
-    private final UserRestService userRestService;
 
     @Override
     public DriverRequestDTO create(DriverRequestDTO driverRequestDTO) {
@@ -44,32 +43,6 @@ public class DriverRequestService implements FacadeService<DriverRequestDTO, Int
     @Override
     public void deleteById(Integer id) {
         driverRequestRepository.deleteById(id);
-    }
-
-    public boolean approveDriverRequest(Integer id, String message) {
-        Optional<DriverRequestEntity> driverRequestEntity = driverRequestRepository.findById(id);
-        if (driverRequestEntity.isPresent()) {
-            DriverRequestEntity driverRequest = driverRequestEntity.get();
-            driverRequest.setStateDr("A");
-            driverRequest.setMessageDr(message);
-            if (userRestService.changeUserRoleToDriver(driverRequest.getCodUserDr())){
-                driverRequestRepository.save(driverRequest);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean rejectDriverRequest(Integer id, String message) {
-        Optional<DriverRequestEntity> driverRequestEntity = driverRequestRepository.findById(id);
-        if (driverRequestEntity.isPresent()) {
-            DriverRequestEntity driverRequest = driverRequestEntity.get();
-            driverRequest.setStateDr("R");
-            driverRequest.setMessageDr(message);
-            driverRequestRepository.save(driverRequest);
-            return true;
-        }
-        return false;
     }
 
     public List<DriverRequestDTO> readAllPending() {

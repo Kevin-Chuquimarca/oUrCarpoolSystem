@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:our_carpool/presentation/screens/trip_finished_screen.dart';
+import 'package:our_carpool/utils/colors.dart';
+
 import 'dart:convert';
 import 'dart:math' as math;
 
 class TripScreen extends StatefulWidget {
   final List<LatLng> allPoints;
+  final int id;
 
-  const TripScreen({Key? key, required this.allPoints}) : super(key: key);
+  const TripScreen({Key? key, required this.allPoints, required this.id})
+      : super(key: key);
+
   @override
   State<TripScreen> createState() => _TripScreen();
 }
@@ -127,6 +133,46 @@ class _TripScreen extends State<TripScreen> {
           );
         }).toSet(),
       ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TripFinishedScreen(id: widget.id),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: AppColors.whiteColor,
+                backgroundColor: AppColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              child: const SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: Center(
+                  child: Text(
+                    'FINISH TRIP',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -115,22 +115,4 @@ public class DriverRequestController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
-
-    @PutMapping("/approved")
-    public ResponseEntity<DriverRequestDTO> approveDriverRequest(@RequestParam("id") Integer id, @RequestParam("message") String message) {
-        boolean response = driverRequestService.approveDriverRequest(id, message);
-        return response ?
-                ResponseEntity.status(HttpStatus.OK).build()
-                :
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @PutMapping("/rejected")
-    public ResponseEntity<DriverRequestDTO> rejectDriverRequest(@RequestParam("id") Integer id, @RequestParam("message") String message) {
-        boolean response = driverRequestService.rejectDriverRequest(id, message);
-        return response ?
-                ResponseEntity.status(HttpStatus.OK).build()
-                :
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 }

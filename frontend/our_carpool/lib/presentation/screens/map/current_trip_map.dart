@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:our_carpool/presentation/screens/trip_finished.dart';
 
 import '../../../utils/colors.dart';
 
 class CurrentTripMap extends StatefulWidget {
+  final LatLng center;
+  final Function(LatLng) setCenter;
+
   const CurrentTripMap(
       {Key? key, required this.center, required this.setCenter})
       : super(key: key);
-  final LatLng center;
-  final Function(LatLng) setCenter;
 
   @override
   State<CurrentTripMap> createState() => _CurrentTripMapState();
@@ -112,12 +112,12 @@ class _CurrentTripMapState extends State<CurrentTripMap> {
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TripFinishedScreen(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const TripFinishedScreen(),
+                //   ),
+                // );
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: AppColors.whiteColor,

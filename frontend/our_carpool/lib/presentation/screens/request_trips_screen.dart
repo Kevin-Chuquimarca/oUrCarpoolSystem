@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/data/model/trip-service/request.dart';
-import 'package:our_carpool/domain/trip-service/request_domain.dart';
-import 'package:our_carpool/domain/user_domain.dart';
+import 'package:our_carpool/data/model/trips_service/request.dart';
+import 'package:our_carpool/domain/trips_service/request_domain.dart';
+import 'package:our_carpool/domain/student_registration/user_domain.dart';
 import 'package:our_carpool/presentation/widgets/request_trips_item.dart';
 import 'package:our_carpool/utils/colors.dart';
 import 'package:provider/provider.dart';

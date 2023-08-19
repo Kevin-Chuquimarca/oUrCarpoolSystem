@@ -27,14 +27,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FutureBuilder(
-        // Simula una carga inicial que podría tomar tiempo (p. ej. una verificación de inicio de sesión)
         future: Future.delayed(const Duration(seconds: 3)),
         builder: (context, snapshot) {
-          // Si el Future ha terminado (completado), muestra la pantalla de bienvenida
           if (snapshot.connectionState == ConnectionState.done) {
             return const WelcomeScreen();
           }
-          // Mientras se carga el Future, muestra el splash screen
           return const SplashScreen();
         },
       ),

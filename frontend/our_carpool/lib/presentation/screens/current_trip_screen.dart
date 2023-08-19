@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/data/model/trip-service/location.dart';
-import 'package:our_carpool/domain/trip-service/route_domain.dart';
-import 'package:our_carpool/domain/trip-service/trip_domain.dart';
+import 'package:our_carpool/data/model/trips_service/location.dart';
+import 'package:our_carpool/domain/trips_service/route_domain.dart';
+import 'package:our_carpool/domain/trips_service/trip_domain.dart';
 import 'package:our_carpool/presentation/screens/request_trips_screen.dart';
 import 'package:our_carpool/presentation/screens/map/trip_screen.dart';
 import 'package:provider/provider.dart';
@@ -65,26 +65,20 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => CurrentTripMap(
-                    //         center: center, setCenter: setCenter),
-                    //   ),
-                    // );
                     TripDomain tripDomain = TripDomain();
                     RouteDomain routeDomain = RouteDomain();
                     int idDri = context.read<UserManager>().user.id;
                     tripDomain.getAvailable(idDri).then(
-                      (value) {
-                        routeDomain.get(value.id).then(
-                              (value) => {
+                      (trip) {
+                        routeDomain.get(trip.id).then(
+                              (route) => {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => TripScreen(
                                       allPoints:
-                                          convertToLatLng(value.locations),
+                                          convertToLatLng(route.locations),
+                                      id: trip.id,
                                     ),
                                   ),
                                 ),
@@ -92,13 +86,6 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                             );
                       },
                     );
-
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const TripScreen(),
-                    //   ),
-                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,

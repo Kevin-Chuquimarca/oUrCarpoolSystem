@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:our_carpool/data/model/option_role.dart';
+import 'package:our_carpool/data/model/student_registration/option_role.dart';
 
-import '../data/model/user.dart';
-import '../domain/user_domain.dart';
+import '../data/model/student_registration/user.dart';
+import '../domain/student_registration/user_domain.dart';
 
 class UserManager with ChangeNotifier {
   User user = User.empty();

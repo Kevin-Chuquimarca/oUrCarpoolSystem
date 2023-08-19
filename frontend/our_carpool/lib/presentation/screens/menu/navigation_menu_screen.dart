@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_carpool/business/user_manager.dart';
-import 'package:our_carpool/domain/option_role_domain.dart';
+import 'package:our_carpool/domain/student_registration/option_role_domain.dart';
 import 'package:our_carpool/presentation/screens/menu/admin_drivers_list_screen.dart';
 import 'package:our_carpool/presentation/screens/menu/approved_request_screen.dart';
 import 'package:our_carpool/presentation/screens/menu/create_trip_screen.dart';
