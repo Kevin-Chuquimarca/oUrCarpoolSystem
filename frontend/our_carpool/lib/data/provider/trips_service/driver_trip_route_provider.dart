@@ -1,5 +1,5 @@
 import 'package:our_carpool/data/model/trips_service/driver_trip_route.dart';
-import 'package:our_carpool/data/provider/host.dart';
+import './host.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;

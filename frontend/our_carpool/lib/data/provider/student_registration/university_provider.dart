@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../model/student_registration/university.dart';
-import '../host.dart';
+import './host.dart';
 
 class UniversityProvider {
   final String baseUrl = '$hostIp:8080/university';

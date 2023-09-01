@@ -5,7 +5,7 @@ import 'package:our_carpool/data/model/trips_service/driver.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../host.dart';
+import './host.dart';
 
 class DriverProvider {
   final String baseUrl = '$hostIp:8082/driver';

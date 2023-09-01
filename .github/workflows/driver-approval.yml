@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./backend/DriverApproval
-          file: ./backend/DriverApproval/Dockerfile
+          context: ./backend/driver-approval
+          file: ./backend/driver-approval/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/driver-approval:latest

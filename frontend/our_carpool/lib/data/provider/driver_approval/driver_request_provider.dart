@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:our_carpool/data/model/driver_approval/driver_request.dart';
-import 'package:our_carpool/data/provider/host.dart';
+import './host.dart';
 
 class DriverRequestProvider {
   final String _baseUrl = '$hostIp:8081/driver-request';

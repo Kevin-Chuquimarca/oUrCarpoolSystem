@@ -1,6 +1,6 @@
 import 'package:our_carpool/data/model/student_registration/option_role.dart';
 
-import '../host.dart';
+import './host.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

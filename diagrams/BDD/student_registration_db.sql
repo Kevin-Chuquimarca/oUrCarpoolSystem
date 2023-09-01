@@ -140,13 +140,13 @@ insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user,
     VALUE (1, 'drv', '1727195421','kschuquimarca2@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
-    VALUE (1, 'drv', '1727195422','kschuquimarca3@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
+    VALUE (1, 'drv', '1727195422','kschuquimarca3@espe.edu.ec', 'Santiago', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
     VALUE (1, 'psg', '1727195423','kschuquimarca4@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
-    VALUE (1, 'psg', '1727195424','kschuquimarca5@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
+    VALUE (1, 'psg', '1727195424','kschuquimarca5@espe.edu.ec', 'David', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
 
 insert into user (id_uni, id_rl, ci_user, email_user, name_user, last_name_user, pass_user, phone_user, photo_user, career_user, first_login_user)
-    VALUE (1, 'psg', '1727195424','kschuquimarca6@espe.edu.ec', 'Kevin', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
+    VALUE (1, 'psg', '1727195424','kschuquimarca6@espe.edu.ec', 'Alex', 'Chuquimarca', '$2a$10$ZzzNatroYb45eStYD3ij9.j6sed1f.yOEIfYn5HCYdAv.Lkol5f7a', '0984991746', '1727195420.png', 'Software', 1);
