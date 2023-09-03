@@ -5,7 +5,7 @@ import '../../model/student_registration/university.dart';
 import './host.dart';
 
 class UniversityProvider {
-  final String baseUrl = '$hostIp:8080/university';
+  final String baseUrl = '$hostIp:8080/v1/university';
 
   Future<List<University>> getUniversities() async {
     final response = await http.get(Uri.parse('$baseUrl/all'));
