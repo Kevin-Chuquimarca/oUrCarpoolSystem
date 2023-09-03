@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class DriverTripRouteProvider {
-  final String baseUrl = '$hostIp:8082/driver-trip-route';
+  final String baseUrl = '$hostIp:8082/v1/driver-trip-route';
 
   Future<List<DriverTripRoute>> get() async {
     final response = await http.get(Uri.parse('$baseUrl/available/all'));

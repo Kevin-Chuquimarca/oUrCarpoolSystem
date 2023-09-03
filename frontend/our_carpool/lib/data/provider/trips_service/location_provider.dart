@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import './host.dart';
 
 class LocationProvider {
-  final String baseUrl = '$hostIp:8082/location';
+  final String baseUrl = '$hostIp:8082/v1/location';
 
   Future<Location> getLocationById(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));

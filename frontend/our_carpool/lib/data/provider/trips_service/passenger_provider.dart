@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class PassengerProvider {
-  final String baseUrl = '$hostIp:8082/passenger';
+  final String baseUrl = '$hostIp:8082/v1/passenger';
 
   Future<Passenger> get(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));
