@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import './host.dart';
 
 class DriverProvider {
-  final String baseUrl = '$hostIp:8082/driver';
+  final String baseUrl = '$hostIp:8082/v1/driver';
 
   Future<Driver> getDriver(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));
