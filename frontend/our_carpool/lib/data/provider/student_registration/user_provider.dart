@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:our_carpool/data/model/student_registration/user.dart';
 import '../../model/student_registration/login_response.dart';
 import '../../model/student_registration/user_login.dart';
-import '../host.dart';
+import './host.dart';
 
 class UserProvider {
-  final String baseUrl = '$hostIp:8080/user';
+  final String baseUrl = '$hostIp:8080/v1/user';
 
   Future<User> getById(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));

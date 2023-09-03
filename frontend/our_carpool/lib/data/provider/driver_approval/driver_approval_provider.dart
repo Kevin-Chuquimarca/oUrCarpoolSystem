@@ -1,4 +1,4 @@
-import 'package:our_carpool/data/provider/host.dart';
+import './host.dart';
 import 'package:http/http.dart' as http;
 
 class DriverApprovalProvider {

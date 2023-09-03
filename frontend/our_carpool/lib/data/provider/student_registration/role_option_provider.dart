@@ -1,11 +1,11 @@
 import 'package:our_carpool/data/model/student_registration/option_role.dart';
 
-import '../host.dart';
+import './host.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RoleOptionProvider {
-  final String _baseUrl = '$hostIp:8080/role-option';
+  final String _baseUrl = '$hostIp:8080/v1/role-option';
 
   Future<List<OptionRole>> getRoleOptions(String roleId) async {
     final response = await http.get(Uri.parse('$_baseUrl/options/$roleId'));

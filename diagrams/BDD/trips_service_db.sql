@@ -135,7 +135,7 @@ values (-0.306111, -78.445982, 'Alangasí'),
        (-0.296116, -78.444412, 'San Juan de Dios');
 
 insert into passenger (id_trip, id_loc, cod_user_pas)
-values(null, 5, 2), (null, 6, 3), (1, 7, 4), (1, 8, 5), (2, 9, 6);
+values(null, 5, 2), (null, 6, 3), (1, 7, 4), (null, 8, 5), (null, 9, 6);
 
 insert into request (id_dri, id_pas, name_u_req, last_name_u_req, phone_u_req, date_req, state_req)
-values (2, 4, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P'), (2, 5, 'Kevin', 'Chuquimarca', '0984991746', '2023-08-15', 'P');
+values (2, 4, 'David', 'Chuquimarca', '0984991746', '2023-08-15', 'P'), (2, 5, 'Alex', 'Chuquimarca', '0984991746', '2023-08-15', 'P');

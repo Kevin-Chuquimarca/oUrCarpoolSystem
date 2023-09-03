@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:our_carpool/data/model/trips_service/route.dart';
-import 'package:our_carpool/data/provider/host.dart';
+import './host.dart';
 
 class RouteProvider {
   final String baseUrl = '$hostIp:8082/route';

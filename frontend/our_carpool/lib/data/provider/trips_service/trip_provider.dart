@@ -3,7 +3,7 @@ import 'package:our_carpool/data/model/trips_service/trip.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../host.dart';
+import './host.dart';
 
 class TripProvider {
   final String baseUrl = '$hostIp:8082/trip';
