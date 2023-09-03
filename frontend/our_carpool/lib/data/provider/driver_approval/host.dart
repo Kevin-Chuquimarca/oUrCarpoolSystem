@@ -1,1 +1,1 @@
-String hostIp = 'http://34.31.59.113';
+String hostIp = 'http://192.168.55.189';

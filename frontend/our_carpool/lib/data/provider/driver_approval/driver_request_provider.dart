@@ -6,7 +6,7 @@ import 'package:our_carpool/data/model/driver_approval/driver_request.dart';
 import './host.dart';
 
 class DriverRequestProvider {
-  final String _baseUrl = '$hostIp:8081/driver-request';
+  final String _baseUrl = '$hostIp:8081/v1/driver-request';
 
   Future<DriverRequest> getDriverRequest(int id) async {
     final response = await http.get(Uri.parse('$_baseUrl/$id'));
