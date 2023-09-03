@@ -6,7 +6,7 @@ import '../../model/trips_service/trip.dart';
 import './host.dart';
 
 class TripLocationProvider {
-  final String baseUrl = '$hostIp:8082/trip-location';
+  final String baseUrl = '$hostIp:8082/v1/trip-location';
 
   Future<bool> postTrip(Location location, Trip trip) async {
     final response = await http.post(

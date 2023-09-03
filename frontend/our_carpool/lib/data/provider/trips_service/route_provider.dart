@@ -4,7 +4,7 @@ import 'package:our_carpool/data/model/trips_service/route.dart';
 import './host.dart';
 
 class RouteProvider {
-  final String baseUrl = '$hostIp:8082/route';
+  final String baseUrl = '$hostIp:8082/v1/route';
 
   Future<Route> get(int idTrip) async {
     final response = await http.get(Uri.parse('$baseUrl/$idTrip'));

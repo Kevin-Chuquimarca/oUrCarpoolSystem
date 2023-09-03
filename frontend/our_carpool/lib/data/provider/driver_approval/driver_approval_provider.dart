@@ -2,7 +2,7 @@ import './host.dart';
 import 'package:http/http.dart' as http;
 
 class DriverApprovalProvider {
-  final String _baseUrl = '$hostIp:8081/driver-approval';
+  final String _baseUrl = '$hostIp:8081/v1/driver-approval';
 
   Future<bool> putApprovedDriverRequest(int id, String message) async {
     final response =

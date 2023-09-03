@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import './host.dart';
 
 class TripProvider {
-  final String baseUrl = '$hostIp:8082/trip';
+  final String baseUrl = '$hostIp:8082/v1/trip';
 
   Future<Trip> getTrip(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));

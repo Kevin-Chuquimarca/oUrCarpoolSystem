@@ -4,7 +4,7 @@ import 'package:our_carpool/data/model/trips_service/request.dart';
 import './host.dart';
 
 class RequestProvider {
-  final String baseUrl = '$hostIp:8082/request';
+  final String baseUrl = '$hostIp:8082/v1/request';
 
   Future<bool> post(Request request) async {
     final response = await http.post(Uri.parse(baseUrl),
