@@ -5,5 +5,4 @@ export DB_USERNAME=root
 export DB_PASSWORD=password
 export SERVER_PORT=8080
 
-mvn clean package
-#mvn spring-boot:run
+java -jar ./target/student-registration-0.0.1-SNAPSHOT.jar

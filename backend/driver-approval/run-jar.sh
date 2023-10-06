@@ -5,4 +5,4 @@ export DB_USERNAME=root
 export DB_PASSWORD=password
 export SERVER_PORT=8081
 
-java -jar driver-approval-0.0.1-SNAPSHOT.jar
+java -jar ./target/driver-approval-0.0.1-SNAPSHOT.jar
